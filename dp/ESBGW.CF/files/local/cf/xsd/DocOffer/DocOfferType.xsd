@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:offer="http://sbrf/ru/sbt/mdo/rqrs/docOffer" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:person="http://sberbank.ru/dem/individual" xmlns:tns="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:doc_offer="http://sberbank.ru/dem/commonAggregates" xmlns:doct="http://sberbank.ru/dem/loan" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/docOffer" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/loan" schemaLocation="../DataTypes/domains/loan/loanAggregates.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRq_Type"/>
+			<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+			<xsd:element name="DocInfo" type="doc_offer:Offer_Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRs_Type"/>
+			<xsd:element name="Document" type="doct:Doc_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

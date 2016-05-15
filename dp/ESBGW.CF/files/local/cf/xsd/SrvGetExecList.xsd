@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:el="http://sbrf/ru/sbt/mdo/rqrs/executionList" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/executionList" schemaLocation="ExecutionList/GetExecListType.xsd"/>
+	<xsd:element name="SrvGetExecListRq" type="el:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Request to Internal Execution List</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvGetExecListRs" type="el:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Response from Internal Execution List</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

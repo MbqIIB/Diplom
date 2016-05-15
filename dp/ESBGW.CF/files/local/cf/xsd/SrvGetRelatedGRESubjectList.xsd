@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:getrgresl="http://sbrf/ru/sbt/mdo/rqrs/getrelatedgresubjectlist" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs">
+	<xs:import namespace="http://sbrf/ru/sbt/mdo/rqrs/getrelatedgresubjectlist" schemaLocation="GetRelatedGRESubjectList/GetRelatedGRESubjectListType.xsd"/>
+	<xs:element name="SrvGetRelatedGRESubjectListRq" type="getrgresl:Request_Type"/>
+	<xs:element name="SrvGetRelatedGRESubjectListRs" type="getrgresl:Response_Type"/>
+</xs:schema>

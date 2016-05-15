@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://esb.sberbank.com/securitymethod"
+            xmlns:tns="http://esb.sberbank.com/securitymethod"
+            xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+            elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+                schemaLocation="../common/simpleTypes.xsd"/>
+
+    <xsd:annotation/>
+
+    <xsd:complexType name="SecurityMethodListMin_Type">
+        <xsd:sequence>
+            <xsd:element name="SecurityMethodBlock" type="tns:SecurityMethodBlockMin_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SecurityMethodBlockMin_Type">
+        <xsd:sequence>
+            <xsd:element name="SecurityMethodId" type="tns:SecurityMethodId_Type"/>
+            <xsd:element name="SecurityMethodStatus" type="tns:SecurityMethodStatus_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="SecurityMethodList_Type">
+        <xsd:sequence>
+            <xsd:element name="SecurityMethodBlock" type="tns:SecurityMethodBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SecurityMethodBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="SecurityMethodId" type="sim:String4_Type"/>
+            <xsd:element name="SecurityMethodName" type="tns:SecurityMethodName_Type"/>
+            <xsd:element name="SecurityMethodStatus" type="tns:SecurityMethodStatus_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="SecurityMethodStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="UNREGISTERED"/>
+            <xsd:enumeration value="REGISTERED"/>
+            <xsd:enumeration value="ACTIVE"/>
+            <xsd:enumeration value="BLOCKED"/>
+            <xsd:enumeration value="TEMP_BLOCKED"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="SecurityMethodName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="SMS"/>
+            <xsd:enumeration value="MTOKEN"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="SecurityMethodId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

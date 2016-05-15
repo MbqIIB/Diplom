@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cfd="http://sbrf/ru/sbt/mdo/rqrs/customerFileData" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:tns="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:cfda="http://sberbank.ru/dem/customerFileData" xmlns:ca="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/customerFileData" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../DataTypes/simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/customerFileData" schemaLocation="../DataTypes/domains/customerFileData/customerFileDataAggregates.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRq_Type"/>
+			<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+			<xsd:element name="ClientInfo" type="ca:ClientInfo_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRs_Type"/>
+			<xsd:element name="CustomerFileData" type="cfda:getCustomerFileData_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

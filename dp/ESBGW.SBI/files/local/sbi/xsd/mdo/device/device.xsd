@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://esb.sberbank.com/device"
+    xmlns:tns="http://esb.sberbank.com/device" 
+    xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+    elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+        schemaLocation="../common/simpleTypes.xsd" />
+        
+    <xsd:annotation />
+
+    <xsd:complexType name="DeviceStatusList_Type" >
+        <xsd:sequence>
+            <xsd:element name="DeviceStatusBlock" type="tns:DeviceStatusBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeviceStatusBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="MGUID" type="tns:MGUID_Type"/>
+            <xsd:element name="DeviceStatus" type="tns:DeviceStatus_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DeviceList_Type" >
+        <xsd:sequence>
+            <xsd:element name="DeviceBlock" type="tns:DeviceBlock_Type" maxOccurs="unbounded" minOccurs="0"/>
+			<xsd:element name="MTokenBlock" type="tns:MTokenBlock_Type" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>    
+    <xsd:complexType name="DeviceBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="MGUID" type="tns:MGUID_Type"/>
+            <xsd:element name="DeviceModel" type="tns:DeviceModel_Type"/>
+            <xsd:element name="DeviceType" type="tns:DeviceType_Type"/>
+            <xsd:element name="RegistrationDate" type="xsd:dateTime" />
+            <xsd:element name="DeviceOS" type="tns:DeviceOS_Type" />
+            <xsd:element name="DeviceOSversion" type="tns:DeviceOSversion_Type"/>
+            <xsd:element name="DeviceStatus" type="tns:DeviceStatus_Type"/>
+            <xsd:element name="LastLogonDate" type="xsd:dateTime" />
+            <xsd:element name="DeviceIMEI" type="tns:DeviceIMEI_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+        
+    <xsd:simpleType name="DeviceStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="WAITING_ACTIVATION"/>
+            <xsd:enumeration value="ACTIVE"/>
+            <xsd:enumeration value="BLOCKED"/>
+            <xsd:enumeration value="INACTIVE"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="DeviceId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+	<xsd:complexType name="MTokenBlock_Type">
+		<xsd:sequence>
+			<xsd:element name="MTokenId" type="tns:MTokenId_Type"/>
+			<xsd:element name="MTokenName" type="tns:MTokenName_Type"/>
+			<xsd:element name="MTokenStatus" type="tns:MTokenStatus_Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="MTokenStatus_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ACTIVE"/>
+			<xsd:enumeration value="INACTIVE"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+    <xsd:simpleType name="MGUID_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DeviceModel_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DeviceType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DeviceOS_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DeviceOSversion_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DeviceIMEI_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MTokenId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MTokenName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="128"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="QRCode_Type">
+        <xsd:restriction base="xsd:base64Binary">
+            <xsd:pattern value="[A-Za-z0-9+/]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

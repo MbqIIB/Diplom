@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ifxst="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ifxdt="http://sberbank.ru/dem/ifxDateTimeTypes" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:iam="http://sberbank.ru/dem/identityAggregates" xmlns:mt="http://sberbank.ru/dem/moneytransfers/moneytransferAggregates" targetNamespace="http://sberbank.ru/dem/moneytransfers/moneytransferAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/identityAggregates" schemaLocation="../../domains/identity/identityAggregates.xsd"/>
+	<xsd:simpleType name="Amt_Type">
+		<xsd:annotation>
+			<xsd:documentation>Сумма</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:Decimal">
+			<xsd:totalDigits value="14"/>
+			<xsd:fractionDigits value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="CommonRequest_Type">
+		<xsd:annotation>
+			<xsd:documentation>Общая часть описания запроса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="st:RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="ifxst:DateTime">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName" type="st:SPName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Провайдер услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperName" type="st:OperName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Наименование операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CommonResponse_Type">
+		<xsd:annotation>
+			<xsd:documentation>Общая часть описания ответа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="st:RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="ifxst:DateTime">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="ca:Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CountryInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о стране</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CountryCode" type="st:CountryCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код страны</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CountryName" type="st:Country_Type">
+				<xsd:annotation>
+					<xsd:documentation>Название страны</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CountryLabel">
+				<xsd:annotation>
+					<xsd:documentation>Старый двухсимвольный код страны</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:NC">
+						<xsd:length value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="CurCode" type="st:CurCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код валюты, в которой осуществляются расчеты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurCodeInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о валюте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CurCode" type="st:CurCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код валюты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurName">
+				<xsd:annotation>
+					<xsd:documentation>Название валюты</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="CurPre" type="ifxst:Long">
+				<xsd:annotation>
+					<xsd:documentation>Количество знаков после запятой</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecretPrompt_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тестовый вопрос, заданный отправителем, для идентификации получателя</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Prompt">
+				<xsd:annotation>
+					<xsd:documentation>Вопрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Memo">
+				<xsd:annotation>
+					<xsd:documentation>Ответ</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="StateInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о штате</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StateCode">
+				<xsd:annotation>
+					<xsd:documentation>Код провинции или штата</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:NC">
+						<xsd:length value="2"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="StateName">
+				<xsd:annotation>
+					<xsd:documentation>Название провинции или штата</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="StateCountyCode" type="st:CountryCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Страна</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BirthPlaceInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о месте рождения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Country" type="st:CountryCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страна рождения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="City" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Город рождения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Signature_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об ЭЦП</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SignatureValue">
+				<xsd:annotation>
+					<xsd:documentation>Значение подписи</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="128"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SignedData" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Подписываемые данные</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="KeyInfo" type="iam:KeyInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация о ключе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UserInfo" type="iam:UserInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о пользователе, который сформировал подпись</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Checksum_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация контрольной сумме</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ChecksumType">
+				<xsd:annotation>
+					<xsd:documentation>Тип контрольной суммы. Значения: Sum, Hash, Mod и т.п.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ChksumValue">
+				<xsd:annotation>
+					<xsd:documentation>Текстовое представление значения контрольной суммы</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferPostRecRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Повторная отправка на обработку отложенного сообщения по денежным переводам</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="OperId" type="st:RqUID_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор операции, в рамках которой производится запрос</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Operation" type="ifxst:Long" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор этапа обработки, в контексте которого был произведен перенос сообщения в отложенные</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="MsgId" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор сообщения</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="48"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="MsgCorrelId" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Корреляционный идентификатор сообщения</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="48"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="MsgFrom" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Информация об источнике, с использованием которого может быть определено текущее расположение сообщения</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="100"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="MsgTo" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Информация о целевом направлении передачи сообщения</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="100"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferPostRecRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о повторной отправке на обработку отложенного сообщения по денежным переводам</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonResponse_Type"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferPostDelRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Удаление отложенного сообщения по денежным переводам</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="OperId" type="st:RqUID_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор операции, в рамках которой производится запрос</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Operation" type="ifxst:Long" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор этапа обработки, в контексте которого был произведен перенос сообщения в отложенные</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="MsgId" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор сообщения</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="48"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="MsgCorrelId" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Корреляционный идентификатор сообщения</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="48"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="MsgFrom" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Информация об источнике, с использованием которого может быть определено текущее расположение сообщения</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="100"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferPostDelRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о удалении отложенного сообщения по денежным переводам</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonResponse_Type"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="FIXferPostRecRq" type="mt:FIXferPostRecRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Повторная отправка на обработку отложенного сообщения по денежным переводам</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferPostRecRs" type="mt:FIXferPostRecRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о повторной отправке на обработку отложенного сообщения по денежным переводам</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferPostDelRq" type="mt:FIXferPostDelRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Удаление отложенного сообщения по денежным переводам</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferPostDelRs" type="mt:FIXferPostDelRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о удалении отложенного сообщения по денежным переводам</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

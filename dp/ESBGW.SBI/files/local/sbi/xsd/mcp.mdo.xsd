@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://esb.sberbank.com/rqrs/mcp" 
+    xmlns:tns="http://esb.sberbank.com/rqrs/mcp"
+    xmlns:com="http://esb.sberbank.com/common/rqrs" 
+    xmlns:cur="http://esb.sberbank.com/currency"
+    xmlns:cln="http://esb.sberbank.com/client"
+    xmlns:dev="http://esb.sberbank.com/device" 
+    xmlns:chl="http://esb.sberbank.com/channel"
+    xmlns:prd="http://esb.sberbank.com/product"
+    xmlns:pay="http://esb.sberbank.com/payment"
+    xmlns:not="http://esb.sberbank.com/notification"
+    xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+			xmlns:scm="http://esb.sberbank.com/securitymethod"
+    
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://esb.sberbank.com/common/rqrs"
+        schemaLocation="mdo/common/commonRqrs.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/currency"
+        schemaLocation="mdo/currency/currency.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/client"
+        schemaLocation="mdo/client/client.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/device"
+        schemaLocation="mdo/device/device.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/channel"
+        schemaLocation="mdo/channel/channel.xsd" />
+	<xsd:import namespace="http://esb.sberbank.com/payment"
+        schemaLocation="mdo/payment/payment.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/notification"
+        schemaLocation="mdo/notification/notification.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/product"
+        schemaLocation="mdo/product/product.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+        schemaLocation="mdo/common/simpleTypes.xsd" />
+	<xsd:import namespace="http://esb.sberbank.com/securitymethod"
+				schemaLocation="mdo/securitymethod/securitymethod.xsd"/>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint1.CurrencyConverter-------------</xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:element name="CommonEsbStatusRs" type="tns:CommonEsbStatusRs_Type" />
+    <xsd:complexType name="CommonEsbStatusRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+        
+    <xsd:element name="SrvUpdateCurrencyRateRq" type="tns:SrvUpdateCurrencyRateRq_Type" />
+    <xsd:complexType name="SrvUpdateCurrencyRateRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CurrencyList" type="cur:CurrencyList_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvUpdateCurrencyRateRs" type="tns:SrvUpdateCurrencyRateRs_Type"></xsd:element>
+    <xsd:complexType name="SrvUpdateCurrencyRateRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint1.Login-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvGetMCPPrivateClientRq" type="tns:SrvGetMCPPrivateClientRq_Type" />
+    <xsd:complexType name="SrvGetMCPPrivateClientRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvGetMCPPrivateClientRs" type="tns:SrvGetMCPPrivateClientRs_Type"/>
+    <xsd:complexType name="SrvGetMCPPrivateClientRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientBlock" type="cln:ClientBlock_Type" minOccurs="0"/>
+                    <xsd:element name="ChannelList" type="chl:ChannelList_Type" minOccurs="0"/>
+					<xsd:element name="DeviceList" type="dev:DeviceList_Type" minOccurs="0"/>
+					<xsd:element name="SecurityMethodList" type="scm:SecurityMethodList_Type" minOccurs="0"
+								 maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvPutMCPPrivateClientRq" type="tns:SrvPutMCPPrivateClientRq_Type" />
+    <xsd:complexType name="SrvPutMCPPrivateClientRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientAccountBlock" type="cln:ClientAccountBlock_Type"/>                    
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvPutMCPPrivateClientRs" type="tns:SrvPutMCPPrivateClientRs_Type"></xsd:element>
+    <xsd:complexType name="SrvPutMCPPrivateClientRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:element name="SrvChangeClientChannelStatusRq" type="tns:SrvChangeClientChannelStatusRq_Type" />
+    <xsd:complexType name="SrvChangeClientChannelStatusRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />                
+                    <xsd:element name="ClientRecordStatus" type="cln:ClientRecordStatus_Type"/>
+					<xsd:element name="ChannelStatusList" type="chl:ChannelStatusList_Type" minOccurs="0"/>
+					<xsd:element name="SecurityMethodList" type="scm:SecurityMethodListMin_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvChangeClientChannelStatusRs" type="tns:SrvChangeClientChannelStatusRs_Type"/>
+    <xsd:complexType name="SrvChangeClientChannelStatusRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+        
+    <xsd:element name="SrvUpdateClientChannelLimitsRq" type="tns:SrvUpdateClientChannelLimitsRq_Type" />
+    <xsd:complexType name="SrvUpdateClientChannelLimitsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ChannelLimitList" type="chl:ChannelLimitList_Type"/>            
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>    
+    <xsd:element name="SrvUpdateClientChannelLimitsRs" type="tns:SrvUpdateClientChannelLimitsRs_Type"/>
+    <xsd:complexType name="SrvUpdateClientChannelLimitsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvChangeClientDeviceStatusRq" type="tns:SrvChangeClientDeviceStatusRq_Type" />
+    <xsd:complexType name="SrvChangeClientDeviceStatusRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="DeviceStatusList" type="dev:DeviceStatusList_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvChangeClientDeviceStatusRs" type="tns:SrvChangeClientDeviceStatusRs_Type"/>
+    <xsd:complexType name="SrvChangeClientDeviceStatusRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint4.Transaction_History-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvChangePaymentOrderStatusRq" type="tns:SrvChangePaymentOrderStatusRq_Type" />
+    <xsd:complexType name="SrvChangePaymentOrderStatusRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type"/>
+                    <xsd:element name="PaymentOrderUpdateBlock" type="pay:PaymentOrderUpdateBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvChangePaymentOrderStatusRs" type="tns:SrvChangePaymentOrderStatusRs_Type"/>
+    <xsd:complexType name="SrvChangePaymentOrderStatusRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence/>
+            </xsd:extension>
+        </xsd:complexContent>        
+    </xsd:complexType>    
+    
+    <xsd:element name="SrvNotifyDomesticPaymentOrderUpdateRq" type="tns:SrvNotifyDomesticPaymentOrderUpdateRq_Type" />
+    <xsd:complexType name="SrvNotifyDomesticPaymentOrderUpdateRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ClientName" type="cln:ClientName_Type" minOccurs="0"/>
+                    <xsd:element name="ResidentialTown" type="cln:ResidentialTown_Type" minOccurs="0"/>
+                    <xsd:element name="ResidentialAddress" type="cln:ResidentialAddress_Type" minOccurs="0"/>
+                    <xsd:element name="DebitAccountBlock" type="prd:DebitAccountBlock_Type"/>
+                    <xsd:element name="PaymentOrderUpdateDomesticDetailsBlock" type="pay:PaymentOrderUpdateMcpDomesticBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvNotifyDomesticPaymentOrderUpdateRs" type="tns:SrvNotifyDomesticPaymentOrderUpdateRs_Type"/>
+    <xsd:complexType name="SrvNotifyDomesticPaymentOrderUpdateRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="PaymentOrderUpdateBlock" type="pay:PaymentOrderUpdateBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>        
+    </xsd:complexType>
+    
+    <xsd:element name="SrvNotifyForeignPaymentOrderUpdateRq" type="tns:SrvNotifyForeignPaymentOrderUpdateRq_Type" />
+    <xsd:complexType name="SrvNotifyForeignPaymentOrderUpdateRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientBlock" type="cln:ClientForeign_Type"/>
+                    <xsd:element name="DebitAccountBlock" type="prd:DebitAccountBlock_Type"/>
+                    <xsd:element name="PaymentOrderUpdateForeignDetailsBlock" type="pay:PaymentOrderUpdateMcpForeignBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvNotifyForeignPaymentOrderUpdateRs" type="tns:SrvNotifyForeignPaymentOrderUpdateRs_Type"/>
+    <xsd:complexType name="SrvNotifyForeignPaymentOrderUpdateRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+        </xsd:complexContent>        
+    </xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint4.Manage_Delivery-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvSendClientEBankingNotificationRq" type="tns:SrvSendClientEBankingNotificationRq_Type" />
+    <xsd:complexType name="SrvSendClientEBankingNotificationRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="AlertBlock" type="not:AlertBlock_Type" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>    
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint5.Send message-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvSendBankMessageToClientRq" type="tns:SrvSendBankMessageToClientRq_Type" />
+    <xsd:complexType name="SrvSendBankMessageToClientRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientSegment" type="cln:ClientSegment_Type" minOccurs="0"/>
+                    <xsd:element name="ClientSendMessageList" type="not:ClientSendMessageList_Type" minOccurs="0"/>
+                    <xsd:element name="MessageBlock" type="not:MessageBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvSendBankMessageToClientRs" type="tns:SrvSendBankMessageToClientRs_Type"/>
+    <xsd:complexType name="SrvSendBankMessageToClientRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientSendMessageList" type="not:ClientSendMessageList1_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>        
+    </xsd:complexType>    
+
+	<xsd:annotation>
+		<xsd:documentation>-----------------Container0.MToken-------------</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="SrvActivateMTokenRq" type="tns:SrvActivateMTokenRq_Type"/>
+	<xsd:complexType name="SrvActivateMTokenRq_Type">
+		<xsd:complexContent>
+			<xsd:extension base="com:CommonEsbRq_Type">
+				<xsd:sequence>
+					<xsd:element name="LoginId" type="cln:LoginId_Type"/>
+					<xsd:element name="MTokenName" type="dev:MTokenName_Type"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SrvActivateMTokenRs" type="tns:SrvActivateMTokenRs_Type"/>
+	<xsd:complexType name="SrvActivateMTokenRs_Type">
+		<xsd:complexContent>
+			<xsd:extension base="com:CommonEsbRs_Type">
+				<xsd:sequence>
+					<xsd:element name="MTokenId" type="dev:MTokenId_Type"/>
+					<xsd:element name="qrCode" type="xsd:base64Binary"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:element name="SrvUpdateMTokenRq" type="tns:SrvUpdateMTokenRq_Type"/>
+	<xsd:complexType name="SrvUpdateMTokenRq_Type">
+		<xsd:complexContent>
+			<xsd:extension base="com:CommonEsbRq_Type">
+				<xsd:sequence>
+					<xsd:element name="LoginId" type="cln:LoginId_Type"/>
+					<xsd:element name="MTokenId" type="dev:MTokenId_Type"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SrvUpdateMTokenRs" type="tns:SrvUpdateMTokenRs_Type"/>
+	<xsd:complexType name="SrvUpdateMTokenRs_Type">
+		<xsd:complexContent>
+			<xsd:extension base="com:CommonEsbRs_Type">
+				<xsd:sequence>
+					<xsd:element name="qrCode" type="dev:QRCode_Type"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

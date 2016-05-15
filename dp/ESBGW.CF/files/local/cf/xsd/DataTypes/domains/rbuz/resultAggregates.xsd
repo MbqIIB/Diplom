@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/resultAggregates" xmlns:orgs="http://sberbank.ru/dem/organizations"  xmlns:tns="http://sberbank.ru/dem/srvRBUZResult" targetNamespace="http://sberbank.ru/dem/resultAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+		<xsd:import schemaLocation="../../headerTypes/headerCFTypes.xsd"/>
+	<xsd:complexType name="ResultList_Type">
+		<xsd:sequence>
+			<!-- Вставить суда Header-->
+			<xsd:element name="CurrentKPIs" type="ResultItem_Type" minOccurs="0"/>
+			<xsd:element name="NonUpdateKPIS3M" type="ResultItem_Type" minOccurs="0"/>
+			<xsd:element name="LastOwnerUpdate" type="xsd:date" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ResultItem_Type">
+		<xsd:sequence>
+			<xsd:element name="NoLoansLiabilities" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>POCET_UVEROV</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoLoansLiabilitiesOverdue" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>POCET_SPLATOK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalCurrBalLoansLiabilities" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ZATAZENIE=ZOSTATOK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalCollateralAmount" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ZABEZPECENIE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountLoansLiabilities" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>UVERY_CELKOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalOverduedPrincipal" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ISTINY_CELKOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalOverduedInterests" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>UROKY_CELKOM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CollateralTypeSet" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>TB_KODY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrencySet" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>MENY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClassificationLoansLiabilitiesSet" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>TU_KODY</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OverdueDays" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>DLZKA_OMESKANI</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountLiabilities" type="xsd:decimal">
+				<xsd:annotation>
+					<xsd:documentation>ZAVAZOK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoOfLiabilities" type="xsd:int">
+				<xsd:annotation>
+					<xsd:documentation>POCET_ZAVAZKOV</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:s="http://sberbank.ru/mpc/Base_Type" xmlns:bas="http://sberbank.ru/mpc/bankAggregates_Type" targetNamespace="http://sberbank.ru/mpc/bankAggregates_Type" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/mpc/Base_Type" schemaLocation="..\..\base_type\baseType.xsd"/>
+	<xsd:annotation/>
+	<xsd:annotation>
+		<xsd:documentation>Простые типы --------------------------------------------------------------------------------------------------------------</xsd:documentation>
+	</xsd:annotation>
+	<xsd:annotation/>
+	<xsd:simpleType name="AgencyId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Номер отделения, в котором открыт или ведется продукт. С лидирующими нулями.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="5"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BranchId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Номер филиала, в котором открыт или ведется продукт. Без лидирующих нулей. Используется для обозначения кода подразделения ДБ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RbBrchType">
+		<xsd:annotation>
+			<xsd:documentation>Тип данных для 6-значного кода территориального банка. Используется для передачи кода ТБ, в котором обслуживается продукт клиента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="6"/>
+			<xsd:pattern value="[0-9]{6}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RbTbBrchType">
+		<xsd:annotation>
+			<xsd:documentation>Тип данных для 8-значного кода территориального банка. Используется для передачи кода ТБ, в котором открыт счет МБК, по которой клиент произвел идентификацию на УС</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="8"/>
+			<xsd:pattern value="[0-9]{8}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RegionId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код региона банка. Используется для обозначения кода ДБ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:maxLength value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

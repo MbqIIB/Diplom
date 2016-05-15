@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/application" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:ins="http://sberbank.ru/dem/insurance" xmlns:orgs="http://sberbank.ru/dem/organizations" targetNamespace="http://sberbank.ru/dem/application" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/insurance" schemaLocation="../insurance/insuranceAggregates.xsd"/>
+	<xsd:complexType name="Application_Type">
+		<xsd:sequence>
+			<xsd:element name="Id" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ApplicationID" type="ifxst:AppId_Type" minOccurs="0"/>
+			<xsd:element name="BranchCode" type="ifxst:BranchType_Type" minOccurs="0"/>
+			<xsd:element name="ProductType" type="ifxst:ProdType_Type" minOccurs="0"/>
+			<xsd:element name="ProductGroup" type="ifxst:ProdType_Type" minOccurs="0"/>
+			<xsd:element name="ProductName" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="LoanType" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="FirstPaymentDelayFlag" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="Delay" type="ifxst:NumMonths_Type" minOccurs="0"/>
+			<xsd:element name="LoanMaturity" type="ifxst:NumMonths_Type" minOccurs="0"/>
+			<xsd:element name="Description" type="ifxst:Desc1024_Type" minOccurs="0"/>
+			<xsd:element name="Status" type="ifxst:AppStatus_Type" minOccurs="0"/>
+			<xsd:element name="StatusDate" type="ifx:DateTime" minOccurs="0"/>
+			<xsd:element name="Amount" type="ca:CurrencyAmount_Type" minOccurs="0"/>
+			<xsd:element name="BeginDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="LastChangeDate" type="ifxst:AppLastChangeDate_Type" minOccurs="0"/>
+			<xsd:element name="LastDecisionType" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="LastDecisionDate" type="ifx:DateTime" minOccurs="0"/>
+			<xsd:element name="ExtDistributorNumber" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="BranchTown" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="CrInspector" type="ind:Employee_Type" minOccurs="0"/>
+			<xsd:element name="ExternalApplicationID" type="ifx:unsignedInt" minOccurs="0"/>
+			<xsd:element name="Postponements" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="numberMonths" type="ifxst:NumMonths_Type" minOccurs="0"/>
+						<xsd:element name="subject" type="ifx:C" minOccurs="0"/>
+						<xsd:element name="type" type="ifx:C" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Applicant_Type">
+		<xsd:sequence>
+			<xsd:element name="Role" type="ifxst:App_ClientRole_Type">
+				<xsd:annotation>
+					<xsd:documentation>Роль клиента в договоре / Customer role in the application</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Person" type="Person_Type">
+				<xsd:annotation>
+					<xsd:documentation>Описание коиента / Person description</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RelationToBorrower" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="PoliticalyExposedPerson" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="ConsentPresonalDataProcessing" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="ConsentBureau" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="ConsentSocialInsurance" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="CourtArbitrationConsent" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="RelationshipToBank" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:RelType_Type">
+						<xsd:enumeration value="NO"/>
+						<xsd:enumeration value="EMPLOYEE"/>
+						<xsd:enumeration value="MANAGER"/>
+						<xsd:enumeration value="BOARD_MEMBER"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Family" type="ind:Family_Type" minOccurs="0"/>
+			<xsd:element name="Expenses" type="ind:Expenses_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание расходов / Expenses description</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IncomeList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список доходов / Income list</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Income" type="Income_Type" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Описани дохода  / income description</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="LiabilityList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список обязательств в Банке / List of liabilities in the bank</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Liability" type="ca:Liability_Type" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="JointOwnership" type="ifxst:JointOwnership_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Совместная собственность супружеской пары / Joint ownership of married couples</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RealtyOwner" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Флаг собственника жилья / Realty owner flag</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RealtyPurchased" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Флаг покупки недвижимости за последнии 5 лет/ Any purchase of new real estate in the last 5 years?
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IncomeCreditBank" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Crediting of income on the bank account
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AssetsOtherBank" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Any assets in other banks</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LandPurchased" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Any purchase of new land in the last 5 years?
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TimePresAddress" type="ifx:Long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Время пребывания по текущему даресу / Time at present address</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TimePrevAddress" type="ifx:Long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Время пребывания по предыдущему даресу / Time at previous address</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TimeInCountry" type="ifx:Long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Время пребывания в стране / Time in country</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CooperationBank" type="ifx:OpenEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cooperation with the bank</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentAccountBank" type="ifx:OpenEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Current account in the bank</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Person_Type">
+		<xsd:complexContent>
+			<xsd:extension base="ind:PersonInfo_Type">
+				<xsd:sequence>
+					<xsd:element name="EducationLevel" type="ifx:C" minOccurs="0"/>
+					<xsd:element name="Citizenship2" type="ifxst:CitizenShip_Type" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Income_Type">
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifx:NC">
+				<xsd:annotation>
+					<xsd:documentation>Тип дохода / Type of income</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:sequence>
+				<xsd:element name="Employment" type="EmploymentIncomeData_Type" minOccurs="0"/>
+				<xsd:element name="Social" type="SocialIncome_Type" minOccurs="0"/>
+				<xsd:element name="Other" type="ca:Income_Type" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="Entrepreneur" type="EntrepreneurIncome_Type" minOccurs="0"/>
+				<xsd:element name="Rent" type="ca:Income_Type" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EmploymentIncomeData_Type">
+		<xsd:sequence>
+			<xsd:element name="TaxInfo" type="orgs:TaxInfo_Type" minOccurs="0"/>
+			<xsd:element name="TotalTime" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Общее время работы в свободной форме</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalNumberEmployers" type="ifx:Long" minOccurs="0"/>
+			<xsd:element name="DurationUnimployment5years" type="ifx:Long" minOccurs="0"/>
+			<xsd:element name="EmploymentHistory" type="EmploymentExtHistory_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EmploymentExtHistory_Type">
+		<xsd:complexContent>
+			<xsd:extension base="ind:EmploymentHistory_Type">
+				<xsd:sequence>
+					<xsd:element name="AggrIncome" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="FinancialDoc" type="ifx:C"/>
+								<xsd:element name="Month_3" type="ca:CurrencyAmount_Type"/>
+								<xsd:element name="Month_12" type="ca:CurrencyAmount_Type"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="SalaryDeduction" type="ca:CurrencyAmount_Type" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="EntrepreneurIncome_Type">
+		<xsd:sequence>
+			<xsd:element name="OrgInfo" type="orgs:OwnOrgInfo_Type" maxOccurs="unbounded"/>
+			<xsd:element name="TaxInfo" type="orgs:TaxInfo_Type"/>
+			<xsd:element name="Desc" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SocialIncome_Type">
+		<xsd:sequence>
+			<xsd:element name="SocialIncome" type="PensionExt_type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="NarrativeSocialBenefit" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PensionExt_type">
+		<xsd:sequence>
+			<xsd:element name="Source" type="ifxst:IncomeSource_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Источник дохода / Source if the income</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Periodicity" type="ifxst:Periodicity_Type" minOccurs="0"/>
+			<xsd:element name="Amount" type="ca:CurrencyAmount_Type"/>
+			<xsd:element name="TIN" type="ca:TINInfo_Type" minOccurs="0"/>
+			<xsd:element name="Desc" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание дохода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="ifxst:Pension_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип пенсии / Pension type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Temporary" type="ifx:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Флаг временной пенсии / Temporary pension flag</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Identification_Type">
+		<xsd:sequence>
+			<xsd:element name="IdentificationNumber" type="ifxst:IdNum_Type" minOccurs="0"/>
+			<xsd:element name="EntityId" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="EndDateFrom" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="EndDateTo" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="Country" type="ifxst:Country_Type" minOccurs="0"/>
+			<xsd:element name="Currency" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="Level" type="ifx:Int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

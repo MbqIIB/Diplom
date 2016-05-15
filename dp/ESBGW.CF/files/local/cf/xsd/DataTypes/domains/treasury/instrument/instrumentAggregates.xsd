@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by any (Ru-Board) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pty="http://sberbank.ru/dem/partyTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:ref="http://sberbank.ru/dem/referenceTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns="http://sberbank.ru/dem/instrumentTypes" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" xmlns:tns="http://sberbank.ru/dem/instrumentTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/instrumentTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/partyTypes" schemaLocation="../party/partyAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/referenceTypes" schemaLocation="../reference/referenceAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="../../../domains/currency/CurrencyAggregates.xsd"/>
+	<xsd:complexType name="AmortizationsSchedule_Type">
+		<xsd:annotation>
+			<xsd:documentation>График амортизационных платежей</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AmortizationsScheduleItem" type="AmortizationsScheduleItem_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список параметров в графике амортизационных платежей</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AmortizationsScheduleItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Амортизационная выплата</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ExerciseDate" type="ifxst:Ins_ExerciseDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Базовая дата погашения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Date" type="ifxst:Ins_AmDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Плановая дата погашения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RecordDate" type="ifxst:Ins_AmRecordDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата закрытия на которую формируется список владельцев ЦБ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ifxst:Ins_AmAmount_Type">
+				<xsd:annotation>
+					<xsd:documentation>Процент амортизации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CouponsSchedule_Type">
+		<xsd:annotation>
+			<xsd:documentation>График купонных выплат</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CouponScheduleItem" type="CouponsScheduleItem_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Параметры купонных периодов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CouponsScheduleItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Купонная выплата</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OpeningDate" type="ifxst:Ins_CoOpeningDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала купонного периода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClosingDate" type="ifxst:Ins_CoClosingDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания купонного периода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NdaysToPayment" type="ifxst:Ins_NdaysToPayment_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Смещение между датой окончания купонного периода и плановой датой купонного платежа в рабочих днях</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CouponDate" type="ifxst:Ins_CouponDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Плановая дата купонного платежа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RecordDate" type="ifxst:Ins_CoRecordDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата закрытия на которую формируется список владельцев ЦБ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BaseCouponRate" type="ifxst:Ins_BaseCouponRate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Базовая купонная ставка (кроме облигаций с постоянной купонной ставкой), в % годовых</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Spread" type="ifxst:Ins_Spread_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Переменный спред, в % годовых - для облигаций с плавающей ставкой купона с переменным спредом</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CouponRate" type="ifxst:Ins_CoCouponRate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ставка купона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateFixingDate" type="ifxst:Ins_RateFixingDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата фиксации купонной ставки (для облигаций с плавающей ставкой купона)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DividendsSchedule_Type">
+		<xsd:annotation>
+			<xsd:documentation>График дивидендных платежей</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DividendsScheduleItem" type="DividendsScheduleItem_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Параметры выплат дивидендов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DividendsScheduleItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дивидендная выплата</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Date" type="ifxst:Ins_Date_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата выплаты дивидендов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DeclarationDate" type="ifxst:Ins_DeclarationDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата принятия решения о выплате дивидендов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RecordDate" type="ifxst:Ins_RecordDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата закрытия реестра собственников</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpeningDate" type="ifxst:Ins_OpeningDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала периода, за который выплачиваются дивиденды</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClosingDate" type="ifxst:Ins_ClosingDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания периода, за который выплачиваются дивиденды</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ifxst:Ins_Amount_Type">
+				<xsd:annotation>
+					<xsd:documentation>Размер дивидендов (размер в валюте на одну акцию)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Tax" type="ifxst:Ins_Tax_Type">
+				<xsd:annotation>
+					<xsd:documentation>Налог (в %), удерживаемый с суммы дивиденда</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Instrument_Type">
+		<xsd:annotation>
+			<xsd:documentation>Финансовый инструмент</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="InstrumentID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" type="ifxst:Ins_Name_Type">
+				<xsd:annotation>
+					<xsd:documentation>Название инструмента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InstrumentDetails" type="InstrumentDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Расширенная информация об инструменте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InstrumentDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Детальная информация по ФИ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FullName" type="ifxst:Ins_FullName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Полное наименование</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Issuer" type="pty:Party_Type">
+				<xsd:annotation>
+					<xsd:documentation>Эмитент</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Borrower" type="pty:Party_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заемщик</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Ccy" type="cur:Currency_Type">
+				<xsd:annotation>
+					<xsd:documentation>Валюта номинала</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueDate" type="ifxst:Ins_IssueDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата выпуска, начала обращения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BaseMaturityDate" type="ifxst:Ins_BaseMaturityDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Базовая дата погашения, выхода из обращения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaturityDate" type="ifxst:Ins_MaturityDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Плановая дата погашения, выхода из обращения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RedemptionDate" type="ifxst:Ins_RedemptionDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Фактическая дата выхода из обращения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FaceValue" type="ifxst:Ins_FaceValue_Type">
+				<xsd:annotation>
+					<xsd:documentation>Номинальная стоимость одной ценной бумаги</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MinBundle" type="ifxst:Ins_MinBundle_Type">
+				<xsd:annotation>
+					<xsd:documentation>Номинальная стоимость минимальной партии ценных бумаг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SecurityClass" type="ifxst:Ins_SecurityClass_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Класс инструмента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SecurityType" type="ifxst:Ins_SecurityType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип инструмента: Облигация;акция;пай</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SecuritySubtype" type="ifxst:Ins_SecuritySubtype_Type">
+				<xsd:annotation>
+					<xsd:documentation>Вид инструмента:с нулевым купоном; с фиксированным купоном;плавающий;обыкновенные;привилегированные;инвестиционные паи</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AiBasis" type="ifxst:Ins_AiBasis_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Метод расчета НКД</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AiRoundingDigits" type="ifxst:Ins_AiRoundingDigits_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Количество знаков после запятой при округлении НКД</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FirstCouponType" type="ifxst:Ins_FirstCouponType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип первого купонного периода:Стандартный;Короткий;Длинный</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FirstCouponAnchorDate" type="ifxst:Ins_FirstCouponAnchorDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Условная дата начала первого купонного периода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NotionalCouponDate" type="ifxst:Ins_NotionalCouponDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала условного купонного периода- для облигаций с первым длинным купонным периодом</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CouponPeriodicity" type="ifxst:Ins_CouponPeriodicity_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Периодичность купонных выплат: Ежегодно;два раза в год;ежеквартально;раз в четыре месяца;через каждое фиксированное количество дней</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CouponPeriodDays" type="ifxst:Ins_CouponPeriodDays_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Для купонов, выплачиваемых через фиксированное количество дней.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CouponBaseDay" type="ifxst:Ins_CouponBaseDay_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип дня окончания купонного периода:Нерегулярный;фиксированный день;последний календарный день месяца</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CouponRateType" type="ifxst:Ins_CouponRateType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип купонной ставки:Постоянная;переменная</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CouponRate" type="ifxst:Ins_CouponRate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ставка купона для облигаций с постоянной ставкой купона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HasAmortization" type="ifxst:Ins_HasAmortization_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак облигаций с амортизацией долга</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HasEmbeddedOptions" type="ifxst:Ins_HasEmbeddedOptions_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак наличия встроенных опционов - для облигаций</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsReferencedRateBond" type="ifxst:Ins_IsReferencedRateBond_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак привязки купонной ставки к рыночному индикатору</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FloatingPointReferenceName" type="ifxst:Ins_FloatingPointReferenceName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование рыночного индикатора, к которому привязана купонная ставка -для облигаций с переменным купоном</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsSpreadConstant" type="ifxst:Ins_IsSpreadConstant_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак постоянного спрэда</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FloatingPointRefererenceSpread" type="ifxst:Ins_FloatingPointRefererenceSpread_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Спрэд к рыночному индикатору, к которому привязана купонная ставка - для облигаций с переменным купоном</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsAbs" type="ifxst:Ins_IsAbs_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак облигаций, обеспеченных активами.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsConvertibleBond" type="ifxst:Ins_IsConvertibleBond_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак конвертируемых облигаций</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ParentSecurity" type="Instrument_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код головного выпуска акций</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExdividendDays" type="ifxst:Ins_ExdividendDays_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Количество дней от даты закрытия реестра до даты окончания купонного периода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExdividendPeriodTypr" type="ifxst:Ins_ExdividendPeriodTypr_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип дней от даты закрытия реестра до даты окончания купонного периода:Рабочие;Календарные;особые -не поддерж.;в дату купона - не поддерж.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DaysToValue" type="ifxst:Ins_DaysToValue_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Стандартное количество рабочих дней от даты сделки до даты расчетов по сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BDaysToPaymentType" type="ifxst:Ins_BDaysToPaymentType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип задания параметра:задается для всего инструмента;задается для каждого купонного периода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SpecialTerms" type="ifxst:Ins_SpecialTerms_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Особые условия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AmortizationSchedule" type="AmortizationsSchedule_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>График амортизационных платежей</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CouponsSchedule" type="CouponsSchedule_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>График купонных выплат</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DividendsSchedule" type="DividendsSchedule_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Параметры выплат дивидендов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OptionsSchedule" type="OptionsSchedule_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Вложенные опционы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueAmountsInfo" type="IssueAmountsInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Динамика объемов выпусков</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UnderwritersList" type="UnderwritersList_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список параметров андеррайтеров</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SecurityCodes" type="SecurityCodes_Type">
+				<xsd:annotation>
+					<xsd:documentation>Коды финансового инструмента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UnderlyingInsrument" type="Instrument_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Базовый инструмент (для производных инструментов)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UpdateTime" type="ifxst:Ins_UpdateTime_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время последнего обновления</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InstrumentGroupList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Классификаторы инструмента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="InstrumentGroup" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Классификаторы</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IssueAmountsInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Динамика объемов выпусков</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="IssueAmountsInfo" type="IssueAmountsInfoItem_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Параметры записей о динамике объемов выпусков</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IssueAmountsInfoItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список параметров записей о динамике объемов выпусков</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Date" type="ifxst:Ins_Date_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата изменения объема в обращении</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ref:Quantity_Type">
+				<xsd:annotation>
+					<xsd:documentation>Номинальная стоимость выпуска ценных бумаг в обращении, количество акций в обращении</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OptionsSchedule_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры встроенных опционов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OptionScheduleItem" type="OptionsScheduleItem_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Параметры встроенных опционов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OptionsScheduleItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список параметров встроенных опционов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="IssueDate" type="ifxst:Ins_OpIssueDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата обновления опциона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OptionType" type="ifxst:Ins_OptionType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип опциона:;Колл;Пут</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExerciseDate" type="ifxst:Ins_OpExerciseDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата исполнения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementDate" type="ifxst:Ins_SettlementDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Плановая дата расчетов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Price" type="ref:Price_Type">
+				<xsd:annotation>
+					<xsd:documentation>Цена исполнения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Issuer" type="pty:Party_Type">
+				<xsd:annotation>
+					<xsd:documentation>Наименование эмитента опциона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecurityCodes_Type">
+		<xsd:annotation>
+			<xsd:documentation>Коды</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DomesticCodeType" type="ifxst:Ins_DomesticCodeType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип кодировки государственной регистрации. Допустимые значения: любые строки, справочник является дополняемым.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DomesticCode" type="ifxst:Ins_DomesticCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код государственной регистрации.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ISIN" type="ifxst:Ins_ISIN_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ISIN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReutersRic" type="ifxst:Ins_ReutersRic_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код инструмента в системе Reuters</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MnemoCode" type="ifxst:Ins_MnemoCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Мнемокод инструмента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueNumber" type="ifxst:Ins_IssueNumber_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Порядковый номер выпуска</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UnderwritersList_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры андеррайторов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="UnderwritersListItem" type="UnderwritersListItem_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список параметров в списке андеррайтеров</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UnderwritersListItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список параметров андеррайторов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Underwriter" type="pty:Party_Type">
+				<xsd:annotation>
+					<xsd:documentation>Андеррайтер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Role" type="ifxst:Ins_Role_Type">
+				<xsd:annotation>
+					<xsd:documentation>Роль в синдикате:Главный менеджер;Менеджер;Андеррайтер;СоАндеррайтер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InterestRate_Type">
+		<xsd:annotation>
+			<xsd:documentation>Процентная ставка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RateID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" type="ifxst:Ins_Name_Type">
+				<xsd:annotation>
+					<xsd:documentation>Название ставки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InterestRateDetails" type="InterestRateDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Расширенная информация об инструменте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InterestRateDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Детальная информация по процентной ставке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Definition" type="ifxst:InterestRateDefinition_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание  ставки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Ccy" type="cur:Currency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта, по кототорой выставляется ставка МБК</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Term" type="ifxca:Term_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Срок на который выдается кредитпод данную ставку</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateGroupList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Классификаторы ставок</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="RateGroup" type="ifxst:InsGroup_Type" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Классификатор процентной ставки</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurrencyPair_Type">
+		<xsd:annotation>
+			<xsd:documentation>Валютная пара</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CurrencyPairID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" type="ifxst:Ins_Name_Type">
+				<xsd:annotation>
+					<xsd:documentation>Название ставки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrencyPairDetails" type="CurrencyPairDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Расширенная информация об инструменте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurrencyPairDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Детальная информация по валютной паре</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PairType">
+				<xsd:annotation>
+					<xsd:documentation>Тип пары (деньги, металлы)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:CurrencyPairType_Type"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="BaseCcy" type="cur:Currency_Type">
+				<xsd:annotation>
+					<xsd:documentation>Базовая валюта для валютной пары для кросс-курса/Валюта, курс которой рассчитывается (пример: USD в паре USD/RUB, и EUR в EUR/USD)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="QuoteCcy" type="cur:Currency_Type">
+				<xsd:annotation>
+					<xsd:documentation>Валюта котировки валютной пары для кросс-курса (пример: RUB  в паре USD/RUB, и USD в паре EUR/USD). Используется только для кросс-курсов, для обычных нет</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PairGroupList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Классификаторы пар</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="PairGroup" type="ifxst:InsGroup_Type" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Классификатор пары</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

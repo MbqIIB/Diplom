@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	<SrvGetContractRs>
+		<ContractPDFAttachment/>
+	</SrvGetContractRs>
+	
+	<SrvGetClientManagerRs>
+		<PersonalBankerBlock>
+			<BankerPhoto/>
+		</PersonalBankerBlock>
+	</SrvGetClientManagerRs>
+	
+	<SrvActivateMTokenRs>
+		<qrCode/>
+	</SrvActivateMTokenRs>
+	
+	<SrvUpdateMTokenRs>
+		<qrCode/>
+	</SrvUpdateMTokenRs>
+</services>

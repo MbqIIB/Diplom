@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://esb.sberbank.com/transaction"
+    xmlns:tns="http://esb.sberbank.com/transaction"
+    xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+    xmlns:cur="http://esb.sberbank.com/currency"
+    xmlns:prd="http://esb.sberbank.com/product"
+    xmlns:pay="http://esb.sberbank.com/payment"
+    
+    elementFormDefault="unqualified" attributeFormDefault="unqualified" xmlns:pref="http://esb.sberbank.com/currency">
+
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+        schemaLocation="../common/simpleTypes.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/currency"
+        schemaLocation="../currency/currency.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/product"
+        schemaLocation="../product/product.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/payment" 
+        schemaLocation="../payment/payment.xsd" /> 
+
+    <xsd:complexType name="TransactionBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="TransactionId" type="tns:TransactionId_Type"/>
+            <xsd:element name="TransactionStatus" type="tns:TransactionStatus_Type"/>
+            <xsd:element name="ExecutionDate" type="xsd:date" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="TransactionDetailsGetBlock_Type">
+        <xsd:complexContent>
+            <xsd:extension base="tns:TransactionGetBlock_Type">
+                <xsd:sequence>
+                    <xsd:element name="ValueDate" type="xsd:date" minOccurs="0"/>
+                    <xsd:element name="Priority" type="pay:Priority_Type" minOccurs="0"/>
+                    <xsd:element name="Category" type="sim:String10_Type" minOccurs="0"/>
+                    <xsd:element name="VariableSymbol" type="pay:VariableSymbol_Type" minOccurs="0"/>
+                    <xsd:element name="ConstantSymbol" type="pay:ConstantSymbol_Type" minOccurs="0"/>
+                    <xsd:element name="SpecificSymbol" type="pay:SpecificSymbol_Type" minOccurs="0"/>
+                    <xsd:element name="BeneficiaryType" type="tns:BeneficiaryType_Type" minOccurs="0"/>
+                    <xsd:element name="FeeBlock" type="pay:FeeBlock_Type" minOccurs="0"/>
+                    <xsd:element name="BeneficiaryCountry" type="tns:BeneficiaryCountry_Type" minOccurs="0"/>
+                    <xsd:element name="BeneficiaryTown" type="pay:BeneficiaryTown_Type" minOccurs="0"/>
+                    <xsd:element name="BeneficiaryAddress" type="pay:BeneficiaryAddress_Type" minOccurs="0"/>
+                    <xsd:element name="PEPDescription" type="pay:PEPDescription_Type" minOccurs="0"/>
+                    <xsd:element name="SWIFT" type="pay:SWIFT_Type" minOccurs="0"/>                    
+                    <xsd:element name="BeneficiaryBankName" type="tns:BeneficiaryBankName_Type" minOccurs="0"/>
+                    <xsd:element name="BeneficiaryBankCountry" type="tns:BeneficiaryBankCountry_Type" minOccurs="0"/>
+                    <xsd:element name="CostOptionType" type="pay:CostOptionType_Type" minOccurs="0"/>
+                    <xsd:element name="HasSpecialExchangeRate" type="xsd:boolean" minOccurs="0"/>
+                    <xsd:element name="SpecialExchangeRate" type="sim:Decimal_0804_Type" minOccurs="0"/>
+                    <xsd:element name="RMName" type="sim:String32_Type" minOccurs="0"/>
+                    <xsd:element name="NationalRoutingCode" type="tns:NationalRoutingCode_Type" minOccurs="0"/>
+                    <xsd:element name="BIK" type="tns:BIK_Type" minOccurs="0"/>
+                    <xsd:element name="INNCode" type="tns:INNCode_Type" minOccurs="0"/>
+                    <xsd:element name="VOCode" type="tns:VOCode_Type" minOccurs="0"/>
+                    <xsd:element name="ForeignCorporateCode" type="tns:ForeignCorporateCode_Type" minOccurs="0"/>
+                    <xsd:element name="KPPCode" type="tns:KPPCode_Type" minOccurs="0"/>
+                    <xsd:element name="VerbalVOCodeDescription" type="tns:VerbalVOCodeDescription_Type" minOccurs="0"/>
+                    <xsd:element name="BeneficiaryCorrespondentBankAccount" type="tns:BeneficiaryCorrespondentBankAccount_Type" minOccurs="0"/>
+                    <xsd:element name="BeneficiaryCorrespondentBankAccountIntermediary" type="tns:BeneficiaryCorrespondentBankAccountIntermediary_Type" minOccurs="0"/>
+                    <xsd:element name="BeneficiaryBankNameIntermediary" type="tns:BeneficiaryBankNameIntermediary_Type" minOccurs="0"/>
+                    <xsd:element name="IntermediarySWIFT" type="pay:SWIFT_Type" minOccurs="0"/>
+                    <xsd:element name="IntermediaryNationalRoutingCode" type="tns:IntermediaryNationalRoutingCode_Type" minOccurs="0"/>
+                    <xsd:element name="TransactionIsLinkedToSOId" type="xsd:boolean" minOccurs="0"/>
+                    <xsd:element name="StandingOrderIdFromLegacy" type="pay:StandingOrderId_Type" minOccurs="0"/>
+                    <xsd:element name="TransactionIsLinkedToMCId" type="xsd:boolean" minOccurs="0"/>
+                    <xsd:element name="MandateCollectionIdFromLegacy" type="pay:MandateCollectionId_Type" minOccurs="0"/>
+                    <xsd:element name="BeneficiaryName" type="tns:BeneficiaryName_Type" minOccurs="0"/>
+                    <xsd:element name="SipoId" type="tns:SipoId_Type" minOccurs="0"/>
+                    <xsd:element name="ForeignPaymentReference" type="tns:ForeignPaymentReference_Type" minOccurs="0"/>
+                    <xsd:element name="RemittanceInfoBlock" type="tns:RemittanceInfoBlock_Type" minOccurs="0"/>         
+                    <xsd:element name="Address" type="tns:Address_Type" minOccurs="0"/>
+                    <xsd:element name="City" type="tns:City_Type" minOccurs="0"/>
+                    <xsd:element name="Country" type="tns:Country_Type" minOccurs="0"/>
+                    <xsd:element name="MaestroInstallmentBlock" type="tns:MaestroInstallmentBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="RemittanceInfoBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="Detail1" type="tns:Detail_Type"/>
+            <xsd:element name="Detail2" type="tns:Detail_Type"/>
+            <xsd:element name="Detail3" type="tns:Detail_Type"/>
+            <xsd:element name="Detail4" type="tns:Detail_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="MaestroInstallmentBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="SellerName" type="tns:SellerName_Type" minOccurs="0"/>
+            <xsd:element name="SellerPlace" type="tns:SellerPlace_Type" minOccurs="0"/>
+            <xsd:element name="SellerType" type="tns:SellerType_Type" minOccurs="0"/>
+            <xsd:element name="NumberOfInstallments" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="NumberOfDelayDays" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="POSId" type="tns:POSId_Type" minOccurs="0"/>
+            <xsd:element name="AmountOfInstallment" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCodeOfInstallment" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="StatusOfInstallment" type="tns:StatusOfInstallment_Type" minOccurs="0"/>
+            <xsd:element name="RepaidAmount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="TransactionGetList_Type">
+        <xsd:sequence>
+            <xsd:element name="TransactionGetBlock" type="tns:TransactionGetBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="TransactionGetBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="TransactionId" type="tns:TransactionId_Type"/>
+            <xsd:element name="TransactionDirection" type="tns:TransactionDirection_Type" minOccurs="0"/>
+            <xsd:element name="Channel" type="tns:Channel_Type" minOccurs="0"/>
+            <xsd:element name="OperationType" type="tns:OperationType_Type"/>
+            <xsd:element name="TransactionStatus" type="tns:TransactionStatus_Type"/>
+            <xsd:element name="ExecutionDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="OriginationDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="Amount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="EquivalentAmount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="EquivalentCurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="BalanceAvailableAfterTransaction" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="Description" type="tns:Description_Type" minOccurs="0"/>
+            <xsd:element name="Notes" type="tns:Notes_Type" minOccurs="0"/>
+            <xsd:element name="CounterPartyName" type="tns:CounterPartyName_Type" minOccurs="0"/>
+            <xsd:element name="CreditAccountBlock" type="tns:CreditAccountBlock_Type" minOccurs="0"/>
+            <xsd:element name="DebitAccountBlock" type="prd:DebitAccountTransactionBlock_Type" minOccurs="0"/>
+            <xsd:element name="PaymentSystem" type="prd:PaymentSystem_Type" minOccurs="0"/>
+            <xsd:element name="CardMaskedNumber" type="prd:CardMaskedNumber_Type" minOccurs="0"/>
+            <xsd:element name="CardProductClass" type="prd:CardProductClass_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CreditAccountBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="CreditAccount" type="prd:AccountNumber_Type"/>
+            <xsd:element name="CreditModel" type="prd:Model_Type" minOccurs="0"/>
+            <xsd:element name="CreditAccountPrefix" type="prd:BeneficiaryAccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="CreditAccountBankCode" type="prd:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="CreditReferenceNumber" type="prd:ReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type" minOccurs="0"/>           
+        </xsd:sequence>
+    </xsd:complexType>
+                    
+    <xsd:complexType name="FilterBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="PeriodFrom" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="PeriodTo" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="OperationType" type="tns:OperationType_Type" minOccurs="0"/>
+            <xsd:element name="Keyword" type="tns:Keyword_Type" minOccurs="0"/>
+            <xsd:element name="TransactionDirection" type="tns:TransactionDirection_Type" minOccurs="0"/>
+            <xsd:element name="BeneficiaryAccount" type="prd:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="CreditAccountPrefix" type="prd:BeneficiaryAccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="CreditAccountBankCode" type="prd:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="CreditModel" type="prd:Model_Type" minOccurs="0"/>
+            <xsd:element name="CreditReferenceNumber" type="prd:ReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="AmountFrom" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="AmountTo" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="ExecutionDate" type="xsd:date" minOccurs="0"/>    
+            <xsd:element name="VariableSymbol" type="pay:VariableSymbol_Type" minOccurs="0"/>
+            <xsd:element name="ConstantSymbol" type="pay:ConstantSymbol_Type" minOccurs="0"/>
+            <xsd:element name="SpecificSymbol" type="pay:SpecificSymbol_Type" minOccurs="0"/>
+            <xsd:element name="TransactionId" type="tns:TransactionId_Type" minOccurs="0"/>
+            <xsd:element name="Category" type="tns:Category_Type" minOccurs="0"/>
+            <xsd:element name="FilterProductId" type="prd:ProductCoreId_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="TransactionStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+        
+    <xsd:simpleType name="TransactionId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="TransactionDirection_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="INCOMING"/>
+            <xsd:enumeration value="OUTGOING"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CreditAccountSwiftCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="11"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="OperationType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Keyword_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="30"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Category_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Channel_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="30"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Description_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Notes_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CounterPartyName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="70"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="11"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryCountry_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryBankName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryBankCountry_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="NationalRoutingCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="9"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BIK_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="12"/>
+            <xsd:pattern value="[0-9\s\-]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="INNCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="15"/>
+            <xsd:pattern value="[0-9\s\-]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="VOCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="7"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ForeignCorporateCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="5"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="KPPCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="12"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="VerbalVOCodeDescription_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="133"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryCorrespondentBankAccount_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryCorrespondentBankAccountIntermediary_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryBankNameIntermediary_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IntermediaryNationalRoutingCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="9"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="70"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="SipoId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ForeignPaymentReference_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Detail_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="35"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Address_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+            <xsd:pattern value="[^\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="City_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="70"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Country_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="SellerName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="SellerPlace_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="SellerType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="POSId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="StatusOfInstallment_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

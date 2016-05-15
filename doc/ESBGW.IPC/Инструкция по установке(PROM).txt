@@ -1,0 +1,84 @@
+Инструкция по установке на PROM
+
+--------------------------------------
+||Предварительные действия перед развёртыванием инфраструктуры MQ||
+--------------------------------------
+В файле mq/update/update_IRUS.SBI.IN.GW1.mqsc заменить фразу addressM99SBIGATEWAYCLS1 на ip  mq manager M99.SBI.GATEWAY.CLS1 + (port)
+В файле mq/create/update_IRUS.SBI.IN.GW1.mqsc заменить фразу addressIRUSSBIGW1 на ip  mq manager IRUS.SBI.GW1 + (port)
+В файле mq/create/update_IRUS.SBI.GW1.mqsc заменить фразу addressIRUSSBIINGW1 на ip  mq manager IRUS.SBI.IN.GW1 + (port)
+В файле mq/update/update_IRUS.SBI.OUT.GW1.mqsc заменить фразу addressIBLRDBESBOUTGW1 на ip  mq manager IBLR.DB.ESB.OUT.GW1 + (port)
+		
+--------------------------------------
+||		Развёртывание инфраструктуры MQ		||
+--------------------------------------
+Для установки использовать дистрибутив для PROM
+
+1. Скопировать директорию mq на стенд развёртывания
+2. Выполнить скрипты по созданию менеджеров(если их нет) в директории mq/create:
+		выполнить создание менеджера IRUS.SBI.IN.GW1 - install.bat
+		выполнить создание менеджера IRUS.SBI.GW1 - install.bat
+		выполнить создание менеджера IRUS.SBI.OUT.GW1 - install.bat
+3. Установить объекты для функционирования этих менеджеров(если не было менеджеров)
+		Выполнить создание объектов для IRUS.SBI.IN.GW1 скриптом update_IRUS.SBI.IN.GW1.bat
+		Выполнить создание объектов для IRUS.SBI.GW1 скриптом update_IRUS.SBI.GW1.bat
+		Выполнить создание объектов для IRUS.SBI.OUT.GW1 скриптом update_IRUS.SBI.OUT.GW1.bat
+4. Установить огбъекты для функционирования АС в директории mq/update:
+		Выполнить создание объектов для IRUS.SBI.IN.GW1 скриптом update_IRUS.SBI.IN.GW1.bat
+		Выполнить создание объектов для IRUS.SBI.GW1 скриптом update_IRUS.SBI.GW1.bat
+		Выполнить создание объектов для IRUS.SBI.OUT.GW1 скриптом update_IRUS.SBI.OUT.GW1.bat
+5. Выполнить дополнительные команды, на IBM WebSphere MQ 7.5
+		Runmqsc IRUS.SBI.IN.GW1
+		ALTER QMGR CHLAUTH(DISABLED)
+		Runmqsc IRUS.SBI.GW1
+		ALTER QMGR CHLAUTH(DISABLED)
+		Runmqsc IRUS.SBI.OUT.GW1
+		ALTER QMGR CHLAUTH(DISABLED)
+		
+--------------------------------------
+||Предварительные действия перед установкой дистрибутива на DataPower||
+--------------------------------------
+В deployment policy в файле ESBGW.IPC.xcfg заменить фразу addressIRUSSBIOUTGW1 на ip  mq manager IRUS.SBI.OUT.GW1 + (port)
+В deployment policy в файле ESBGW.IPC.xcfg заменить фразу addressIRUSSBIGW1 на ip mq manager IRUS.SBI.GW1 + (port)
+		
+--------------------------------------
+||		Установка дистрибутива на DataPower		||
+--------------------------------------
+Для установки использовать дистрибутив для PROM
+
+Установка домена ESBGW.IPC(Если домена нет, иначе импортировать в домен патч ESBGW.IPC.PATCH.zip с заменой всех файлов)
+1. Создать домен ESBGW.IPC на устройстве DataPower
+2. Создать группу WAMC: ESBGW_IPC_EXT_PROM, добавить в неё домен ESBGW.IPC
+3. Создать группу WAMC: ESBGW_IPC_PROM для внутренних устройств DataPower
+4. Скопировать каталог deployment, domain на стенд развёртывания(положить рядом со скриптом deploy.auto.sh)
+5. Скопировать каталог groupConfigs на стенд развёртывания(положить рядом со скриптом deploy.auto.sh)
+6. Установить дистрибутив скриптом на домен ESBGW.IPC
+	deploy.auto.sh ESBGW.IPC D_01.000.00 PROM ESBGW.IPC.zip ESBGW.IPC.xcfg -d
+7. Проверить результат выполнения(Multi Protocol Gateway ESBGW.IPC.MPG должtен быть в состоянии up)
+
+
+
+--------------------------------------
+||Предварительные действия перед установкой дистрибутива на DataPower||
+--------------------------------------
+В deployment policy в файле ESBGW.LOGGER.xcfg заменить фразу adressIRUSSBIINGW1 на ip  mq manager IRUS.SBI.IN.GW1 + (port)
+
+--------------------------------------
+||		Установка дистрибутива логирования на DataPower		||
+--------------------------------------
+Для установки использовать дистрибутив для PROM
+
+Установка объектов на домен логирования (ESBGW.LOGGER)(домен логирования должен существовать)
+1. Загрузить файл ESBGW.LOGGER.zip через функцию import
+2. Во время загрузки должны быть отображены следующие объекты: 
+	SBI.MQ.LOGGER 
+	SBI.MQFSH.LOGGER
+	SBI.MQFSH.EXT.LOGGER
+3. После загрузки зайти в Multi Protocol Gateway LOGGER.MPG
+	В Front Side Protocol добавить объект SBI.MQFSH.LOGGER
+	Сохранить
+4. Проверить результат выполнения(Multi Protocol Gateway должtен быть в состоянии up, SBI.MQFSH.LOGGER должен быть в состоянии up)
+5. После загрузки зайти в Multi Protocol Gateway EXT.LOGGER.MPG
+	В Front Side Protocol добавить объект SBI.MQFSH.EXT.LOGGER
+	Сохранить
+6. Проверить результат выполнения(Multi Protocol Gateway должtен быть в состоянии up, SBI.MQFSH.EXT.LOGGER должен быть в состоянии up)
+

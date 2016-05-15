@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://esb.sberbank.com/client"
+			xmlns:tns="http://esb.sberbank.com/client"
+			xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+			elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+        schemaLocation="../common/simpleTypes.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/product"
+        schemaLocation="../product/product.xsd" />
+
+    <xsd:complexType name="ClientCreateSABlock_Type">
+        <xsd:sequence>
+            <xsd:element name="CoreClientId" type="tns:ClientId_Type" />
+            <xsd:element name="PostalTown" type="tns:PostalTown_Type"/>
+            <xsd:element name="PostalAddress" type="tns:PostalAddress_Type"/>
+            <xsd:element name="PostalCountry" type="tns:PostalCountry_Type"/>
+            <xsd:element name="ZIP" type="tns:ZIP_Type"/>
+            <xsd:element name="PrimaryEmail" type="tns:Email_Type"/>
+            <xsd:element name="ClientName" type="tns:ClientName_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ClientCreateTDBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="CoreClientId" type="tns:ClientId_Type" />
+            <xsd:element name="ResidentialTown" type="tns:ResidentialTown_Type" minOccurs="0"/>
+            <xsd:element name="ResidentialAddress" type="tns:ResidentialAddress_Type" minOccurs="0"/>
+            <xsd:element name="ResidentialCountry" type="tns:ResidentialCountry_Type" minOccurs="0"/>
+            <xsd:element name="ZIP" type="tns:ZIP_Type" minOccurs="0"/>
+            <xsd:element name="PrimaryEmail" type="tns:Email_Type" minOccurs="0"/>
+            <xsd:element name="ClientName" type="tns:ClientName_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ContractBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ContractId" type="tns:ContractId_Type"/>
+            <xsd:element name="ContractNumber" type="tns:ContractNumber_Type" minOccurs="0"/>
+            <xsd:element name="ContractText" type="tns:ContractText_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+        
+    <xsd:complexType name="ClientLocalizedInfoList_Type">
+        <xsd:sequence>
+            <xsd:element name="ClientLocalizedInfo" type="tns:ClientLocalizedInfo_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ClientLocalizedInfo_Type">
+        <xsd:sequence>
+            <xsd:element name="Locale" type="sim:Locale_Type"/>
+            <xsd:element name="ClientNamePrefix" type="tns:ClientNamePrefix_Type" minOccurs="0"/>
+            <xsd:element name="LastName" type="tns:LastName_Type"/>
+            <xsd:element name="FirstName" type="tns:FirstName_Type"/>
+            <xsd:element name="MiddleName" type="tns:MiddleName_Type" minOccurs="0"/>
+            <xsd:element name="TitleBefore" type="tns:TitleBefore_Type" minOccurs="0"/>
+            <xsd:element name="TitleAfter" type="tns:TitleAfter_Type" minOccurs="0"/>
+            <xsd:element name="FullResidentialAddress" type="tns:ClientAddressFull_Type" minOccurs="0"/>
+            <xsd:element name="FullPostalAddress" type="tns:ClientAddressFull_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ClientAccountBlock_Type">
+        <xsd:annotation>
+            <xsd:documentation>Information about Client</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="CoreClientId" type="tns:ClientId_Type" />
+            <xsd:element name="PrimaryMobilePhoneNumber" type="tns:MobilePhoneNumber_Type"/>
+            <xsd:element name="ClientLocalizedInfoList" type="tns:ClientLocalizedInfoList_Type"/>
+            <xsd:element name="PrimaryEmail" type="tns:Email_Type" minOccurs="0"/>
+            <xsd:element name="ClientSegment" type="tns:ClientSegment_Type" minOccurs="0"/>
+            <xsd:element name="IsClientPEP" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="NationalIdExpiryDate" type="xsd:date" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ClientAddressFull_Type">
+        <xsd:sequence>
+            <xsd:element name="Country" type="tns:Country_Type" minOccurs="0"/>
+            <xsd:element name="Region" type="tns:Region_Type" minOccurs="0"/>
+            <xsd:element name="Town" type="tns:Town_Type" minOccurs="0"/>
+            <xsd:element name="Address" type="tns:Address_Type" minOccurs="0"/>
+            <xsd:element name="ZIP" type="tns:ZIP_Type" minOccurs="0"/>
+            <xsd:element name="HouseNumber" type="tns:HouseNumber_Type" minOccurs="0"/>
+            <xsd:element name="HouseNumberAdditional" type="tns:HouseNumberAdditional_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ClientBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="LoginId" type="tns:LoginId_Type"/>
+            <xsd:element name="ClientRecordStatus" type="tns:ClientRecordStatus_Type"/>
+            <xsd:element name="DateOfUpdatingClientRecordStatus" type="xsd:dateTime"/>            
+            <xsd:element name="LoginAlias" type="tns:LoginAlias_Type" minOccurs="0"/>
+			<xsd:element name="ContentId" type="tns:ContentId_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Client_Type">
+        <xsd:sequence>
+            <xsd:element name="CoreClientId" type="tns:ClientId_Type"/>
+            <xsd:element name="ClientName" type="tns:ClientName_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ClientDomestic_Type">
+        <xsd:complexContent>
+            <xsd:extension base="tns:Client_Type">
+                <xsd:sequence>
+                    <xsd:element name="ResidentialTown" type="tns:ResidentialTown_Type" minOccurs="0"/>
+                    <xsd:element name="ResidentialAddress" type="tns:ResidentialAddress_Type" minOccurs="0"/>
+                </xsd:sequence>
+              </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="ClientForeign_Type">
+        <xsd:complexContent>
+            <xsd:extension base="tns:Client_Type">
+                <xsd:sequence>
+                    <xsd:element name="ResidentialCountry" type="tns:ResidentialCountry_Type" minOccurs="0"/>
+                    <xsd:element name="ResidentialTown" type="tns:ResidentialTown_Type" minOccurs="0"/>
+                    <xsd:element name="ResidentialAddress" type="tns:ResidentialAddress_Type" minOccurs="0"/>
+                </xsd:sequence>
+              </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:annotation />
+    <xsd:simpleType name="ClientRecordStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="REGISTERED"/>
+            <xsd:enumeration value="ACTIVATED"/>
+            <xsd:enumeration value="TEMP_BLOCKED"/>
+            <xsd:enumeration value="PERM_BLOCKED"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="ClientNamePrefix_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ClientSegment_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="ClientId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+
+    <xsd:annotation />
+    <xsd:simpleType name="MobilePhoneNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="15"/>
+            <xsd:pattern value="[0-9\-\s\(\)+]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="Email_Type">
+        <xsd:annotation>
+            <xsd:documentation>Client’s e-mail</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LoginId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LoginAlias_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ContentId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LastName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="FirstName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MiddleName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="TitleBefore_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="TitleAfter_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Country_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Region_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Town_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Address_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+            <xsd:pattern value="[^\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ZIP_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+            <xsd:pattern value="[0-9A-Za-z\s\-]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="HouseNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="HouseNumberAdditional_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PostalTown_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="70"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PostalAddress_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+            <xsd:pattern value="[^\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PostalCountry_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ClientName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="70"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ContractId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ContractNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="30"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ContractText_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20000"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ResidentialTown_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="70"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ResidentialAddress_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+            <xsd:pattern value="[^\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ResidentialCountry_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ContractPDFAttachment_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="1000000"/>
+            <xsd:pattern value="[A-Za-z0-9+/]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="WEBLinkToReadContractDetails_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

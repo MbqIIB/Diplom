@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/repaymentScheduleAggregates" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:ifx="http://sberbank.ru/dem/simpleTypes" xmlns:lo="http://sberbank.ru/dem/loan" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ifxst="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/repaymentScheduleAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/loan" schemaLocation="../loan/loanAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="GetRepaymentSchedule_Type">
+		<xsd:sequence>
+			<xsd:element name="Product" type="ifxca:Product_Type" minOccurs="0"/>
+			<xsd:element name="RepaymentList" type="lo:RepaymentInfo_Type" minOccurs="0"/>
+			<xsd:element name="Maturity" type="ifxst:Long" minOccurs="0"/>
+			<xsd:element name="InterestRateInfo" type="lo:InterestRateInfo_Type" minOccurs="0"/>
+			<xsd:element name="PostponementInfo" type="PostponementInfo_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RepaymentSchedule_Type">
+		<xsd:sequence>
+			<xsd:element name="RepaymentAmount" type="ifx:Amt_Type"/>
+			<xsd:element name="RepaymentList" type="lo:RepaymentInfo_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PostponementInfo_Type">
+		<xsd:sequence>
+			<xsd:element name="PostponementType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>R - remission, P - postponement</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="R"/>
+						<xsd:enumeration value="P"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PostponementSubject" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>P - principal, I - interest, PI - principal+interest</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="P"/>
+						<xsd:enumeration value="I"/>
+						<xsd:enumeration value="PI"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PostponementMonthsNo" type="xsd:int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

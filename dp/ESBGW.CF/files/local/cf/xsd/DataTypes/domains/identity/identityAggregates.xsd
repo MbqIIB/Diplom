@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Mike (None) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/identityAggregates" xmlns:ifxst="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:iam="http://sberbank.ru/dem/identityAggregates" targetNamespace="http://sberbank.ru/dem/identityAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../../domains/individual/individualAggregates.xsd"/>
+	<xsd:simpleType name="RegionId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код региона для подразделений Сбербанка (3 символа)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SubjectName_Type">
+		<xsd:annotation>
+			<xsd:documentation>Владелец сертификата</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SerialNumber_Type">
+		<xsd:annotation>
+			<xsd:documentation>Серийный номер сертификата</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="60"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="UniqueIdentifier_Type">
+		<xsd:annotation>
+			<xsd:documentation>Уникальный идентификатор</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="UserId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Уникальная идентификация пользователя</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="60"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="UserRole_Type">
+		<xsd:annotation>
+			<xsd:documentation>Наименование роли пользователя</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:NC">
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="Extension_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о расширенном использовании сертификата</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ExtnId" type="iam:UniqueIdentifier_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификация объекта расширения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Critical" type="ifxst:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Показатель критичности наличия расширения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExtnValue" type="ifxst:BinData">
+				<xsd:annotation>
+					<xsd:documentation>Данные расширения в бинарном представлении</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="KeyInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о ключе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="X509SubjectName" type="iam:SubjectName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Поле subject (владелец) сертификата</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="KeyName" type="iam:UniqueIdentifier_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор открытого ключа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegionId" type="iam:RegionId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код региона, в котором поддерживается актуальная информация о сертификате ключа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UserRole" type="iam:UserRole_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Бизнес-роль пользователя, в контексте которой используется ключ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CertInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о сертификате</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="KeyInfo_Type">
+				<xsd:choice>
+					<xsd:sequence>
+						<xsd:element name="Certificate" type="ifxst:BinData">
+							<xsd:annotation>
+								<xsd:documentation>Данные сертификата в бинарном представлении</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:sequence>
+						<xsd:element name="KeyValue">
+							<xsd:annotation>
+								<xsd:documentation>Данные открытого ключа</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="ifxst:C">
+									<xsd:maxLength value="4096"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="X509SerialNumber" type="iam:SerialNumber_Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Серийный номер сертификата</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="X509IssuerName" type="iam:SubjectName_Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Поле Issuer (удостоверитель) сертификата ключа</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="X509IssuerSerial" type="iam:SerialNumber_Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Серийный номер сертификата удостоверителя</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Version">
+							<xsd:annotation>
+								<xsd:documentation>Версия сертификата</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="ifxst:C">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="NotBefore" type="ifxst:DateTime">
+							<xsd:annotation>
+								<xsd:documentation>Дата начала действия сертификата</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="NotAfter" type="ifxst:DateTime">
+							<xsd:annotation>
+								<xsd:documentation>Дата окончания действия сертификата</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="SigAlgName">
+							<xsd:annotation>
+								<xsd:documentation>Наименование алгоритма формирования подписи сертификата</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="ifxst:C">
+									<xsd:maxLength value="30"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="SigValue">
+							<xsd:annotation>
+								<xsd:documentation>Электронная подпись сертификата удостоверителем</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="ifxst:C">
+									<xsd:maxLength value="128"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="Extension" type="iam:Extension_Type" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Информация о расширенном использовании сертификата</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="UserInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о пользователе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="UserId" type="iam:UserId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор пользователя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegionId" type="iam:RegionId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код региона, в котором поддерживается актуальная информация о пользователе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="FullName" type="st:FullName_Type">
+					<xsd:annotation>
+						<xsd:documentation>Полное имя пользователя</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PersonName" type="ind:PersonName_Type">
+					<xsd:annotation>
+						<xsd:documentation>Расширенные параметры ФИО пользователя</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="OrgId" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификационный номер организации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="OrgName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование организации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="150"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="OrgUnitId" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификационный номер подразделения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="OrgUnitName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование подразделения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="150"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="EmployeeId" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификационный номер сотрудника</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="IpAddr" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Рабочий IP-адрес</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="CertInfo" type="CertInfo_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список действующих сертификатов пользователя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CommonRequest_Type">
+		<xsd:annotation>
+			<xsd:documentation>Общая часть описания запроса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="st:RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="ifxst:DateTime">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName" type="st:SPName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Провайдер услуг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperName" type="st:OperName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Наименование операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperId" type="st:RqUID_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции, в рамках которой производится запрос</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CommonResponse_Type">
+		<xsd:annotation>
+			<xsd:documentation>Общая часть описания ответа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="st:RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="ifxst:DateTime">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperId" type="st:RqUID_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции, в рамках которой производится запрос</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="ca:Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IAMUserInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос информации о пользователе по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="KeyInfo" type="iam:KeyInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о ключе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="EffDt" type="ifxst:Date" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата, на которую запрашивается информация</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="IAMUserInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос информации о пользователе по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="CommonResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="UserInfo" type="iam:UserInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о пользователе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="IAMUserAudRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос информации о пользователе по идентификатору пользователя</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="UserInfo" type="iam:UserInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о пользователе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="EffDt" type="ifxst:Date" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата, на которую запрашивается информация</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="IAMUserAudRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос информации о пользователе по идентификатору пользователя</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="CommonResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="UserInfo" type="iam:UserInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о пользователе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="IAMCertInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос информации о сертификате по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="KeyInfo" type="iam:KeyInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о ключе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="EffDt" type="ifxst:Date" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата, на которую запрашивается информация</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="IAMCertInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос информации о сертификате по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="CommonResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="CertInfo" type="iam:CertInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о сертификате</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="IAMCertModRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на изменение информации о сертификате по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="KeyInfo" type="iam:KeyInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о ключе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CertInfo" type="iam:CertInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о сертификате</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="IAMCertModRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос на изменение информации о сертификате по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="CommonResponse_Type"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IAMUserInqRq" type="iam:IAMUserInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос информации о пользователе по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IAMUserInqRs" type="iam:IAMUserInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос информации о пользователе по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IAMUserAudRq" type="iam:IAMUserAudRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос информации о пользователе по идентификатору пользователя</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IAMUserAudRs" type="iam:IAMUserAudRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос информации о пользователе по идентификатору пользователя</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IAMCertInqRq" type="iam:IAMCertInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос информации о сертификате по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IAMCertInqRs" type="iam:IAMCertInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос информации о сертификате по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IAMCertModRq" type="iam:IAMCertModRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на изменение информации о сертификате по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IAMCertModRs" type="iam:IAMCertModRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос на изменение информации о сертификате по идентификации ключа подписи</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

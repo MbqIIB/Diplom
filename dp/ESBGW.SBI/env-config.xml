@@ -1,0 +1,7 @@
+<env-config>
+	<ip>10.116.6.244</ip>
+	<port>5550</port>
+	<domain>ESBGW.SBI</domain>
+	<user>soma</user>
+	<password>qwe123</password>
+</env-config>

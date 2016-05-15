@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by ﻿Dergachev (Sbertech) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://esb.sberbank.com/notification" xmlns:sim="http://esb.sberbank.com/common/simpleTypes" xmlns:cln="http://esb.sberbank.com/client" xmlns:pay="http://esb.sberbank.com/payment" targetNamespace="http://esb.sberbank.com/notification" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://esb.sberbank.com/common/simpleTypes" schemaLocation="../common/simpleTypes.xsd"/>
+	<xsd:import namespace="http://esb.sberbank.com/client" schemaLocation="../client/client.xsd"/>
+	<xsd:import namespace="http://esb.sberbank.com/payment" schemaLocation="../payment/payment.xsd"/>
+	<xsd:complexType name="MessageFeedbackBlock_Type">
+		<xsd:sequence>
+			<xsd:element name="IdFromLegacy" type="sim:String40_Type"/>
+			<xsd:element name="Status" type="tns:MessageStatus_Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CallBackRequestBlock_Type">
+		<xsd:sequence>
+			<xsd:element name="ReasonType" type="sim:String50_Type"/>
+			<xsd:element name="ConvenientTime" type="sim:String64_Type"/>
+			<xsd:element name="IndicatedMobilePhone" type="sim:String15_Type"/>
+			<xsd:element name="Name" type="sim:String70_Type" minOccurs="0"/>
+			<xsd:element name="Message" type="sim:String300_Type" minOccurs="0"/>
+			<xsd:element name="CommercialOfferId" type="sim:String16_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CommonMessageBlock_Type">
+		<xsd:sequence>
+			<xsd:element name="Id" type="xsd:integer"/>
+			<xsd:element name="MessageBusinessType" type="sim:String100_Type"/>
+			<xsd:element name="ParametersForMessageTemplate" type="sim:String255_Type" minOccurs="0"/>
+			<xsd:element name="ConvenientTimeFrom" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="ConvenientTimeTo" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="AttachedLinkToWeb" type="sim:String255_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EmailMessageList_Type">
+		<xsd:sequence>
+			<xsd:element name="EmailMessageBlock" type="tns:EmailMessageBlock_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EmailMessageBlock_Type">
+		<xsd:complexContent>
+			<xsd:extension base="tns:CommonMessageBlock_Type">
+				<xsd:sequence>
+					<xsd:element name="Priority" type="tns:SMSPriority_Type"/>
+					<xsd:element name="Subject" type="sim:String100_Type"/>
+					<xsd:element name="Message" type="sim:String2048_Type" minOccurs="0"/>
+					<xsd:element name="From" type="sim:String100_Type"/>
+					<xsd:element name="NotificationEmailAddress" type="sim:String100_Type" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SMSMessageList_Type">
+		<xsd:sequence>
+			<xsd:element name="SMSMessageBlock" type="tns:SMSMessageBlock_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SMSMessageBlock_Type">
+		<xsd:complexContent>
+			<xsd:extension base="tns:CommonMessageBlock_Type">
+				<xsd:sequence>
+					<xsd:element name="SMSText" type="sim:String280_Type" minOccurs="0"/>
+					<xsd:element name="Sender" type="sim:String100_Type"/>
+					<xsd:element name="Priority" type="tns:SMSPriority_Type" minOccurs="0"/>
+					<xsd:element name="PrimaryMobilePhoneNumber" type="cln:MobilePhoneNumber_Type" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PushMessageList_Type">
+		<xsd:sequence>
+			<xsd:element name="PushMessageBlock" type="tns:PushMessageBlock_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PushMessageBlock_Type">
+		<xsd:complexContent>
+			<xsd:extension base="tns:CommonMessageBlock_Type">
+				<xsd:sequence>
+					<xsd:element name="Message" type="sim:String2048_Type" minOccurs="0"/>
+					<xsd:element name="Sender" type="sim:String100_Type"/>
+					<xsd:element name="DeviceId" type="sim:String32_Type" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="MessageBlock_Type">
+		<xsd:sequence>
+			<xsd:element name="IdFromLegacy" type="sim:String16_Type"/>
+			<xsd:element name="MessageType" type="sim:String16_Type"/>
+			<xsd:element name="Subject" type="sim:String100_Type" minOccurs="0"/>
+			<xsd:element name="Message" type="sim:String2000_Type"/>
+			<xsd:element name="Priority" type="sim:String16_Type"/>
+			<xsd:element name="ShouldNotifyAboutReading" type="xsd:boolean"/>
+			<xsd:element name="ConversationId" type="sim:String16_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MessageFromClientBlock_Type">
+		<xsd:sequence>
+			<xsd:element name="Id" type="sim:String8_Type"/>
+			<xsd:element name="MessageType" type="sim:String16_Type"/>
+			<xsd:element name="Subject" type="sim:String100_Type" minOccurs="0"/>
+			<xsd:element name="Message" type="sim:String2000_Type"/>
+			<xsd:element name="Priority" type="sim:String16_Type" minOccurs="0"/>
+			<xsd:element name="From" type="sim:String100_Type"/>
+			<xsd:element name="ConversationId" type="sim:String16_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="NotificationCountingList_Type">
+		<xsd:sequence>
+			<xsd:element name="NotificationCountingBlock" type="tns:NotificationCountingBlock_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="NotificationCountingBlock_Type">
+		<xsd:sequence>
+			<xsd:element name="Channel" type="tns:Channel_Type"/>
+			<xsd:element name="NotificationAmount" type="xsd:int"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AlertBlock_Type">
+		<xsd:sequence>
+			<xsd:element name="AlertId" type="sim:String16_Type"/>
+			<xsd:element name="AlertType" type="tns:AlertType_Type" minOccurs="0"/>
+			<xsd:element name="ItemId" type="sim:String64_Type" minOccurs="0"/>
+			<xsd:element name="Text" type="sim:String400_Type"/>
+			<xsd:element name="OriginationDateTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="ShowOnDashboard" type="xsd:boolean"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="AlertType_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="PAYMENT_ORDER_FROM_BRANCH"/>
+			<xsd:enumeration value="PAYMENT_ORDER_FROM_MBA"/>
+			<xsd:enumeration value="STANDING_ORDER"/>
+			<xsd:enumeration value="MANDATE_COLLECTION"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Message_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="2048"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Channel_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="SMS"/>
+			<xsd:enumeration value="PUSH"/>
+			<xsd:enumeration value="EMAIL"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SMSPriority_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="LOW"/>
+			<xsd:enumeration value="NORMAL"/>
+			<xsd:enumeration value="HIGH"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Event_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="32"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MessageRequestType_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="EMAIL"/>
+			<xsd:enumeration value="COM_OFFER"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MessageStatus_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="UNREAD"/>
+			<xsd:enumeration value="READ"/>
+			<xsd:enumeration value="DELETED"/>
+			<xsd:enumeration value="EXPIRED"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

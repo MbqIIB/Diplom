@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:tns="http://sbrf/ru/sbt/mdo/rqrsen" targetNamespace="http://sbrf/ru/sbt/mdo/rqrsen" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="./DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:complexType name="Aggregation_Type">
+		<xsd:sequence>
+			<xsd:element name="Request">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:any namespace="##any"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Response">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Status" type="ca:Status_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Aggregation" type="tns:Aggregation_Type"/>
+</xsd:schema>

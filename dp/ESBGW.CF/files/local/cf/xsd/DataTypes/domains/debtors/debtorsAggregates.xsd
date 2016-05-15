@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/debtor" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:common="http://sberbank.ru/dem/commonAggregates" xmlns:orgs="http://sberbank.ru/dem/organizations" targetNamespace="http://sberbank.ru/dem/debtor" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:complexType name="Debt_Type">
+		<xsd:sequence>
+			<xsd:element name="Status" type="common:Status_Type" minOccurs="0"/>
+			<xsd:element name="Supplier" type="orgs:Supplier_Type" minOccurs="0"/>
+			<xsd:element name="Debtor" type="Debtor_Type" minOccurs="0"/>
+			<xsd:element name="Amount" type="ifxst:Acc_Balance_Type" minOccurs="0"/>
+			<xsd:element name="Period" type="ifxst:Acc_Date_Type" minOccurs="0"/>
+			<xsd:element name="DebtType" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="Id" type="ifx:Int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Debtor_Type">
+		<xsd:sequence>
+			<xsd:element name="Debtor_Name" type="ifxst:Name1000_Type" minOccurs="0"/>
+			<xsd:element name="Debtor_Address" type="common:PostAddr_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,199 @@
+
+DEFINE QLOCAL ('M99.ESB.COM') +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(5) +
+       DEFPSIST(NO) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       MAXDEPTH(5000000) +
+       MAXMSGL(41943040) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       NOHARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('IRUS.IN/M99.COM') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+					
+DEFINE QREMOTE ('CZ.ESB.COM.MCP') +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       SCOPE(QMGR) +
+       XMITQ('IRUS.SBI.GW1') +
+       RNAME('') +
+       RQMNAME('CZ.ESB.COM.MCP') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+					
+DEFINE QREMOTE ('HR.ESB.COM') +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       SCOPE(QMGR) +
+       XMITQ('IRUS.SBI.GW1') +
+       RNAME('') +
+       RQMNAME('HR.ESB.COM') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+					
+DEFINE CHANNEL ('IRUS.IN/M99.COM') CHLTYPE(SVR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(9000) +
+       CONNAME('10.116.90.165(2001)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR(' ') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(99999999) +
+       SHORTTMR(60) +
+       MAXMSGL(41943040) +
+       MCATYPE(PROCESS) +
+       MCAUSER('esb99usr') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('M99.ESB.COM') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH('') +
+       SSLPEER('CN=00CA0001ESBirus.sbi.in.gw1,OU=00CA,O=Savings Bank of the Russian Federation,C=RU') +
+        KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+	
+DEFINE CHANNEL ('M99.COM/IRUS.IN') CHLTYPE(RQSTR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(9000) +
+       CONNAME('10.116.90.165(2001)') +
+       LOCLADDR(' ') +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(41943040) +
+       MCATYPE(PROCESS) +
+       MCAUSER('esb99usr') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH('') +
+       SSLPEER('CN=00CA0001ESBirus.sbi.in.gw1,OU=00CA,O=Savings Bank of the Russian Federation,C=RU') +
+        KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE QLOCAL ('M99.ESB.COM') +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(5) +
+       DEFPSIST(NO) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       MAXDEPTH(5000000) +
+       MAXMSGL(41943040) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       NOHARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('IRUS.IN/M99.COM') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+				

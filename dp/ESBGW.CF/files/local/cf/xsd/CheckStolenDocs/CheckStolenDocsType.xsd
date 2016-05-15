@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sdr="http://sbrf/ru/sbt/mdo/rqrs/stolenDocsReg" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:tns="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:doc="http://sberbank.ru/dem/individual" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/stolenDocsReg" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRq_Type"/>
+			<xsd:element name="BankInfo" type="bank:BankInfo_Type" minOccurs="0"/>
+			<xsd:element name="DocInfo" type="doc:GovIssueIdent_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRs_Type"/>
+			<xsd:element name="CheckResult" type="doc:StolenDocsResponse_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

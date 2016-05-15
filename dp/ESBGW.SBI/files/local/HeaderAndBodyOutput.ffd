@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File name="Result">
+  <Syntax name='default'/>
+  <Field name='XMIT' type='hexBinary' syntax='default' minOccurs='1'/>
+  <Field name='Body' type='String' syntax='default' minOccurs='1'/>
+</File>

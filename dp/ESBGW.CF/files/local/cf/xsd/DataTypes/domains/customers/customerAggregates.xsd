@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns="http://sberbank.ru/dem/customerTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/customerTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="CustId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Идентификация потребителя</xsd:documentation>
+			<xsd:documentation>
+				Агрегат &lt;CustId&gt; используется для уникальной
+				идентификации потребителя, пославшего запрос. Его
+				использование необязательно, если потребителя можно
+				идентифицировать из контекста сессии (например, из
+				&lt;SignonRq&gt;).Когда &lt;CustId&gt; используется при
+				обмене сообщениями между потребителем и ППУ, элемент
+				&lt;CustPermId&gt; необязателен, а &lt;CustLoginId&gt;
+				обязателен. При обмене сообщениями между двумя ПУ
+				элемент &lt;CustPermId&gt; обязателен, а
+				&lt;CustLoginId&gt; необязателен. Элемент &lt;SPName&gt;
+				указывает на ППУ, который присвоил потребителю
+				постоянный идентификатор.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SPName" type="ifxst:SPName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Название ПУ, присвоившего иднетификатор.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:sequence>
+				<xsd:element name="CustPermId" type="ifx:Identifier">
+					<xsd:annotation>
+						<xsd:documentation>Постоянный идентификатор потребителя.
+				Используется как ключ БД для уникальной  идентификации потребителя. Не может быть изменен потребителем.	</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="CustLoginId" type="ifx:Identifier" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Идентификатор потребителя для входа в систему.	</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:element name="LegalName" type="ifxst:LegalName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Юридическое наименование потребителя (юр.лица)
+или полное имя (физ.лица).	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TaxId" type="ifxst:TaxId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор налогоплательщика (ИНН).	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Role" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Роль клиента в договоре на предоставление продукта\услуги</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="100"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ContactInfoId" type="ifx:Identifier" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>УИ контактной информации клиента	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FilterType">
+		<xsd:annotation>
+			<xsd:documentation>Поиск по полям</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PersonalId" type="ifxst:IdNum_Type" minOccurs="0"/>
+			<xsd:element name="CompanyId" type="ifxst:IdNum_Type" minOccurs="0"/>
+			<xsd:element name="FirstName" type="ifxst:FirstName_Type" minOccurs="0"/>
+			<xsd:element name="LastName" type="ifxst:LastName_Type" minOccurs="0"/>
+			<xsd:element name="BirthDate" type="ifx:Date" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

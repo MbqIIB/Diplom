@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/email" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/email" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="Email_Type">
+		<xsd:sequence>
+			<xsd:element name="From" type="ifxst:From_Type"/>
+			<xsd:element name="To" type="ifxst:To_Type"/>
+			<xsd:element name="Cc" type="ifxst:Cc_Type" minOccurs="0"/>
+			<xsd:element name="Bcc" type="ifxst:Bcc_Type" minOccurs="0"/>
+			<xsd:element name="replyTo" type="ifxst:ReplyTo_Type" minOccurs="0"/>
+			<xsd:element name="subject" type="ifxst:Subject_Type"/>
+			<xsd:element name="encoding" type="ifxst:EmailEncoding_Type"/>
+			<xsd:element name="template" type="ifxst:Template_Type" minOccurs="0"/>
+			<xsd:element name="attachements" type="attachment_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="attachment_Type">
+		<xsd:annotation>
+			<xsd:documentation>email attachment</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="documentType" type="ifxst:EmailDocType_Type" minOccurs="0"/>
+			<xsd:element name="documentName" type="ifxst:EmailDocName_Type" minOccurs="0"/>
+			<xsd:element name="attachment" type="ifxst:Attachment_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

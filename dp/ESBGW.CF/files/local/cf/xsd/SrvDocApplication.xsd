@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:dapp="http://sbrf/ru/sbt/mdo/rqrs/docApplication" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/docApplication" schemaLocation="DocApplication/DocApplicationType.xsd"/>
+	<xsd:element name="SrvDocApplicationRq" type="dapp:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Send request</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvDocApplicationRs" type="dapp:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Document</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

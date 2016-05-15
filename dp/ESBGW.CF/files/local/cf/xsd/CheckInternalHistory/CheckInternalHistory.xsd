@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sc="http://sbrf/ru/sbt/mdo/rqrs/history/midas" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:ifxst="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ha="http://sberbank.ru/dem/historyAggregates" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:prs="http://sberbank.ru/dem/individual" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/history/midas" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../DataTypes/simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/historyAggregates" schemaLocation="../DataTypes/domains/history/historyAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../DataTypes/domains/organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:complexContent>
+			<xsd:extension base="BasicRq_Type">
+				<xsd:sequence>
+					<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+					<xsd:element name="Person" type="prs:PersonInfo_Type" minOccurs="0"/>
+					<xsd:element name="Company" type="orgs:OrgRec_Type" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:complexContent>
+			<xsd:extension base="BasicRs_Type">
+				<xsd:sequence>
+					<xsd:element name="CreditHistory" type="sc:CreditHistory_Type" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CreditHistory_Type">
+		<xsd:annotation>
+			<xsd:documentation>Credit history from internal source (MIDAS)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PastDue" type="ha:PastDue_Type" minOccurs="0"/>
+			<xsd:element name="PastDue_12" type="ha:PastDue_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Max past due days and volume for 12 month / максимальное кол-во дней и объем просрочки да последние 12 месяцев</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PastDueVolume_12" type="ha:PastDue_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Max past due volume for 12 month</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PastDue_12_24" type="ha:PastDue_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Max past due days and volume in period (12 - 24) / максимальное кол-во дней и объем просрочки в период 12 -24 месяцев (за предыдущий год)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumDailyDebit_12" type="ca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cumulative sum of daily debit for last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumPayments" type="ca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total instalments of client’s loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Raiting" type="ifxst:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Client rating</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EntityID" type="ifxst:Int" minOccurs="0"/>
+			<xsd:element name="Status" type="ca:Status_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

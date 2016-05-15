@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     targetNamespace="http://esb.sberbank.com/common/simpleTypes"
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xsd:annotation>
+        <xsd:documentation>Special simple types</xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:simpleType name="StringForBase64_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="1000000"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+        
+  <xsd:simpleType name="Decimal_0804_Type">
+     <xsd:restriction base="xsd:decimal">
+        <xsd:fractionDigits value="4"/>
+        <xsd:totalDigits value="8"/>
+     </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="Decimal_0806_Type">
+     <xsd:restriction base="xsd:decimal">
+        <xsd:fractionDigits value="6"/>
+        <xsd:totalDigits value="8"/>
+     </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="Decimal_1502_Type">
+     <xsd:restriction base="xsd:decimal">
+        <xsd:fractionDigits value="2"/>
+        <xsd:totalDigits value="15"/>
+     </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="Decimal_1506_Type">
+     <xsd:restriction base="xsd:decimal">
+        <xsd:fractionDigits value="6"/>
+        <xsd:totalDigits value="15"/>
+     </xsd:restriction>
+  </xsd:simpleType>
+
+	<xsd:simpleType name="Decimal_16_Type">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:fractionDigits value="0"/>
+			<xsd:totalDigits value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+    <xsd:simpleType name="UUID">
+        <xsd:annotation>
+            <xsd:documentation>Уникальный идентификатор</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9a-zA-Z]{32}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="ShortString_Type">
+        <xsd:annotation>
+            <xsd:documentation>Short string</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="Locale_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="2"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String4_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String5_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="5"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="String6_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="6"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String7_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="7"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+        
+    <xsd:simpleType name="String8_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="8"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String9_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="9"/>
+        </xsd:restriction>
+    </xsd:simpleType>        
+    
+    <xsd:simpleType name="String10_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+        </xsd:restriction>
+    </xsd:simpleType>        
+
+    <xsd:simpleType name="String11_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="11"/>
+        </xsd:restriction>
+    </xsd:simpleType>    
+    
+    <xsd:simpleType name="String12_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="12"/>
+        </xsd:restriction>
+    </xsd:simpleType>        
+    
+    <xsd:simpleType name="String15_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="15"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="String16_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String70_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="70"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="String20_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String22_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="22"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String30_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="30"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+            
+    <xsd:simpleType name="String32_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+	<xsd:simpleType name="String34_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="34"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+    <xsd:simpleType name="String35_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="35"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="String40_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="40"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String50_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+            
+    <xsd:simpleType name="String64_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="String100_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String107_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="107"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="String128_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="128"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String133_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="133"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+ 
+    <xsd:simpleType name="String140_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="140"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+           
+    <xsd:simpleType name="String200_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="String255_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String280_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="280"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+        
+    <xsd:simpleType name="String300_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="300"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="String400_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="400"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="String2000_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="2000"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="String2048_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="2048"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="String20000_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20000"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- 
+    <xsd:simpleType name="Identifier">
+        <xsd:annotation>
+            <xsd:documentation>Identifier</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="s:String">
+            <xsd:maxLength value="36"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LegalName_Type">
+        <xsd:annotation>
+            <xsd:documentation>Официальное название. Передается только в именительном падеже.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="s:String">
+            <xsd:maxLength value="255"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="IdNum_Type">
+        <xsd:annotation>
+            <xsd:documentation>Номер документа (ДУЛ)</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="s:String">
+            <xsd:maxLength value="255"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="TaxId_Type">
+        <xsd:annotation>
+            <xsd:documentation>
+                Идентификатор налогоплательщика (ИНН).
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="s:String">
+            <xsd:maxLength value="32"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CurCode_Type">
+        <xsd:annotation>
+            <xsd:documentation>Код валюты. ISO-4217.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="s:String"/>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="ClosedEnum">
+        <xsd:annotation>
+            <xsd:documentation>Закрытое перечисление. Перечисление содержит    конечный набор допустимых значений. Другие значения не допустимы. Обнаружении значения,    не входящего    в набор допустимых значений,    трактуется как ошибка в любом узле                системы на любом этапе обработки
+                сообщения.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="s:String">
+            <xsd:maxLength value="80"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="Unit_Type">
+        <xsd:annotation>
+            <xsd:documentation>
+                Единица адресации. Пример:
+                Кв. – квартира
+                Ком. – комната
+                Оф. – офис
+                Пом. – помещение
+                Эт. – этаж
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="s:String">
+            <xsd:maxLength value="20"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="BranchType_Type">
+        <xsd:annotation>
+            <xsd:documentation>
+                Тип подразделения банка.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="s:String">
+            <xsd:enumeration value="TB">
+                <xsd:annotation>
+                    <xsd:documentation>Территориальный банка (ТБ)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="OSB">
+                <xsd:annotation>
+                    <xsd:documentation>Отделение Сбербанка (ОСБ)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="VSP">
+                <xsd:annotation>
+                    <xsd:documentation>Внутренние отделение Сбербанка</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="CA">
+                <xsd:annotation>
+                    <xsd:documentation>Центральный аппарат</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:annotation/>
+    
+    <xsd:simpleType name="Trend_Type">
+        <xsd:annotation>
+            <xsd:documentation>
+                Показатель динамики изменения курса валют.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="s:String">
+            <xsd:enumeration value="UP">
+                <xsd:annotation>
+                    <xsd:documentation>Курс растет</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="DOWN">
+                <xsd:annotation>
+                    <xsd:documentation>Курс понижается</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="STABLE">
+                <xsd:annotation>
+                    <xsd:documentation>Курс не меняется</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+        
+    <xsd:simpleType name="UUID">
+        <xsd:annotation>
+            <xsd:documentation>Уникальный 16 байтовый идентификатор. Для обмена в рамках интеграционных проектов Сбербанка представляется набором из 32 символов без разделителей в шестнадцатиричной системе. Размерность 36 оставлена для совместимости со стандартом IFX/</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="s:String">
+            <xsd:maxLength value="36"/>
+            <xsd:pattern value="([0-9]|[a-f]|[A-F]){32}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:complexType name="TypedId_Type">
+        <xsd:annotation>
+            <xsd:documentation>Идентификатор объекта во внешней системе</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="System" type="s:String" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Название системы, в которой задан идентификатор</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Type" type="s:String" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Тип идентификатора в системе</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ID" type="s:String">
+                <xsd:annotation>
+                    <xsd:documentation>Идентификатор заданного типа в указанной системе</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="Branch_Type">
+        <xsd:annotation>
+            <xsd:documentation>Подразделение Сбербанка</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="Type" type="st:BranchType_Type" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Тип подразделения банка. Предопределенные значения:
+TB - Территориальный банк
+OSB - Отделение Сбербанка
+VSP - Внутренние структурное подразделение</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="BranchId" type="s:String" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Список идентификаторов подразделения в разных системах</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Name" type="s:String" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Наименование подразделения Сбербанка</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ParentBranch" type="s:String" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Подразделение более высокого уровня иерархии (например, для отделения - это филиал)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="City" type="s:String" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="Timestamp">
+        <xsd:annotation>
+            <xsd:documentation>Отметка времени</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="Year" type="s:Long">
+                <xsd:annotation>
+                    <xsd:documentation>Год. Обязательное поле.    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Month">
+                <xsd:annotation>
+                    <xsd:documentation>Месяц. Необязательное поле. Заполняется в случае наличия дня значениями от 1 до 12.
+Если поле день не заполнено считается по умолчанию 1.    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="s:Long">
+                        <xsd:minInclusive value="1"/>
+                        <xsd:maxInclusive value="12"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="Day">
+                <xsd:annotation>
+                    <xsd:documentation>День. Необязательное поле.    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="s:Long">
+                        <xsd:minInclusive value="1"/>
+                        <xsd:maxInclusive value="31"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="Hour">
+                <xsd:annotation>
+                    <xsd:documentation>Количество часов от 0 до 23            </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="s:Long">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="23"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="Minute">
+                <xsd:annotation>
+                    <xsd:documentation>Количество минут. 
+Поле в диапазоне 0..59</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="s:Long">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="59"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="Second">
+                <xsd:annotation>
+                    <xsd:documentation>Количество секунд. 
+Поле в диапазоне 0..59</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="s:Long">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="59"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="Fraction">
+                <xsd:annotation>
+                    <xsd:documentation>Количество микросекунд. 
+Обязательное поле в диапазоне 0..999999.</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="s:Long">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="999999"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="UTCOffsetHour" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Сдвиг относительно UTC в часах.
+Необязательное поле в диапазоне 0..23.
+Должно быть заполнено, если сдвиг в минутах заполнен.</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="s:Long">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="23"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="UTCOffsetMinute" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Сдвиг относительно UTC в минутах. Необязательное поле в диапазоне 0..59</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="s:Long">
+                        <xsd:minInclusive value="0"/>
+                        <xsd:maxInclusive value="59"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType> -->
+</xsd:schema>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:crq="http://sbrf/ru/sbt/mdo/rqrs/BRKI/crq" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:cus="http://sberbank.ru/dem/customerTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:st="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:loan="http://sberbank.ru/dem/loan" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/BRKI/crq" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../DataTypes/domains/organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/customerTypes" schemaLocation="../DataTypes/domains/customers/customerAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/loan" schemaLocation="../DataTypes/domains/loan/loanAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../DataTypes/simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="CommonRequest_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRq_Type"/>
+			<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+			<xsd:element name="RequestData" type="crq:RequestData_Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RequestData_Type">
+		<xsd:sequence>
+			<xsd:element name="QueryingApplication" type="st:Int" minOccurs="0"/>
+			<xsd:element name="MultiRegId" type="st:C" minOccurs="0"/>
+			<xsd:element name="ClientApprove" type="st:C" minOccurs="0"/>
+			<xsd:element name="CustomerNumber" type="st:Identifier" minOccurs="0"/>
+			<xsd:element name="Person" type="ind:PersonInfo_Type" minOccurs="0"/>
+			<xsd:element name="Document" type="ind:GovIssueIdent_Type" minOccurs="0"/>
+			<xsd:element name="Company" type="orgs:OrgInfo_Type" minOccurs="0"/>
+			<xsd:element name="Address" type="ifxca:PostAddr_Type" minOccurs="0"/>
+			<xsd:element name="Loan" type="loan:Loan_Type" minOccurs="0"/>
+			<xsd:element name="TaxResidence" type="st:C" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="ifxst:PhoneNumber_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

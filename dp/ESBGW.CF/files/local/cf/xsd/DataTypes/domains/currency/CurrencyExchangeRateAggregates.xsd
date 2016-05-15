@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Mike (None) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ifxst="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:commons="http://sberbank.ru/dem/commonAggregates" xmlns:ns1="http://sberbank.ru/dem/currencyExchangeAggregates" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" targetNamespace="http://sberbank.ru/dem/currencyExchangeAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.8">
+	<xsd:annotation>
+		<xsd:documentation>Формат обмена данными проекта Система распространения курсов валют</xsd:documentation>
+	</xsd:annotation>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="CurrencyAggregates.xsd"/>
+	<xsd:complexType name="Branch_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Подразделение банка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BranchId" type="commons:Branch_Type">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов подразделения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование подразделения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ParentBranch" type="commons:Branch_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Подразделение более высокого уровня иерархии (например, для ВСП – это ОСБ)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BranchId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Список идентификаторов подразделения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TypedId" type="commons:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Идентификаторы подразделения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurrencyRate_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Курс определенной валюты по определенному диапазону сумм, если диапазон сумм используется</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BaseCcy" type="cur:Currency_Type">
+				<xsd:annotation>
+					<xsd:documentation>Базовая валюта для валютной пары для кросс-курса/Валюта, курс которой рассчитывается (пример: USD в паре USD/RUB, и EUR в EUR/USD)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="QuoteCcy" type="cur:Currency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта котировки валютной пары для кросс-курса (пример: RUB  в паре USD/RUB, и USD в паре EUR/USD). Используется только для кросс-курсов, для обычных нет</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsStraight" type="ifxst:Boolean">
+				<xsd:annotation>
+					<xsd:documentation>Признак прямого курса (true – курс прямой, false – курс обратный) пример: USD/RUB – прямой курс, EUR/USD – обратный курс</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:group ref="ns1:RangeGroup"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurrencyRates_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Список курсов валют данного вида курса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CurrencyRate" type="ns1:CurrencyRate_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Курсы валют для данного курса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExRateDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Дополнительные  параметры курса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RateSegment" type="ns1:RateSegment_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сегмент, к которому относится курс</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegionId" type="ns1:RegionId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код ТБ, которому предназначен курс</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateTypeName" type="ns1:C255" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование вида курса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateParamType" type="ns1:RateParamType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Параметры курса: Значение, Покупка/продажа, Кросс-курс, Покупка/продажа (драгметаллы в физическом виде)
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Ccy" type="cur:Currency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта, против которой рассчитывается курс </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderNumber" type="ifxst:Long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер распоряжения, устанавливающее курс (нумерация подразделений в рамках SourceBranch)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartDateTime" type="ifxst:Timestamp">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время, на которые устанавливается курс</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderDateTime" type="ifxst:Timestamp">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время формирования курса (и соответствующего распоряжения) в АС Курсы валют</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:element name="CurrencyRates" type="ns1:CurrencyRates_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Список курсов валют данного вида курсов</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PreciousMetalRates" type="ns1:PreciousMetalRates_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Список курсов драгоценных металлов (или слитков драгоценных металлов) данного вида курсов</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="SpecialTerms" type="ns1:C255" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дополнительные условия (например, может быть указано, что кросс-курс не передается через КСШ, а должен быть рассчитан самостоятельно в системе-потребителе).</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Counter" type="ifxst:Long">
+				<xsd:annotation>
+					<xsd:documentation>Номер курса данного вида (Rate.Type) в течение дня</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ns1:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП (ввели на будущее)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MessageDigest_Type">
+		<xsd:annotation>
+			<xsd:documentation>ЭЦП курса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SignType" type="ns1:NC255">
+				<xsd:annotation>
+					<xsd:documentation>Тип подписи</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="KeyId" type="ifxst:NC">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор ключа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="User" type="ns1:NC255">
+				<xsd:annotation>
+					<xsd:documentation>Пользователь</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DigestAlg" type="ns1:NC500">
+				<xsd:annotation>
+					<xsd:documentation>Алгоритм формирования дайджеста</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Digest" type="ifxst:NC">
+				<xsd:annotation>
+					<xsd:documentation>Дайджест</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Sign" type="ifxst:NC">
+				<xsd:annotation>
+					<xsd:documentation>Значение ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PreciousMetal_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Металл (обезличенный, стандартный слиток, мерный слиток</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PreciousMetalId" type="cur:PreciousMetalId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов металла в различных системах (например, в ЦАС НСИ)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Code" type="ns1:C255" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Буквенно-цифровой код металла (например, золото в граммах – А98, золото в унциях – А90)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ISOCode" type="ns1:NC3">
+				<xsd:annotation>
+					<xsd:documentation>Код металла ISO</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NameRus" type="ns1:C255" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование металла (рус.)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NameEng" type="ns1:NC255" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование металла (англ.)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LotSize" type="ifxst:Decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Масштаб металла. Поле является обязательным для курсов с типом сегмента «Удаленные каналы». Всегда должно быть заполнено значением 1</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PreciousMetalBar_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Мерные слитки драгоценного металла</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Mass" type="ifxst:Decimal">
+				<xsd:annotation>
+					<xsd:documentation>Масса слитка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Unit" type="ns1:Unit_Type">
+				<xsd:annotation>
+					<xsd:documentation>Единицы измерения массы слитка: Грамм, Унция, килограмм</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Wrapper" type="ns1:Wrapper_Type">
+				<xsd:annotation>
+					<xsd:documentation>Упаковка слитка: Стандартная упаковка, Высококачественная упаковка (В/К упаковка), Подарочная упаковка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Condition" type="ns1:Condition_Type">
+				<xsd:annotation>
+					<xsd:documentation>Состояние слитка: Удовлетворительное, Отличное, Не определено (используется для курса продажи)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PreciousMetalId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Список идентификаторов металла в различных системах (например, в ЦАС НСИ)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TypedId" type="commons:TypedId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификаторы металла в различных системах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PreciousMetalRate_Type">
+		<xsd:annotation>
+			<xsd:documentation/>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PreciousMetal" type="cur:PreciousMetal_Type">
+				<xsd:annotation>
+					<xsd:documentation>Драгоценный металл (обезличенный/стандартный слиток/мерный слиток)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsStandartBar" type="ifxst:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак стандартного слитка (в этом случае, указание слитков не требуется). Для обезличенных металлов данный флаг не требуется.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Bar" type="cur:PreciousMetalBar_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Слитки драгоценного металла (металл может использоваться без указания слитков)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:group ref="ns1:RangeGroup"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PreciousMetalRates_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Список курсов драгоценных металлов (или слитков драгоценных металлов) данного вида курсов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PreciousMetalRate" type="ns1:PreciousMetalRate_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Курсы металлов (или слитков драгоценных металлов) для данного курса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SendRateNf_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип для сообщения-ответа (нотификации) о передаче курсов валют и курсов металлов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="ifxst:UUID">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор, полученный в запросе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="ifxst:Timestamp">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время отправки нотификации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName" type="ns1:SystemId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, которая отправляет нотификацию</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="ns1:Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус обработки сообщения с курсами валют</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SendRateRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип для сообщения-запроса для передачи курсов валют и курсов металлов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="ifxst:UUID">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="ifxst:Timestamp">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName" type="ns1:SystemId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, предоставляющей услуги (АС Курсы валют)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperName" type="ns1:OperName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип операции: тиражирование курсов валют или тиражирование курсов драгоценных металлов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExRateBlock" type="ns1:ExRateBlock_Type">
+				<xsd:annotation>
+					<xsd:documentation>Блок, к которому принадлежит курс</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExRateType" type="ifxst:C">
+				<xsd:annotation>
+					<xsd:documentation>Код вида курса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExRateSubType" type="ns1:ExRateSubType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Подтип курса (используется в случае, если в один курс входит несколько различных значений как в случае учетных цен металлов):Учетные цены металлов ЦБ, Лондонский фиксинг (утренний), Лондонский фиксинг (вечерний).</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsPublic" type="ifxst:Boolean">
+				<xsd:annotation>
+					<xsd:documentation>Признак публичного курса (т.е. курс не направлен какой-либо системе, а предназначен для любой системы)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsIndividual" type="ifxst:Boolean">
+				<xsd:annotation>
+					<xsd:documentation>Признак индивидуального курса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SourceBranch" type="ns1:Branch_Type">
+				<xsd:annotation>
+					<xsd:documentation>ТБ или (Г)ОСБ (или другое структурное подразделение), с уровня которого устанавливается курс</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExRateDetails" type="ns1:ExRateDetails_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дополнительные параметры курса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Status_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Статус обработки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StatusCode" type="ifxst:Long">
+				<xsd:annotation>
+					<xsd:documentation>Статусный код обработки запроса. 0 - обработка закончилась успешно</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StatusDesc" type="ns1:C255" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение, если была какая-то ошибка в обработке запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RateSegId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список идентификаторов сегмента в различных системах</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TypedId" type="commons:TypedId_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RateSegment_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Сегмент, к которому относится курс</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RateSegId" type="ns1:RateSegId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов сегмента в различных системах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateSegCode" type="ifxst:C">
+				<xsd:annotation>
+					<xsd:documentation>Код сегмента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateSegName" type="ifxst:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование сегмента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateSegType" type="ns1:RateSegType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип сегмента: Традиционный канал, Удаленный канал</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RSBranches" type="ns1:RSBranches_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список с подразделениями, отнесенными к сегменту</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RSSystems" type="ns1:RSSystems_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список с уникальными кодами АС, связанными с сегментом (которым предназначается курс)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RateValue_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Значение курса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RateChangePercent" type="ifxst:Decimal" minOccurs="0"/>
+			<xsd:element name="RateChangeValue" type="ifxst:Decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Изменение курса в валюте (разница между установленным и предыдущим курсами)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Rate" type="ifxst:Decimal">
+				<xsd:annotation>
+					<xsd:documentation>Значение курса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RSBranches_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Подразделения, отнесенные к сегменту</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Branch" type="ns1:Branch_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RSSystems_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Уникальные коды АС, связанные с сегментом (которым предназначается курс)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SystemId" type="ns1:SystemId_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Начало описания составных групп элементов-->
+	<xsd:group name="RangeGroup">
+		<xsd:sequence>
+			<xsd:element name="RangeAmountBottom" type="ifxst:Decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Верхняя граница диапазона по сумме (в валюте RateDetails.Ccy)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RangeAmountUpper" type="ifxst:Decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Нижняя граница диапазона по сумме (в валюте RateDetails.Ccy)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Value" type="ns1:RateValue_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Значение (При использовании совместно с RateBuy и RateSell, если для курса требуется только одно значение, как для курса ЦБ)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateBuy" type="ns1:RateValue_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Значение курса покупки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateSell" type="ns1:RateValue_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Значение курса продажи</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:group>
+	<!-- Конец описания составных групп элементов-->
+	<!-- Начало описания дополнительных простых типов -->
+	<xsd:simpleType name="C255">
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Condition_Type">
+		<xsd:annotation>
+			<xsd:documentation>Простой тип Состояние слитка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:ClosedEnum">
+			<xsd:enumeration value="Satisfactory">
+				<xsd:annotation>
+					<xsd:documentation>Удовлетворительное</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Excellent">
+				<xsd:annotation>
+					<xsd:documentation>Отличное</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NotDefined">
+				<xsd:annotation>
+					<xsd:documentation>Не определено (используется для курса продажи)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ExRateBlock_Type">
+		<xsd:annotation>
+			<xsd:documentation>Принадлежность курса к блоку</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:ClosedEnum">
+			<xsd:enumeration value="ERNP">
+				<xsd:annotation>
+					<xsd:documentation>Физические лица</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ERJP">
+				<xsd:annotation>
+					<xsd:documentation>Юридические лица</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PMR">
+				<xsd:annotation>
+					<xsd:documentation>Драгоценные металлы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AGR">
+				<xsd:annotation>
+					<xsd:documentation>договора Сбербанка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="PUBLIC">
+				<xsd:annotation>
+					<xsd:documentation>Публичные курсы (курсы ЦБ,валюты ЭВС,учетные цены металлов)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ExRateSubType_Type">
+		<xsd:annotation>
+			<xsd:documentation>Перечисление для подтипа курса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:ClosedEnum">
+			<xsd:enumeration value="CB">
+				<xsd:annotation>
+					<xsd:documentation>Учетные цены металлов ЦБ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LondonFixMorning">
+				<xsd:annotation>
+					<xsd:documentation>Лондонский фиксинг (утренний)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="LondonFixEvening">
+				<xsd:annotation>
+					<xsd:documentation>Лондонский фиксинг (вечерний)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NC3">
+		<xsd:restriction base="ifxst:NC">
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NC50">
+		<xsd:restriction base="ifxst:NC">
+			<xsd:maxLength value="50"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NC255">
+		<xsd:restriction base="ifxst:NC">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="NC500">
+		<xsd:restriction base="ifxst:NC">
+			<xsd:maxLength value="500"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OperName_Type">
+		<xsd:restriction base="ifxst:ClosedEnum">
+			<xsd:enumeration value="Currency">
+				<xsd:annotation>
+					<xsd:documentation>Признак, что сообщение для тиражирования курсов валют</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Metal">
+				<xsd:annotation>
+					<xsd:documentation>Признак, что сообщение для тиражирования курсов драгоценных металлов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RateParamType_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип Параметры курса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:ClosedEnum">
+			<xsd:enumeration value="Value">
+				<xsd:annotation>
+					<xsd:documentation>Значение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BuySell">
+				<xsd:annotation>
+					<xsd:documentation>Покупка/продажа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Cross-rate">
+				<xsd:annotation>
+					<xsd:documentation>Кросс-курс</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BuySellPM">
+				<xsd:annotation>
+					<xsd:documentation>Покупка/продажа (драгметаллы в физическом виде)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RateSegType_Type">
+		<xsd:restriction base="ifxst:ClosedEnum">
+			<xsd:enumeration value="Traditional">
+				<xsd:annotation>
+					<xsd:documentation>Традиционный канал</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Distant">
+				<xsd:annotation>
+					<xsd:documentation>Удаленный канал</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RegionId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код территориального банка (ТБ)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:ClosedEnum">
+			<xsd:enumeration value="002">
+				<xsd:annotation>
+					<xsd:documentation>Алтайский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="013">
+				<xsd:annotation>
+					<xsd:documentation>Центрально-Черноземный банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="016">
+				<xsd:annotation>
+					<xsd:documentation>Уральский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="018">
+				<xsd:annotation>
+					<xsd:documentation>Байкальский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="031">
+				<xsd:annotation>
+					<xsd:documentation>Восточно-Сибирский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="036">
+				<xsd:annotation>
+					<xsd:documentation>Северо-Восточный банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="038">
+				<xsd:annotation>
+					<xsd:documentation>Московский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="040">
+				<xsd:annotation>
+					<xsd:documentation>Среднерусский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="042">
+				<xsd:annotation>
+					<xsd:documentation>Волго-Вятский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="044">
+				<xsd:annotation>
+					<xsd:documentation>Сибирский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="049">
+				<xsd:annotation>
+					<xsd:documentation>Западно-Уральский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="052">
+				<xsd:annotation>
+					<xsd:documentation>Юго-Западный банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="054">
+				<xsd:annotation>
+					<xsd:documentation>Поволжский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="055">
+				<xsd:annotation>
+					<xsd:documentation>Северо-Западный банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="060">
+				<xsd:annotation>
+					<xsd:documentation>Северо-Кавказский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="067">
+				<xsd:annotation>
+					<xsd:documentation>Западно-Сибирский банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="070">
+				<xsd:annotation>
+					<xsd:documentation>Дальневосточный банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="077">
+				<xsd:annotation>
+					<xsd:documentation>Северный банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="099">
+				<xsd:annotation>
+					<xsd:documentation>Центральный аппарат</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SystemId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип для идентификатора системы</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:NC">
+			<xsd:pattern value="urn:sbrfsystems:02-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:13-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:16-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:18-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:31-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:38-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:40-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:42-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:44-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:49-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:52-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:54-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:55-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:60-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:67-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:70-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:77-[a-z]{1,10}(:\d{1,3})?"/>
+			<xsd:pattern value="urn:sbrfsystems:99-[a-z]{1,10}(:\d{1,3})?"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Unit_Type">
+		<xsd:annotation>
+			<xsd:documentation>Простой тип Единицы измерения массы слитка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:ClosedEnum">
+			<xsd:enumeration value="gram">
+				<xsd:annotation>
+					<xsd:documentation>Грамм</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ounce">
+				<xsd:annotation>
+					<xsd:documentation>Унция</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="kilogram">
+				<xsd:annotation>
+					<xsd:documentation>Килограмм</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Wrapper_Type">
+		<xsd:annotation>
+			<xsd:documentation>Простой тип Тип упаковки слитка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:ClosedEnum">
+			<xsd:enumeration value="Standard">
+				<xsd:annotation>
+					<xsd:documentation>Стандартная упаковка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HighQuality">
+				<xsd:annotation>
+					<xsd:documentation>Высококачественная упаковка (В/К упаковка)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Present">
+				<xsd:annotation>
+					<xsd:documentation>Подарочная упаковка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Конец описания дополнительных простых типов -->
+</xsd:schema>

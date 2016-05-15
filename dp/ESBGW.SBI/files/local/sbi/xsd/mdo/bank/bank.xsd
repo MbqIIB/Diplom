@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://esb.sberbank.com/bank"
+    xmlns:tns="http://esb.sberbank.com/bank"
+    xmlns:sim="http://esb.sberbank.com/common/simpleTypes" 
+    xmlns:cln="http://esb.sberbank.com/client"
+    elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+        schemaLocation="../common/simpleTypes.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/client"
+        schemaLocation="../client/client.xsd" />
+
+    <xsd:annotation/>
+    <xsd:simpleType name="BankId_Type">
+        <xsd:annotation>
+            <xsd:documentation>ID of the Bank</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="SBCZ"/>
+            <xsd:enumeration value="SBHR"/>
+            <xsd:enumeration value="SBRF"/>
+            <xsd:enumeration value="SBDE"/>
+            <xsd:enumeration value="SBAT"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:annotation/>
+
+    <xsd:complexType name="PersonalBankerBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="BankerName" type="tns:BankerName_Type"/>
+            <xsd:element name="BankerPhoto" type="tns:BankerPhoto_Type" minOccurs="0"/>
+            <xsd:element name="BankerPosition" type="tns:BankerPosition_Type"/>
+            <xsd:element name="BankerPrimaryMobilePhone" type="cln:MobilePhoneNumber_Type"/>
+            <xsd:element name="BankerEmail" type="cln:Email_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="BranchBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="BranchId" type="tns:BranchId_Type" minOccurs="0"/>
+            <xsd:element name="Name" type="tns:Name_Type"/>
+            <xsd:element name="ZIP" type="tns:ZIP_Type"/>
+            <xsd:element name="City" type="tns:City_Type"/>
+            <xsd:element name="Address" type="tns:Address_Type"/>
+            <xsd:element name="Description" type="tns:Description_Type" minOccurs="0"/>
+            <xsd:element name="OperationTime" type="tns:OperationTime_Type" minOccurs="0"/>
+            <xsd:element name="ServiceType" type="tns:ServiceType_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="BankerName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="128"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BankerPhoto_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="1000000"/>
+            <xsd:pattern value="[A-Za-z0-9+/]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BankerPosition_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[A-Za-z0-9+/]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BranchId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Name_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ZIP_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+            <xsd:pattern value="[0-9A-Za-z\s\-]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="City_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Address_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Description_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="300"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="OperationTime_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ServiceType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="300"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

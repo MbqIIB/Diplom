@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:ccs="http://sbrf/ru/sbt/mdo/rqrs/checkCustomer" xmlns:ns1="http://sbrf/ru/sbt/mdo/rqrs/getClientFes" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/checkCustomer" schemaLocation="CheckCustomer/CheckCustomerType.xsd"/>
+	<xsd:element name="SrvCheckCustomerRq" type="ccs:Request_Type"/>
+	<xsd:element name="SrvCheckCustomerRs" type="ccs:Response_Type"/>
+</xsd:schema>

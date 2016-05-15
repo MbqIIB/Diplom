@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns="http://sberbank.ru/dem/ifxDateTimeTypes" xmlns:ns1="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/ifxDateTimeTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="ifxSimpleTypes.xsd"/>
+	<xs:complexType name="YrMon">
+		<xs:annotation>
+			<xs:documentation>Год и месяц.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Year" type="ifx:Long" nillable="false">
+				<xs:annotation>
+					<xs:documentation>
+						Год. Обязательное поле.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Month" nillable="false">
+				<xs:annotation>
+					<xs:documentation>
+						Месяц. Обязательное поле.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Date">
+		<xs:annotation>
+			<xs:documentation>Дата</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Year" type="ifx:Long">
+				<xs:annotation>
+					<xs:documentation>
+						Год. Обязательное поле.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Month" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Месяц. Необязательное поле. Заполняется в случае наличия дня значениями от 1 до 12.
+						Если поле день не заполнено считается по умолчанию 1.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Day" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						День. Необязательное поле.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Time">
+		<xs:annotation>
+			<xs:documentation>Время.		</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Hour">
+				<xs:annotation>
+					<xs:documentation>Количество часов от 0 до 23
+				</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="23"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Minute" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество минут. Необязательное поле в диапазоне 0..59
+Должно быть указано, если указаны секунды</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="59"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Second" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество секунд. 
+Необязательное поле в диапазоне 0..59
+Должно быть указано, если указаны микросекунды.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="59"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Fraction" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество микросекунд. 
+Необязательное поле в диапазоне 0..999999.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="999999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UTCOffsetHour" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сдвиг относительно UTC в часах.
+Необязательное поле в диапазоне 0..23.
+Должно быть заполнено, если сдвиг в минутах заполнен.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="23"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UTCOffsetMinute" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сдвиг относительно UTC в минутах. Необязательное поле в диапазоне 0..59</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="59"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DateTime">
+		<xs:annotation>
+			<xs:documentation>Дата и время</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Year" type="ifx:Long">
+				<xs:annotation>
+					<xs:documentation>
+						Год. Обязательное поле.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Month">
+				<xs:annotation>
+					<xs:documentation>
+						Месяц. Необязательное поле. Заполняется в случае наличия дня значениями от 1 до 12.
+						Если поле день не заполнено считается по умолчанию 1.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Day">
+				<xs:annotation>
+					<xs:documentation>
+						День. Необязательное поле.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Hour">
+				<xs:annotation>
+					<xs:documentation>Количество часов от 0 до 23
+				</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="23"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Minute" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество минут. Необязательное поле в диапазоне 0..59
+Должно быть указано, если указаны секунды</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="59"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Second" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество секунд. 
+Необязательное поле в диапазоне 0..59
+Должно быть указано, если указаны микросекунды.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="59"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Fraction" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество микросекунд. 
+Необязательное поле в диапазоне 0..999999.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="999999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UTCOffsetHour" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сдвиг относительно UTC в часах.
+Необязательное поле в диапазоне 0..23.
+Должно быть заполнено, если сдвиг в минутах заполнен.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="23"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UTCOffsetMinute" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сдвиг относительно UTC в минутах. Необязательное поле в диапазоне 0..59</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="59"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Timestamp">
+		<xs:annotation>
+			<xs:documentation>Отметка времени</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Year" type="ifx:Long">
+				<xs:annotation>
+					<xs:documentation>Год. Обязательное поле.	</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Month">
+				<xs:annotation>
+					<xs:documentation>Месяц. Необязательное поле. Заполняется в случае наличия дня значениями от 1 до 12.
+Если поле день не заполнено считается по умолчанию 1.	</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Day">
+				<xs:annotation>
+					<xs:documentation>День. Необязательное поле.	</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Hour">
+				<xs:annotation>
+					<xs:documentation>Количество часов от 0 до 23			</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="23"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Minute">
+				<xs:annotation>
+					<xs:documentation>Количество минут. 
+Поле в диапазоне 0..59</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="59"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Second">
+				<xs:annotation>
+					<xs:documentation>Количество секунд. 
+Поле в диапазоне 0..59</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="59"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Fraction">
+				<xs:annotation>
+					<xs:documentation>Количество микросекунд. 
+Обязательное поле в диапазоне 0..999999.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="999999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UTCOffsetHour" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сдвиг относительно UTC в часах.
+Необязательное поле в диапазоне 0..23.
+Должно быть заполнено, если сдвиг в минутах заполнен.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="23"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UTCOffsetMinute" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сдвиг относительно UTC в минутах. Необязательное поле в диапазоне 0..59</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="59"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

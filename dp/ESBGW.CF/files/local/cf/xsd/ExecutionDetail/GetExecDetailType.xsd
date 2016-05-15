@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ed="http://sbrf/ru/sbt/mdo/rqrs/executionDetail" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:tns="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:ex="http://sberbank.ru/dem/execution" xmlns:client="http://sberbank.ru/dem/commonAggregates" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:in="http://sberbank.ru/dem/individual" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/executionDetail" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/execution" schemaLocation="../DataTypes/domains/execution/executionAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../DataTypes/domains/organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRq_Type"/>
+			<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+			<xsd:element name="Code" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRs_Type"/>
+			<xsd:element name="Code" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DocumentList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Document" type="ed:Document_Type" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="RawData" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Document_Type">
+		<xsd:sequence>
+			<xsd:element name="Description" type="xsd:string"/>
+			<xsd:element name="Type" type="xsd:string"/>
+			<xsd:element name="Company" type="xsd:string"/>
+			<xsd:element name="CourtName" type="xsd:string"/>
+			<xsd:element name="ReferenceNumber" type="xsd:string"/>
+			<xsd:element name="Issued" type="xsd:string"/>
+			<xsd:element name="OneTimePrice" type="xsd:string"/>
+			<xsd:element name="RegularPrice" type="xsd:string"/>
+			<xsd:element name="NonMonetaryDescription" type="xsd:string"/>
+			<xsd:element name="SubjectList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Subject" type="ex:Subject_Type" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

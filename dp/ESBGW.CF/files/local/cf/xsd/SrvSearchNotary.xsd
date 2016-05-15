@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:no="http://sbrf/ru/sbt/mdo/rqrs/notary" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/notary" schemaLocation="Notary/NotaryType.xsd"/>
+	<xsd:element name="SrvSearchNotaryRq" type="no:Request_Type"/>		
+	<xsd:element name="SrvSearchNotaryRs" type="no:Response_Type"/>
+</xsd:schema>

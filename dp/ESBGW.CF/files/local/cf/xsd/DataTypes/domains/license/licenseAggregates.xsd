@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/getlicense" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:ifxst="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ifxdt="http://sberbank.ru/dem/ifxDateTimeTypes" xmlns:orgs="http://sberbank.ru/dem/organizations" targetNamespace="http://sberbank.ru/dem/getlicense" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxDateTimeTypes" schemaLocation="../../innerTypes/ifxDateTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:complexType name="GetLicense_Type">
+		<xsd:sequence>
+			<xsd:element name="IdentificationNumber" type="st:IdNum_Type" minOccurs="0"/>
+			<xsd:element name="RequestDate" type="ifxst:Date" minOccurs="0"/>
+			<xsd:element name="Name" type="ifxst:C" minOccurs="0"/>
+			<xsd:element name="BirthDate" type="ifxst:Date" minOccurs="0"/>
+			<xsd:element name="Address" type="ca:PostAddr_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="License" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="IndustId" type="orgs:IndustId_Type" minOccurs="0"/>
+						<xsd:element name="LicenseInfo" type="orgs:LicenseInfo_Type" minOccurs="0"/>
+						<xsd:element name="LicenseStopInfo" type="orgs:LicenseStop_Type" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element name="ActivityFieldInfo" type="orgs:ActivityField_Type" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="RawData" type="ifxst:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

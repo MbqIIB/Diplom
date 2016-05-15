@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:cbr="http://sbrf/ru/sbt/mdo/rqrs/chckbankrptcy" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/chckbankrptcy" schemaLocation="CheckBankruptcy/CheckBankruptcyType.xsd"/>
+	<xsd:element name="SrvCheckBankruptcyRq" type="cbr:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Search in Register of bankruptcy request</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvCheckBankruptcyRs" type="cbr:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Search in Register of bankruptcy response</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

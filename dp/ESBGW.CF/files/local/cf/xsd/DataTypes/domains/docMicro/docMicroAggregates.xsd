@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by ﻿IGriv (SBT) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ap="http://sberbank.ru/dem/docMicroAggregates" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:loan="http://sberbank.ru/dem/loan" xmlns:person="http://sberbank.ru/dem/individual" xmlns:tns="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:doct="http://sberbank.ru/dem/loan" xmlns:comaggr="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/docMicroAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../../headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/loan" schemaLocation="../loan/loanAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:complexType name="LoanInfo">
+		<xsd:sequence>
+			<xsd:element name="LoanNumber" type="comaggr:LoanNumber_Type" minOccurs="0"/>
+			<xsd:element name="Contractor" type="person:Contractor_Type" minOccurs="0"/>
+			<xsd:element name="CoBorrower" type="person:coApplicantMicro_Type" minOccurs="0"/>
+			<xsd:element name="Acceptors" type="person:PersonInfo_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="ContractProduct" type="comaggr:contractProduct_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="ContractsDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="FrbCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreditInspector" type="comaggr:CreditInspector_Type" minOccurs="0"/>
+			<xsd:element name="SecondSignatureCI" type="comaggr:CreditInspector_Type" minOccurs="0"/>
+			<xsd:element name="PrintPaths" type="comaggr:Print_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="User_Type">
+		<xsd:sequence>
+			<xsd:element name="UserId" type="tns:C" nillable="true" minOccurs="0"/>
+			<xsd:element name="UserRole" type="tns:C" minOccurs="0"/>
+			<xsd:element name="UserFirstName" type="tns:C" minOccurs="0"/>
+			<xsd:element name="UserLastName" type="tns:C" minOccurs="0"/>
+			<xsd:element name="UserPosition" type="tns:C" minOccurs="0"/>
+			<xsd:element name="UserEmail" type="tns:C" minOccurs="0"/>
+			<xsd:element name="UserPhone" type="tns:C" minOccurs="0"/>
+			<xsd:element name="BankBranchID" type="tns:C" minOccurs="0"/>
+			<xsd:element name="BranchName" type="tns:C" minOccurs="0"/>
+			<xsd:element name="BranchCity" type="tns:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RequestedProduct_Type">
+		<xsd:sequence>
+			<xsd:element name="applicationNumber" type="tns:C" minOccurs="0"/>
+			<xsd:element name="loanAmount" type="tns:Decimal" minOccurs="0"/>
+			<xsd:element name="loanCurrency" type="tns:C" minOccurs="0"/>
+			<xsd:element name="purposeOfLoan" type="tns:C" minOccurs="0"/>
+			<xsd:element name="purposeOfLoanDescription" type="tns:C" minOccurs="0"/>
+			<xsd:element name="loanMaturityInMonth" type="tns:Int" minOccurs="0"/>
+			<xsd:element name="typeOfLoanRepayment" type="tns:C" minOccurs="0"/>
+			<xsd:element name="installmentsFrequency" type="tns:C" minOccurs="0"/>
+			<xsd:element name="installmentAmount" type="tns:Decimal" minOccurs="0"/>
+			<xsd:element name="loanAmountTotalToBeRepaid" type="tns:Decimal" minOccurs="0"/>
+			<xsd:element name="referenceRateType" type="tns:C" minOccurs="0"/>
+			<xsd:element name="valueOfReferenceRate" type="tns:Decimal" minOccurs="0"/>
+			<xsd:element name="margin" type="tns:Decimal" minOccurs="0"/>
+			<xsd:element name="annualPercentageRate" type="tns:Decimal" minOccurs="0"/>
+			<xsd:element name="applicationDate" type="tns:DateTime" minOccurs="0"/>
+			<xsd:element name="firstPaymentDueDate" type="tns:DateTime" minOccurs="0"/>
+			<xsd:element name="plannedDisbursementDate" type="tns:DateTime" minOccurs="0"/>
+			<xsd:element name="expectedDateOfRepayment" type="tns:DateTime" minOccurs="0"/>
+			<xsd:element name="loanNumber" type="tns:C" minOccurs="0"/>
+			<xsd:element name="conditionTurnover" type="tns:Decimal" minOccurs="0"/>
+			<xsd:element name="currentAccountNumber" type="tns:C" minOccurs="0"/>
+			<xsd:element name="proposedClientExposure" type="tns:Decimal" minOccurs="0"/>
+			<xsd:element name="productInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="productGroup" type="tns:C" minOccurs="0"/>
+						<xsd:element name="productType" type="tns:C" minOccurs="0"/>
+						<xsd:element name="productName" type="tns:C" minOccurs="0"/>
+						<xsd:element name="productCode" type="tns:C" minOccurs="0"/>
+						<xsd:element name="bankProductID" type="tns:C" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Participant_Type">
+		<xsd:sequence>
+			<xsd:element name="ParticipantRole" type="tns:C" minOccurs="0"/>
+			<xsd:element name="ParticipantType" type="tns:C" minOccurs="0"/>
+			<xsd:element name="GuarantorFlag" type="tns:C" minOccurs="0"/>
+			<xsd:element name="IdNumber" type="tns:C" minOccurs="0"/>
+			<xsd:element name="ParticipantName" type="tns:C" minOccurs="0"/>
+			<xsd:element name="BirthNumber" type="tns:C" minOccurs="0"/>
+			<xsd:element name="PersonName" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="TitleBefore" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="FirstName" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="LastName" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="TitleAfter" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="IdFesMidas" type="tns:C" minOccurs="0"/>
+			<xsd:element name="IdCardType" type="tns:C" minOccurs="0"/>
+			<xsd:element name="IdCardNumber" type="tns:C" minOccurs="0"/>
+			<xsd:element name="Spouse" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ConsentOfSpouse" type="tns:C" minOccurs="0"/>
+						<xsd:element name="SpouseFirstName" type="tns:C" minOccurs="0"/>
+						<xsd:element name="SpouseLastName" type="tns:C" minOccurs="0"/>
+						<xsd:element name="SpouseBirthNumber" type="tns:C" minOccurs="0"/>
+						<xsd:element name="SpouseIDCardType" type="tns:C" minOccurs="0"/>
+						<xsd:element name="SpouseIDCardNumber" type="tns:C" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Court" type="tns:C" minOccurs="0"/>
+			<xsd:element name="File" type="tns:C" minOccurs="0"/>
+			<xsd:element name="PercentageOwnership" type="tns:Decimal" minOccurs="0"/>
+			<xsd:element name="AddressList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Address" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="AddressType" type="tns:C" minOccurs="0"/>
+									<xsd:element name="StreetName" type="tns:C" minOccurs="0"/>
+									<xsd:element name="StreetNumber" type="tns:C" minOccurs="0"/>
+									<xsd:element name="Building" type="tns:C" minOccurs="0"/>
+									<xsd:element name="City" type="tns:C" minOccurs="0"/>
+									<xsd:element name="Postcode" type="tns:C" minOccurs="0"/>
+									<xsd:element name="District" type="tns:C" minOccurs="0"/>
+									<xsd:element name="Country" type="tns:C" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="plainDoc">
+		<xsd:sequence>
+			<xsd:element name="SelectedTemplate" type="tns:C" minOccurs="0"/>
+			<xsd:element name="TargetFilename" type="tns:C" minOccurs="0"/>
+			<xsd:element name="DMSfolderID" type="tns:Int" minOccurs="0"/>
+			<xsd:element name="DMSIsConfidentFlag" type="tns:Boolean" minOccurs="0"/>
+			<xsd:element name="User" type="ap:User_Type" minOccurs="0"/>
+			<xsd:element name="ParticipantList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Participant" type="ap:Participant_Type" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="RequestedProduct" type="ap:RequestedProduct_Type" minOccurs="0"/>
+			<xsd:element name="Meeting" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="RelationshipManager1" type="tns:C" minOccurs="0"/>
+						<xsd:element name="RelationshipManager2" type="tns:C" minOccurs="0"/>
+						<xsd:element name="MainApplicantRepresentativeList" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="MainApplicantRepresentative" type="tns:C" minOccurs="0" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="PlaceOfContractSignature" type="tns:C" minOccurs="0"/>
+						<xsd:element name="DateOfContractSignature" type="tns:DateTime" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

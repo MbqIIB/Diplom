@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://esb.sberbank.com/currency"
+    xmlns:tns="http://esb.sberbank.com/currency"
+    xmlns:com="http://esb.sberbank.com/common/rqrs"
+    xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+    elementFormDefault="qualified"  attributeFormDefault="unqualified">
+    
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes" schemaLocation="../common/simpleTypes.xsd"/>
+        
+    <xsd:complexType name="CurrencyList_Type" >
+        <xsd:sequence>
+            <xsd:element name="CurrencyBlock" type="tns:CurrencyBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>    
+    <xsd:complexType name="CurrencyBlock_Type">
+        <xsd:sequence>    
+            <xsd:element name="CurrencyRecordId" type="xsd:int" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Currency ID. If not present in the source system data, then MCP creates its own ID</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="CurrencyRecordType" type="tns:CurrencyRecordType_Type" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Public | private exchange rate</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="CashBuyValue" type="sim:Decimal_1506_Type" minOccurs="0"/>
+            <xsd:element name="CashSellValue" type="sim:Decimal_1506_Type" minOccurs="0"/>
+            <xsd:element name="CashMiddleValue" type="sim:Decimal_1506_Type" minOccurs="0"/>
+            <xsd:element name="NonCashBuyValue" type="sim:Decimal_1506_Type" minOccurs="0"/>
+            <xsd:element name="NonCashSellValue" type="sim:Decimal_1506_Type" minOccurs="0"/>
+            <xsd:element name="NonCashMiddleValue" type="sim:Decimal_1506_Type" minOccurs="0"/>
+            <xsd:element name="Trend" type="tns:Trend_Type" minOccurs="0"/>
+            <xsd:element name="RateDateTime" type="xsd:dateTime" minOccurs="0"/>
+            <xsd:element name="Unit" type="xsd:int" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Number of units in the currency which could be bought / sold for displayed rate</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="CurrencyCode" type="tns:CurrencyCode_Type"/>
+            <xsd:element name="ValidFrom" type="xsd:dateTime" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>ValidFrom Date and time when the Currency rate become valid</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>    
+
+    <xsd:complexType name="CurrencyCodeList_Type" >
+        <xsd:sequence>
+            <xsd:element name="CurrencyCode" type="tns:CurrencyCode_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+        
+    <xsd:complexType name="Currency_Type">
+        <xsd:sequence>
+            <xsd:element name="CurNumericId" type="tns:CurNumericId_Type"/>
+            <xsd:element name="CurStringId" type="tns:CurStringId_Type"/>
+            <xsd:element name="CurName" type="sim:ShortString_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:simpleType name="CurNumericId_Type">
+        <xsd:restriction base="xsd:int">
+            <xsd:minInclusive value="0"/>
+            <xsd:maxInclusive value="999"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CurStringId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="3"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CurrencyCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="3"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+        
+    <xsd:simpleType name="Trend_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="UP"/>
+            <xsd:enumeration value="DOWN"/>
+            <xsd:enumeration value="STABLE"/>
+          </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CurrencyRecordType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="PUBLIC"/>
+            <xsd:enumeration value="PRIVATE"/>
+          </xsd:restriction>
+    </xsd:simpleType>
+    
+</xsd:schema>

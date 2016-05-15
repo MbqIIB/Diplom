@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:s="http://sberbank.ru/mpc/Base_Type" xmlns:ta="http://sberbank.ru/mpc/transactionAggregates_Type" targetNamespace="http://sberbank.ru/mpc/transactionAggregates_Type" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/mpc/Base_Type" schemaLocation="..\..\base_type\baseType.xsd"/>
+	<xsd:annotation/>
+	<xsd:annotation>
+		<xsd:documentation>Простые типы --------------------------------------------------------------------------------------------------------------</xsd:documentation>
+	</xsd:annotation>
+	<xsd:annotation/>
+	<xsd:simpleType name="AuthCode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код авторизации </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CurExp_Type">
+		<xsd:annotation>
+			<xsd:documentation>Валютная экспонента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpAuthCode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код авторизации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpAmount_Type">
+		<xsd:annotation>
+			<xsd:documentation>Сумма в валюте операции </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpBankNum_Type">
+		<xsd:annotation>
+			<xsd:documentation>Номер операции в банковской системе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="36"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpCode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpCurrency_Type">
+		<xsd:annotation>
+			<xsd:documentation>Валюта операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpDt_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дата и время операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:DateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpCity_Type">
+		<xsd:annotation>
+			<xsd:documentation>Город проведения операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="50"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpPlaceOfTransaction_Type">
+		<xsd:annotation>
+			<xsd:documentation>Место проведения операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="128"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpMerchantId_Type">
+		<xsd:annotation>
+			<xsd:documentation>ID торговца</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpTerminalId_Type">
+		<xsd:annotation>
+			<xsd:documentation>ID терминала</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpTypeCode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код типа операции </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RRN_Type">
+		<xsd:annotation>
+			<xsd:documentation>Уникальный номер транзакции </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="13"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TrDt_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дата проведения транзакции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:Date"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="TrTm_Type">
+		<xsd:annotation>
+			<xsd:documentation>Время проведения транзакции </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:Time"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="TrDtTm_Type">
+		<xsd:annotation>
+			<xsd:documentation>Время проведения транзакции (прямая или отмена) в SVFE </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:DateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="TrTypeCode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код типа транзакции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="s:String">
+			<xsd:length value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

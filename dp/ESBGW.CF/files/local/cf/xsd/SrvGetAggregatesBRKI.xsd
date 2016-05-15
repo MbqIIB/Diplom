@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:glia="http://sbrf/ru/sbt/mdo/rqrs/GetAggregatesBRKI" xmlns:crq="http://sbrf/ru/sbt/mdo/rqrs/BRKI/crq" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/GetAggregatesBRKI" schemaLocation="./BRKI/GetAggregatesBRKIType.xsd"/>
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/BRKI/crq" schemaLocation="./BRKI/CommonRequestType.xsd"/>
+	<xsd:element name="SrvGetAggregatesBRKIRq" type="crq:CommonRequest_Type">
+		<xsd:annotation>
+			<xsd:documentation>Get aggreagates request</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvGetAggregatesBRKIRs" type="glia:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Get aggreagates response</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

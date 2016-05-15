@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dl="http://sbrf/ru/sbt/mdo/rqrs/docLoan" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:person="http://sberbank.ru/dem/individual" xmlns:tns="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ci="http://sberbank.ru/dem/commonAggregates" xmlns:loan="http://sberbank.ru/dem/loan" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/docLoan" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/loan" schemaLocation="../DataTypes/domains/loan/loanAggregates.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:complexContent>
+			<xsd:extension base="BasicRq_Type">
+				<xsd:sequence>
+					<xsd:element name="BankInfo" type="bank:BankInfo_Type" minOccurs="0"/>
+					<xsd:element name="LoanInfo" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Borrower" type="person:PersonInfo_Type" minOccurs="0"/>
+								<xsd:element name="BorrowerRelationToMA" type="tns:C" minOccurs="0"/>
+								<xsd:element name="Coborrower" type="person:PersonInfo_Type" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="CoborrowerRelationToMA" type="tns:C" minOccurs="0"/>
+								<xsd:element name="Guarantor" type="person:PersonInfo_Type" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="GuarantorRelationToMA" type="tns:C" minOccurs="0"/>
+								<xsd:element name="Loan" type="loan:Loan_Type" minOccurs="0"/>
+								<xsd:element name="Contract" type="loan:LoanContract_Type" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="LoanIdMidas" type="tns:C" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:complexContent>
+			<xsd:extension base="BasicRs_Type">
+				<xsd:sequence>
+					<xsd:element name="PreContractID" type="tns:Identifier" minOccurs="0"/>
+					<xsd:element name="PreContractInfo" type="loan:Doc_Type" minOccurs="0"/>
+					<xsd:element name="LoanContractID" type="tns:Identifier" minOccurs="0"/>
+					<xsd:element name="LoanContractInfo" type="loan:Doc_Type" minOccurs="0"/>
+					<xsd:element name="GuarantorContractID" type="tns:Identifier" minOccurs="0"/>
+					<xsd:element name="GuarantorContractInfo" type="loan:Doc_Type" minOccurs="0"/>
+					<xsd:element name="RepaymentSheduleID" type="tns:Identifier" minOccurs="0"/>
+					<xsd:element name="RepaymentSheduleInfo" type="loan:Doc_Type" minOccurs="0"/>
+					<xsd:element name="MidasID" type="ci:ClientInfo_Type" minOccurs="0"/>
+					<xsd:element name="InstalmentAmount" type="tns:Decimal" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

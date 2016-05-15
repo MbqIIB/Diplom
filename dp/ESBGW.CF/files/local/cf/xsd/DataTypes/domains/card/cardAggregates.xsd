@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Mike (None) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns="http://sberbank.ru/dem/ifxCards" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifxcust="http://sberbank.ru/dem/customerTypes" xmlns:agmt="http://sberbank.ru/dem/agreement" targetNamespace="http://sberbank.ru/dem/ifxCards" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/customerTypes" schemaLocation="../customers/customerAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/agreement" schemaLocation="../agreement/agreementAggregates.xsd"/>
+	<xsd:complexType name="CardInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о пластиковой карте</xsd:documentation>
+			<xsd:documentation/>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="EffDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата, начиная с которой действуют условия.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProdType" type="ifxst:ProdCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код типового договора для продукта (код шаблона)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProductType" type="ifxst:ProdType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип продукта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CardType" type="ifxst:CardType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип пластиковой карты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CardNum" type="ifxst:CardNum_Type">
+				<xsd:annotation>
+					<xsd:documentation>Номер пластиковой карты.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AgreemtNum" type="ifxst:AgreemtNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер договора.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SupplAgreemtNum" type="ifxst:AgreemtNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер дополнительного соглашения.	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MnemoId" type="ifxst:MnemoId100_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Мнемонический идентификатор договора для потребителя.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrigDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата заключения договора.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала действия договора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания действия договора.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CustId" type="ifxcust:CustId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор потребителя.	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BranchNum" type="ifxst:BranchNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер филиала банка.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AgencyNum" type="ifxst:AgencyNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер отделения банка.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CSRCode" type="ifxst:CSRCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код ответственного исполнителя.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurCode" type="ifxst:CurCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код валюты.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MinPmtCurAmt" type="ifxst:Amt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Минимальная сумма платежа.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AcctExist" type="ifx:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Существует ли основной счет.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AcctId" type="ifxst:AcctId_Identifier_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер счета (карточного, кредитного, депозитного)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AcctBal" type="agmt:AcctBal_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Остаток.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DepIntRate" type="agmt:IntRate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Процентная ставка.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LoanIntRate" type="agmt:IntRate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Процентная ставка кредитования.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Fee" type="ifxst:FeeType_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Информация о комиссии и ее сумма.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AdditionalCard">
+				<xsd:annotation>
+					<xsd:documentation>Является ли карта дополнительной</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:ClosedEnum">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

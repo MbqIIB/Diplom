@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by TEAM ViRiLiTY (VRL) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:ln="http://sbrf/ru/sbt/mdo/rqrs/reserveloannumber" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/reserveloannumber" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRq_Type"/>
+			<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+			<xsd:element name="Product" type="ca:Product_Type" minOccurs="0"/>
+			<xsd:element name="LoanNumber" type="ca:LoanNumber_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRs_Type"/>
+			<xsd:element name="Product" type="ca:Product_Type" minOccurs="0"/>
+			<xsd:element name="LoanNumber" type="ca:LoanNumber_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:pre="http://sbrf/ru/sbt/mdo/rqrs/preApprove" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/preApprove" schemaLocation="PreApproved/PreApprovedType.xsd"/>
+	<xsd:element name="SrvSearchPreApprovedRq" type="pre:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Request check existing customer file</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvSearchPreApprovedRs" type="pre:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Response check existing customer file</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Операции принимают значение request|response|notification
+     Если нет responseTagName, то имя равно имени элемента-->
+<operations>
+	<SimpleTestOperation>request</SimpleTestOperation>
+	<SvcCodeInqRq responseTagName="SvcCodeInqRs">request</SvcCodeInqRq>
+	<SvcCodeInqRs responseTagName="SvcCodeInqRs">response</SvcCodeInqRs>
+</operations>

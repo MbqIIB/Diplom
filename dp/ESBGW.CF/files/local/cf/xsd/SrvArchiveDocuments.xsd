@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:bl="http://sbrf/ru/sbt/mdo/rqrs/blacklist" xmlns:ardocs="http://sbrf/ru/sbt/mdo/rqrs/archiveDocuments" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/archiveDocuments" schemaLocation="ArchiveDocuments/ArchiveDocsType.xsd"/>
+	<xsd:element name="SrvArchiveDocumentsRq" type="ardocs:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Request to Garchive</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvArchiveDocumentsRs" type="ardocs:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Response from Garchive</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

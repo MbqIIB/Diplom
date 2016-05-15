@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ifxst="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:mt="http://sberbank.ru/dem/mt/base" xmlns:wu="http://sberbank.ru/dem/moneytransfers/westernunionAggregates" targetNamespace="http://sberbank.ru/dem/moneytransfers/westernunionAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+</xsd:schema>

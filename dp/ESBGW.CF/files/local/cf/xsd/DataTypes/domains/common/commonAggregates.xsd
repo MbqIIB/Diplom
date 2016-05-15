@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/commonAggregates" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" targetNamespace="http://sberbank.ru/dem/commonAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:complexType name="Income_Type">
+		<xsd:annotation>
+			<xsd:documentation>Доход</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Source" type="ifxst:IncomeSource_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Источник дохода / Source if the income</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Periodicity" type="ifxst:Periodicity_Type" minOccurs="0"/>
+			<xsd:element name="Amount" type="CurrencyAmount_Type"/>
+			<xsd:element name="TIN" type="TINInfo_Type" minOccurs="0"/>
+			<xsd:element name="Desc" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание дохода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AdditionalStatus_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дополнительные статусы</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StatusCode" type="ifxst:StatusCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статусный код возврата</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ServerStatusCode" type="ifxst:ServerStatusCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статусный код сервера</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Severity" type="ifxst:Severity_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Серьезность ошибки. Значения: Error, Warn, Info</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StatusDesc" type="ifxst:StatusDesc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание статуса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddressFlag_Type">
+		<xsd:sequence>
+			<xsd:element name="Name" type="ifx:OpenEnum"/>
+			<xsd:element name="Value" type="ifx:Boolean"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AsyncRsInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об асинхронном ответе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AvailDt" type="ifxst:AvailDt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата/время готовности ответа. Расчетное время, когда будет готов ответ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpDt" type="ifxst:ExpDt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата/время хранения ответа. То время, когда ответ будет удален с сервера</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Branch_Type">
+		<xsd:annotation>
+			<xsd:documentation>Подразделение Сбербанка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifxst:BranchType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип подразделения банка. Предопределенные значения:
+TB - Территориальный банк
+OSB - Отделение Сбербанка
+VSP - Внутренние структурное подразделение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BranchId" type="TypedId_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов подразделения в разных системах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" type="ifxst:BranchName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование подразделения Сбербанка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ParentBranch" type="Branch_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Подразделение более высокого уровня иерархии (например, для отделения - это филиал)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="City" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CompositeContactInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">Комплексная контактная информация</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ContactInfoType" type="ifxst:ContactInfoType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип контактной информации
+Предопределенные значения:
+CustServ – для обслуживания потребителей
+LostCard – для сообщений об утере карт
+GeneralInfo – для общей информации
+LegalAddress – юридический адрес
+ActualAddress – фактический адрес</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ContactInfo" type="ContactInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Контактная информация</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ContactData_Type">
+		<xsd:annotation>
+			<xsd:documentation>Универсальный контакт</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ContactType" type="ifxst:ContactPref_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип контакта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ContactValue">
+				<xsd:annotation>
+					<xsd:documentation>Значение контакта</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PrefTimeStart" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала действия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PrefTimeEnd" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания действия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ContactCategory">
+				<xsd:annotation>
+					<xsd:documentation>Категория контакта:
+1- Телефон; 
+2- Факс; 
+3- Телеграф;
+4- Телефакс;  
+5- Телетайп;  
+6- Телекс;
+7- Адрес в сети Интернет;
+8- E-mail.
+</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:long">
+						<xsd:enumeration value="1"/>
+						<xsd:enumeration value="2"/>
+						<xsd:enumeration value="3"/>
+						<xsd:enumeration value="4"/>
+						<xsd:enumeration value="5"/>
+						<xsd:enumeration value="7"/>
+						<xsd:enumeration value="8"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ContractType" type="ifx:OpenEnum" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ContactInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">Контактная информация</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ContactPref" type="ifxst:ContactPref_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Предпочтительный способ контакта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PrefTimeStart" type="ifx:Time" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation source="WMQI_DOCUMENTATION">Начало времени действия предпочтительного способа контакта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PrefTimeEnd" type="ifx:Time" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation source="WMQI_DOCUMENTATION">Окончание времени действия предпочтительного способа контакта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PhoneNum" type="ifxst:PhoneNumber_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Телефонные номера</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ContactName" type="ifxst:ContactName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имя персоны, ассоциированное с контактной информацией</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EmailAddr" type="ifxst:EMailAddr_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation source="WMQI_DOCUMENTATION">Адрес электронной почты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="URL" type="ifx:URL" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Адрес Web сайта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ContactData" type="ContactData_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список универсальных контактов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PostAddr" type="PostAddr_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список почтовых адресов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProviderCode" type="ifxst:ProviderCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код провайдера</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurrencyAmount_Type">
+		<xsd:annotation>
+			<xsd:documentation>Денежная сумма</xsd:documentation>
+			<xsd:documentation/>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Amt" type="ifxst:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сумма</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Reversal" type="ifxst:Reversal_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurCode" type="ifxst:CurCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код валюты. Заполняется в случае наличия поля CurRate.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:sequence minOccurs="0">
+				<xsd:element name="CurRate" type="ifxst:CurRate_Type">
+					<xsd:annotation>
+						<xsd:documentation>Курс обмена. Курс обмена иностранной валюты на валюту денежной суммы. Поле CurConvertRule определяет является ли данное поле нумератором или деноминатором.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="CurConvertRule" type="ifxst:CurConvertRule_Type">
+					<xsd:annotation>
+						<xsd:documentation>Напраление конвертации. Допустимые значения Direct и Indirect.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExtraTerm_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дополнительный срок.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Count" type="ifxst:Count_Type">
+				<xsd:annotation>
+					<xsd:documentation>Количество TermUnits.
+Примечание: если TermUnits >= Days, то это количество календарных дней, а не рабочих.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TermUnits" type="ifxst:TermUnits_Type">
+				<xsd:annotation>
+					<xsd:documentation>Единица срока.
+Предопределенные значения: Days, Weeks, Months, Years, Indefinite</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Fee_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип и сумму сбора</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FeeType" type="ifxst:FeeType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип сбора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FeeName" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="FeeValue" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="FeeScale" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="CurAmt" type="CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма валюты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Rate" type="ifxst:Rate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Процент сбор</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MinCurAmt" type="CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Минимальная сумма валюты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaxCurAmt" type="CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Максимальная сумма валюты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateType" type="ifxst:RateType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип процентной ставки по комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PeriodStartDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="PaymentType" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="PaymentFrequency" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="PercOf" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PostAddr_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">Почтовый адрес</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Addr1" type="ifxst:Addr1_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Строка адреса 1</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Addr2" type="ifxst:Addr2_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Строка адреса 2. Заполняется в случае наличия строки адреса 3</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Addr3" type="ifxst:Addr3_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Строка адреса 3. Заполняется в случае наличия строки адреса 4</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Addr4" type="ifxst:Addr4_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Строка адреса 4</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="City" type="ifxst:City_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Город</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CityCode" type="ifxst:CityCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код города</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StateProv" type="ifxst:StateProv_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Штат, провинция, область</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StateProvCode" type="ifxst:StateProvCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код штата, провинции.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Area" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Район</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="60"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AreaCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код района</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="11"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PostalCode" type="ifxst:PostalCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Индекс</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PostalCodes" type="ifxst:PostalCode_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="Country" type="ifxst:Country_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страна</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CountryCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код страны согласно ISO</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:NC">
+						<xsd:maxLength value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AddrType" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип адреса. Предопределенные значения:
+Seasonal – сезонный
+Primary – основной
+Secondary – второй
+Business – рабочий
+Home – домашний
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartDt" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Начальная дата действия.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EndDt" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Конечная дата действия.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DistrictCode" type="ifxst:DistrictCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код района города.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="District" type="ifxst:District_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Район города</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PlaceCode" type="ifxst:PlaceCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код населенног пункта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Place" type="ifxst:Place_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Населенный пункт</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StreetCode" type="ifxst:StreetCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код улицы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Street" type="ifxst:Street_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование улицы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="House" type="ifxst:House_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер дома</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Corpus" type="ifxst:Corpus_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Корпус</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Building" type="ifxst:Building_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Стоение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Flat" type="ifxst:Flat_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер квартиры</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Office" type="ifxst:Office_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер офиса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RusKLADR" type="ifxst:RusKLADR_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код КЛАДР</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AddrStatus" type="ifx:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Активность адреса, True - активный, False - неактивный</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Status_Type">
+		<xsd:annotation>
+			<xsd:documentation>Статус ответа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StatusCode" type="ifxst:StatusCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусный код возврата</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ServerStatusCode" type="ifxst:ServerStatusCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статусный код сервера. Это значение выдается пользователю на экран и позволяет провайдеру лучше диагностировать ошибку</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Severity" type="ifxst:Severity_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Серьезность ошибки. Значения: Error, Warn, Info</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StatusDesc" type="ifxst:StatusDesc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание статуса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AdditionalStatus" type="AdditionalStatus_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дополнительные статусы. Этот агрегат может содержать дополнительные статусы, которые может сообщить сервер. Например, и номер счета, и дата неправильны, то StatusCode может содержать одну из этих ошибок, а этот агрегат – другую</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AsyncRsInfo" type="AsyncRsInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация об асинхронном ответе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Term_Type">
+		<xsd:annotation>
+			<xsd:documentation>Срок</xsd:documentation>
+			<xsd:documentation>
+				Срок может измеряться одновременно в нескольких
+				единицах, учитываемых суммарно. Например, допустим срок
+				3 месяца + 1 день. В этом случае, пара элементов
+				&lt;Count&gt; и &lt;TermUnits&gt; с более длительной
+				единицей срока записывается как основной срок, а другая
+				пара – как дополнительный.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Count" type="ifxst:Count_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Количество &lt;TermUnits&gt;. Обязательно, если
+						&lt;TermUnits&gt;≠Indefinite.Примечание: если
+						&lt;TermUnits&gt;=Days, то это количество
+				календарных дней, а не рабочих.	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TermUnits" type="ifxst:TermUnits_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Единица срока.Предопределенные значения: Days,Weeks, Months, Years, Indefinite, Overnight</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExtraTerm" type="ExtraTerm_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дополнительный срок.	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Desc" type="ifxst:Desc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DaysCall" type="ifx:Long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дни до изъятия. За какое количество рабочих дней
+необходимо уведомить кредитора перед изъятием
+средств. Обязательно, если &lt;TermUnits&gt;=Indefinite.	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TINInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Налоговый идентификатор (напр.ИНН)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TINType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип налогового идентификатора</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:TINType_Type"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="TaxId" type="ifxst:TaxId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор налогоплательщика (ИНН/КИО).</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CertCode" type="ifxst:CertNo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Удостоверяющий код для индентификатора налога</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TypedId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Идентификатор объекта во внешней системе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="System" type="ifxst:ExternalSystem_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название системы, в которой задан идентификатор</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="ifxst:ExternalIdType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип идентификатора в системе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ID" type="ifxst:ExternalId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор заданного типа в указанной системе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExtEMailAddr">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация об адресе электронной почты</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="EMailType">
+				<xsd:annotation>
+					<xsd:documentation>Тип адреса</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:minLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="MailAddr">
+				<xsd:annotation>
+					<xsd:documentation>E-mail адрес</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:minLength value="128"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Comments" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Комментарии</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="128"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExtPhoneNum">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация о контактном телефоне</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PhoneType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип телефона</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PhoneCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код оператора связи</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PhoneOperName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование оператора связи</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="128"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Phone">
+				<xsd:annotation>
+					<xsd:documentation>Номер телефона</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Comments" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Комментарии</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="128"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Liability_Type">
+		<xsd:sequence>
+			<xsd:element name="CCBOperationCode" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="Phase" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="BankName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Name of the Bank</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Role" type="ifx:OpenEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Client role</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClientInfo" type="ClientInfo_Type" minOccurs="0"/>
+			<xsd:element name="AccountNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AccountCode" type="ifxst:CurCode_Type" minOccurs="0"/>
+			<xsd:element name="ActualPrincipal" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="FacilityType" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="FacilityNumber" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="OriginalAmount" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="Limit" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="OutstandingAmount" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="ResidualAmount" type="ifxst:Amt_Type" minOccurs="0"/>
+			<xsd:element name="Currency" type="ifxst:CurCode_Type" minOccurs="0"/>
+			<xsd:element name="InterestRate" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="MonthlyInstallment" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="NumberOfInstallments" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="Periodicity" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="StartDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="MaturityDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="LastDelinquencyDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="OverdueAmount" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="OverdueDays" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="Status" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="FinancialBodyNumber" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ClientInfo_Type">
+		<xsd:sequence>
+			<xsd:element name="ABSClientNumber" type="ifx:NC" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ABS=MIDAS for Slovakia</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ABSLoanNumber" type="ifx:NC" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ABS=MIDAS for Slovakia</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FrontEndClientNumber" type="ifx:NC" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>FESId for Slovakia</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ClientDetailInfo_Type">
+		<xsd:sequence>
+			<xsd:element name="ABSClientNumber" type="ifx:NC"/>
+			<xsd:element name="ABSLoanNumber" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="FrontEndClientNumber" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="ClientName" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="ParentABSClientNumber" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="BirthNumber" type="ifx:NC" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Offer_Type">
+		<xsd:sequence>
+			<xsd:element name="Product" type="Product_Type"/>
+			<xsd:element name="LoanGrantingFee" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="RequestedLoanAmount" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="MaturityInMonths" type="ifx:Long" minOccurs="0"/>
+			<xsd:element name="IncomeNetto" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="InterestRate" type="InterestRate_Type" minOccurs="0"/>
+			<xsd:element name="TotalMonthlyliabilities" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="InstallmentFrequency" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="InstallmentAmount" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="PrincipalPaymentAmount" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="MonthlyRepayment" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="RepaymentType" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="TotalInterestAmount" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="ChildrenNumber" type="ifx:Long" minOccurs="0"/>
+			<xsd:element name="HousingExpenses" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="LivingExpenses" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="PreliminaryResult" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="RequireCoBorrower" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="NumberOfGuarantors" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="APR" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="Date" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="Fees" type="Fee_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="CreditInspector" type="CreditInspector_Type"/>
+			<xsd:element name="SecondSignatureCI" type="CreditInspector_Type"/>
+			<xsd:element name="PrintPaths" type="Print_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductInfo_Type">
+		<xsd:sequence>
+			<xsd:element name="ProductType" type="ifxst:ProdType_Type" minOccurs="0"/>
+			<xsd:element name="ProductGroup" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="Product" type="ifxst:ProdCode_Type" minOccurs="0"/>
+			<xsd:element name="ProductName" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="SubProductCode" type="ifxst:ProdCode_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Product_Type">
+		<xsd:sequence>
+			<xsd:element name="ProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductGroup" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="ProductType" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="ProductNumber" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ProductName" type="ifx:NC" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InterestRate_Type">
+		<xsd:sequence>
+			<xsd:element name="ReferenceRates" type="ReferenceRate_Type" maxOccurs="unbounded"/>
+			<xsd:element name="Margin" type="ifx:Decimal"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ReferenceRate_Type">
+		<xsd:sequence>
+			<xsd:element name="ReferenceType" type="ifx:C"/>
+			<xsd:element name="ReferenceValue" type="ifx:Decimal"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CreditInspector_Type">
+		<xsd:sequence>
+			<xsd:element name="FirstName" type="ifx:C"/>
+			<xsd:element name="LastName" type="ifx:C"/>
+			<xsd:element name="Role" type="ifx:C"/>
+			<xsd:element name="Email" type="ifx:C"/>
+			<xsd:element name="Phone" type="ifx:C"/>
+			<xsd:element name="Branch" type="Branch_Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Print_Type">
+		<xsd:sequence>
+			<xsd:element name="printEmail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="printNetAddress" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="LoanNumber_Type">
+		<xsd:sequence>
+			<xsd:element name="loanNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="operation" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RawDataDescription_Type">
+		<xsd:sequence>
+			<xsd:element name="courtId" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="fileNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="rawData" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Rating_Type">
+		<xsd:sequence>
+			<xsd:element name="Rating" type="ifx:C"/>
+			<xsd:element name="Rating_Date" type="ifx:Date" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="contractProduct_Type">
+		<xsd:sequence>
+			<xsd:element name="Product" type="Product_Type"/>
+			<xsd:element name="contractedAmount" type="ifx:Decimal"/>
+			<xsd:element name="contractedMaturity" type="ifx:Int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>in months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="drawAccount" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="InterestRate" type="InterestRate_Type" minOccurs="0"/>
+			<xsd:element name="lastRevolvingDate" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+    					loans - date of last repayment, revolving -
+    					today + 3 years
+    				</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fees" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="fees" type="Fee_Type" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="paymentDay" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="noPayments" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="anuityAmount" type="ifx:Decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Subject_Type">
+		<xsd:sequence>
+			<xsd:element name="EntityId" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="IdentificationNumber" type="ifxst:IdNum_Type" minOccurs="0"/>
+			<xsd:element name="SubjectName" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="SubjectType" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="DateOfBirth" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="Address" type="PostAddr_Type" minOccurs="0"/>
+			<xsd:element name="NegativeList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="NegativeInfo" type="NegativeInfo_Type" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="RelationLevel" type="ifx:Int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SubjectList_Type">
+		<xsd:sequence>
+			<xsd:element name="Subject" type="Subject_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="IsCompleted" type="ifx:Boolean" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="NegativeInfo_Type">
+		<xsd:sequence>
+			<xsd:element name="AbbreviationCode" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="StartDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="EndDate" type="ifx:Date" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

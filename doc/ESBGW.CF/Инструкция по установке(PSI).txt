@@ -1,0 +1,86 @@
+Инструкция по установке на PSI
+
+--------------------------------------
+||		Развёртывание инфраструктуры MQ		||
+--------------------------------------
+Для установки использовать дистрибутив для PSI
+
+1. Скопировать директорию mq на стенд развёртывания
+2. Выполнить скрипты по созданию менеджеров(если их нет) в директории mq/PSI/create:
+		выполнить создание менеджера IRUS.SBI.IN.GW1 - install.bat
+		выполнить создание менеджера IRUS.SBI.GW1 - install.bat
+		выполнить создание менеджера IRUS.SBI.OUT.GW1 - install.bat
+3. Установить объекты для функционирования этих менеджеров(если не было менеджеров)(Создание пользователей через скрипт занимает продолжительное время ~ 2-3 минуты)
+		Выполнить создание объектов для IRUS.SBI.IN.GW1 скриптом update_IRUS.SBI.IN.GW1.bat
+		Выполнить создание объектов для IRUS.SBI.GW1 скриптом update_IRUS.SBI.GW1.bat
+		Выполнить создание объектов для IRUS.SBI.OUT.GW1 скриптом update_IRUS.SBI.OUT.GW1.bat
+4. Установить объекты для функционирования АС в директории mq/PSI/update:
+		Выполнить создание объектов для IRUS.SBI.IN.GW1 скриптом update_IRUS.SBI.IN.GW1.bat
+		Выполнить создание объектов для IRUS.SBI.GW1 скриптом update_IRUS.SBI.GW1.bat
+		Выполнить создание объектов для IRUS.SBI.OUT.GW1 скриптом update_IRUS.SBI.OUT.GW1.bat
+5. Выполнить дополнительные команды, на IBM WebSphere MQ 7.5
+		Runmqsc IRUS.SBI.IN.GW1
+		ALTER QMGR CHLAUTH(DISABLED)
+		Runmqsc IRUS.SBI.GW1
+		ALTER QMGR CHLAUTH(DISABLED)
+		Runmqsc IRUS.SBI.OUT.GW1
+		ALTER QMGR CHLAUTH(DISABLED)
+		
+		
+--------------------------------------
+||		Установка дистрибутива на DataPower		||
+--------------------------------------
+Для установки использовать дистрибутив для PSI
+
+Установка домена ESBGW.CF_PSI
+(Если домен существует - импортировать в домен файл ESBGW.CF.zip только с заменой всех локальных файлов, но без замены объектов на Datapower)
+1. Создать домен ESBGW.CF_PSI на устройстве DataPower
+2. Создать группу WAMC: ESBGWCF_EXT_PSI, добавить в неё домен ESBGW.CF_PSI
+3. Создать группу WAMC: ESBGWCF_PSI для устройств DataPower
+4. Скопировать каталог distr на стенд развёртывания(положить рядом со скриптом deploy.auto.sh)
+5. Скопировать каталог groupConfigs на стенд развёртывания(положить рядом со скриптом deploy.auto.sh)
+6. Установить дистрибутив скриптом на домен ESBGW.CF
+	deploy.auto.sh ESBGW.CF D_01.000.00 PSI ESBGW.CF.zip ESBGW.CF.PSI.xcfg -d
+7. Проверить результат выполнения(Multi Protocol Gateway ESBGW.CF.MPG должtен быть в состоянии up)
+
+
+--------------------------------------
+||		Установка дистрибутива логирования на Oracle DataBase		||
+--------------------------------------
+Для установки использовать SQL-скрипты из директории SQL(Если база данных уже есть - soyma2.cgs.sbrf.ru; port:1523; sid:islog, то не выполнять скрипты )
+1. На базе данных выполнить скрипты по созданию пользователей : CreateEsblog_user.sql
+2. На базе данных выполнить скрипты по созданию объектов : CreateEsblog_object.sql
+
+
+--------------------------------------
+||		Установка дистрибутива логирования на DataPower		||
+--------------------------------------
+Для установки использовать дистрибутив для PSI
+
+Установка объектов на домен логирования PSI(домен логирования должен существовать, иначе перейти к пункту установки полного дистрибутива)
+(Проверить наличие MQ Front Side Handler SBI.MQFSH.LOGGER в Multi Protocol Gateway LOGGER.MPG, если нет, то перейти к установке с 1 пункта)
+(Проверить наличие MQ Front Side Handler SBI.MQFSH.EXT.LOGGER в Multi Protocol Gateway EXT.LOGGER.MPG, если нет, то перейти к установке с 1 пункта)
+1. Импортировать файл ESBGW.LOGGER.PATCH.zip
+2. Во время загрузки должны быть отображены следующие объекты: 
+	SBI.MQ.LOGGER 
+	SBI.MQFSH.LOGGER
+	SBI.MQFSH.EXT.LOGGER
+3. После загрузки зайти в Multi Protocol Gateway LOGGER.MPG
+	В Front Side Protocol добавить объект SBI.MQFSH.LOGGER
+	Сохранить
+4. Проверить результат выполнения(Multi Protocol Gateway должtен быть в состоянии up, SBI.MQFSH.LOGGER должен быть в состоянии up)
+5. После загрузки зайти в Multi Protocol Gateway EXT.LOGGER.MPG
+	В Front Side Protocol добавить объект SBI.MQFSH.EXT.LOGGER
+	Сохранить
+6. Проверить результат выполнения(Multi Protocol Gateway должtен быть в состоянии up, SBI.MQFSH.EXT.LOGGER должен быть в состоянии up)
+
+
+Установка дистрибутива домена логирования на PSI
+1. Создать домен ESBGW.LOGGER_PSI на устройстве DataPower
+2. Создать группу WAMC: ESBGW_LOGGER_EXT_PSI, добавить в неё домен ESBGW.SBI_PSI
+3. Создать группу WAMC: ESBGW_LOGGER_PSI для внутренних устройств DataPower
+4. Скопировать каталог deployment, domain на стенд развёртывания(положить рядом со скриптом deploy.auto.sh)
+5. Скопировать каталог groupConfigs на стенд развёртывания(положить рядом со скриптом deploy.auto.sh)
+6. Установить дистрибутив скриптом на домен ESBGW.LOGGER_PSI
+	deploy.auto.sh ESBGW.LOGGER D_01.000.00 PSI ESBGW.LOGGER.zip ESBGW.LOGGER.PSI.xcfg -d
+7. Проверить результат выполнения(Multi Protocol Gateway ESBGW.SBI.MPG должtен быть в состоянии up)

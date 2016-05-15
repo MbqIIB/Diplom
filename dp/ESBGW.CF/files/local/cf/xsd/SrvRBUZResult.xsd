@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:rbuz="http://sbrf/ru/sbt/mdo/rqrs/ResultType" xmlns:ns1="http://sbrf/ru/sbt/mdo/rqrs" xmlns:ns2="http://sbrf/ru/sbt/mdo/rqrs/RBUZResult" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/ResultType" schemaLocation="RBUZ/ResultType.xsd"/>
+	<xsd:element name="SrvRBUZResultRq" type="rbuz:Request_Type"/>
+	<xsd:element name="SrvRBUZResultRs" type="rbuz:Response_Type"/>
+</xsd:schema>

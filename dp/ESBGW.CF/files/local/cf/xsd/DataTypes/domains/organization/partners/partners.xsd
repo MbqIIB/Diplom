@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/organizations/partners" targetNamespace="http://sberbank.ru/dem/organizations/partners" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- Типы данных для описания и идентификации банков -->
+	<xsd:complexType name="Partner_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о партнёре</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:string"/>
+			<xsd:element name="Function" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ValidFrom" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="ValidTo" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="Address" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Share" type="xsd:double" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:csr="http://sbrf/ru/sbt/mdo/rqrs/checkrelations" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/checkrelations" schemaLocation="CheckSpecialRelationships/CheckSpecialRelationshipsType.xsd"/>
+	<xsd:element name="SrvCheckSpecRelationshipRq" type="csr:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Get clients with special relationships request</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvCheckSpecRelationshipRs" type="csr:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Get clients with special relationships response</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

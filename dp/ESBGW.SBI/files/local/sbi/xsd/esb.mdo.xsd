@@ -1,0 +1,1259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://esb.sberbank.com/rqrs/esb"
+			xmlns:tns="http://esb.sberbank.com/rqrs/esb"
+
+			xmlns:com="http://esb.sberbank.com/common/rqrs"
+			xmlns:cln="http://esb.sberbank.com/client"
+			xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+			xmlns:prd="http://esb.sberbank.com/product"
+			xmlns:bnk="http://esb.sberbank.com/bank"
+			xmlns:pay="http://esb.sberbank.com/payment"
+    xmlns:trn="http://esb.sberbank.com/transaction"
+    xmlns:not="http://esb.sberbank.com/notification"
+    xmlns:chl="http://esb.sberbank.com/channel"
+    xmlns:off="http://esb.sberbank.com/commercialoffer"
+    
+			elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://esb.sberbank.com/common/rqrs"
+        schemaLocation="mdo/common/commonRqrs.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+        schemaLocation="mdo/common/simpleTypes.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/client"
+        schemaLocation="mdo/client/client.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/product"
+        schemaLocation="mdo/product/product.xsd" />
+	<xsd:import namespace="http://esb.sberbank.com/bank"
+        schemaLocation="mdo/bank/bank.xsd" />
+	<xsd:import namespace="http://esb.sberbank.com/payment"
+        schemaLocation="mdo/payment/payment.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/currency"
+        schemaLocation="mdo/currency/currency.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/transaction"
+        schemaLocation="mdo/transaction/transaction.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/device"
+        schemaLocation="mdo/device/device.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/notification"
+        schemaLocation="mdo/notification/notification.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/channel"
+        schemaLocation="mdo/channel/channel.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/commercialoffer"
+        schemaLocation="mdo/commercialoffer/commercialoffer.xsd" />
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint1.SMS-------------</xsd:documentation>
+        <xsd:documentation>-----------------Sprint4.Notification_Delivery-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvSendClientNotificationRq" type="tns:SrvSendClientNotificationRq_Type" />
+    <xsd:complexType name="SrvSendClientNotificationRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+					<xsd:element name="CoreClientId" type="cln:ClientId_Type" minOccurs="0"/>
+                    <xsd:element name="ClientSegment" type="cln:ClientSegment_Type" minOccurs="0"/>
+                    <xsd:element name="Status" type="xsd:boolean" minOccurs="0"/>
+                    <xsd:element name="EmailMessageList" type="not:EmailMessageList_Type" minOccurs="0"/>
+                    <xsd:element name="SMSMessageList" type="not:SMSMessageList_Type" minOccurs="0"/>
+                    <xsd:element name="PushMessageList" type="not:PushMessageList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+	<xsd:element name="SrvSendClientNotificationRs" type="tns:SrvSendClientNotificationRs_Type"/>
+	<xsd:complexType name="SrvSendClientNotificationRs_Type">
+		<xsd:complexContent>
+			<xsd:extension base="com:CommonEsbRs_Type">
+				<xsd:sequence>
+					<xsd:element name="EmailMessageList" type="not:EmailMessageListMin_Type" minOccurs="0"/>
+					<xsd:element name="SMSMessageList" type="not:SMSMessageListMin_Type" minOccurs="0"/>
+					<xsd:element name="PushMessageList" type="not:PushMessageListMin_Type" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint2.Balance-------------</xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:element name="SrvGetPrivateAgreemtListRq" type="tns:SrvGetPrivateAgreemtListRq_Type" />
+    <xsd:complexType name="SrvGetPrivateAgreemtListRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+	</xsd:complexType>
+    <xsd:element name="SrvGetPrivateAgreemtListRs" type="tns:SrvGetPrivateAgreemtListRs_Type"/>
+    <xsd:complexType name="SrvGetPrivateAgreemtListRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+					<xsd:element name="ProductList" type="prd:ProductList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvGetCreditCardDetailsRq" type="tns:SrvGetCreditCardDetailsRq_Type" />
+    <xsd:complexType name="SrvGetCreditCardDetailsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductGetDetailsList" type="prd:ProductGetDetailsList_Type"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetCreditCardDetailsRs" type="tns:SrvGetCreditCardDetailsRs_Type"/>
+    <xsd:complexType name="SrvGetCreditCardDetailsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="CC_DetailsList" type="prd:CC_DetailsList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvGetDebitCardDetailsRq" type="tns:SrvGetDebitCardDetailsRq_Type" />
+    <xsd:complexType name="SrvGetDebitCardDetailsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductGetDetailsList" type="prd:ProductGetDetailsList_Type"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetDebitCardDetailsRs" type="tns:SrvGetDebitCardDetailsRs_Type"/>
+    <xsd:complexType name="SrvGetDebitCardDetailsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="DC_DetailsList" type="prd:DC_DetailsList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvGetPrivateLoanDetailsRq" type="tns:SrvGetPrivateLoanDetailsRq_Type" />
+    <xsd:complexType name="SrvGetPrivateLoanDetailsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductGetDetailsList" type="prd:ProductGetDetailsList_Type"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetPrivateLoanDetailsRs" type="tns:SrvGetPrivateLoanDetailsRs_Type"/>
+    <xsd:complexType name="SrvGetPrivateLoanDetailsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="Loan_DetailsList" type="prd:Loan_DetailsList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvGetTermDepositDetailsRq" type="tns:SrvGetTermDepositDetailsRq_Type" />
+    <xsd:complexType name="SrvGetTermDepositDetailsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductGetDetailsList" type="prd:ProductGetDetailsList_Type"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetTermDepositDetailsRs" type="tns:SrvGetTermDepositDetailsRs_Type"/>
+    <xsd:complexType name="SrvGetTermDepositDetailsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="TD_DetailsList" type="prd:TD_DetailsList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvGetSavingAccountDetailsRq" type="tns:SrvGetSavingAccountDetailsRq_Type" />
+    <xsd:complexType name="SrvGetSavingAccountDetailsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductGetDetailsList" type="prd:ProductGetDetailsList_Type"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetSavingAccountDetailsRs" type="tns:SrvGetSavingAccountDetailsRs_Type"/>
+    <xsd:complexType name="SrvGetSavingAccountDetailsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="SA_DetailsList" type="prd:SA_DetailsList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvGetCurrentAccountDetailsRq" type="tns:SrvGetCurrentAccountDetailsRq_Type" />
+    <xsd:complexType name="SrvGetCurrentAccountDetailsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductGetDetailsList" type="prd:ProductGetDetailsList_Type"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetCurrentAccountDetailsRs" type="tns:SrvGetCurrentAccountDetailsRs_Type"/>
+    <xsd:complexType name="SrvGetCurrentAccountDetailsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="CA_DetailsList" type="prd:CA_DetailsList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint2.PaymentCardLimits-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvGetCardLimitsRq" type="tns:SrvGetCardLimitsRq_Type" />
+    <xsd:complexType name="SrvGetCardLimitsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetCardLimitsRs" type="tns:SrvGetCardLimitsRs_Type"/>
+    <xsd:complexType name="SrvGetCardLimitsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="CardLimitGetList" type="prd:CardLimitGetList_Type" minOccurs="0"/>
+                </xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvUpdateCardLimitsRq" type="tns:SrvUpdateCardLimitsRq_Type" />
+    <xsd:complexType name="SrvUpdateCardLimitsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type"/>
+                    <xsd:element name="CardLimitSetList" type="prd:CardLimitSetList_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvUpdateCardLimitsRs" type="tns:SrvUpdateCardLimitsRs_Type"/>
+    <xsd:complexType name="SrvUpdateCardLimitsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint3.BankInfo-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvGetClientManagerContactsRq" type="tns:SrvGetClientManagerContactsRq_Type" />
+    <xsd:complexType name="SrvGetClientManagerContactsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ClientSegment" type="cln:ClientSegment_Type"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetClientManagerContactsRs" type="tns:SrvGetClientManagerContactsRs_Type"/>
+    <xsd:complexType name="SrvGetClientManagerContactsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="PersonalBankerBlock" type="bnk:PersonalBankerBlock_Type" minOccurs="0"/>
+                    <xsd:element name="BranchBlock" type="bnk:BranchBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint3.Transfers-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvExecuteTransferDomesticRq" type="tns:SrvExecuteTransferDomesticRq_Type" />
+    <xsd:complexType name="SrvExecuteTransferDomesticRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientBlock" type="cln:ClientDomestic_Type" />
+                    <xsd:element name="DebitAccountBlock" type="prd:DebitAccountBlockMod2_Type"/>
+                    <xsd:element name="PaymentOrderDomesticBlock" type="pay:PaymentOrderDomesticBlock_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvExecuteTransferDomesticRs" type="tns:SrvExecuteTransferDomesticRs_Type"/>
+    <xsd:complexType name="SrvExecuteTransferDomesticRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="PaymentOrderExecuteBlock" type="pay:PaymentOrderExecuteBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvExecuteTransferForeignRq" type="tns:SrvExecuteTransferForeignRq_Type" />
+    <xsd:complexType name="SrvExecuteTransferForeignRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientBlock" type="cln:ClientForeign_Type" />
+                    <xsd:element name="DebitAccountBlock" type="prd:DebitAccountBlockMod2_Type"/>
+                    <xsd:element name="PaymentOrderForeignBlock" type="pay:PaymentOrderForeignBlock_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvExecuteTransferForeignRs" type="tns:SrvExecuteTransferForeignRs_Type"/>
+    <xsd:complexType name="SrvExecuteTransferForeignRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="PaymentOrderExecuteBlock" type="pay:PaymentOrderExecuteBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvGetTransferParametersRq" type="tns:SrvGetTransferParametersRq_Type" />
+    <xsd:complexType name="SrvGetTransferParametersRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="DebitAccountBlock" type="prd:DebitAccountBlockMod2_Type"/>
+                    <xsd:element name="PaymentOrderDomesticBlock4CheckingFee" type="pay:PaymentOrdesDomesticBlock4CheckingFee_Type" minOccurs="0"/>
+                    <xsd:element name="PaymentOrdesForeignBlock4CheckingFee" type="pay:PaymentOrdesForeignBlock4CheckingFee_Type" minOccurs="0"/>
+                    <xsd:element name="BankRequisitesCheckBlock" type="pay:BankRequisitesCheckBlock_Type" minOccurs="0"/>
+                    <xsd:element name="CreditReferenceNumberCheckBlock" type="pay:CreditReferenceNumberCheckBlock_Type" minOccurs="0"/>
+                    <xsd:element name="ExecutionDate" type="xsd:dateTime"  minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetTransferParametersRs" type="tns:SrvGetTransferParametersRs_Type"/>
+    <xsd:complexType name="SrvGetTransferParametersRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="ExecutionDate" type="xsd:dateTime" minOccurs="0"/>
+                    <xsd:element name="FeeBlock" type="pay:FeeBlock_Type" minOccurs="0"/>
+                    <xsd:element name="CreditReferenceNumberCheck" type="xsd:boolean" minOccurs="0"/>
+                    <xsd:element name="BankRequisitesResponseBlock" type="pay:BankRequisitesResponseBlock_Type" minOccurs="0"/>
+                    <xsd:element name="TransferCurrencyCheck" type="xsd:boolean" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint4.StandingOrder-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvCreatePrivateStandingOrderRq" type="tns:SrvCreatePrivateStandingOrderRq_Type" />
+    <xsd:complexType name="SrvCreatePrivateStandingOrderRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientBlock" type="cln:ClientDomestic_Type" />
+					<xsd:element name="DebitAccountBlock" type="prd:DebitAccountBlock_Type"/>
+                    <xsd:element name="StandingOrderCreateBlock" type="pay:StandingOrderCreateBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvCreatePrivateStandingOrderRs" type="tns:SrvCreatePrivateStandingOrderRs_Type"/>
+    <xsd:complexType name="SrvCreatePrivateStandingOrderRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence/>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvUpdatePrivateStandingOrderRq" type="tns:SrvUpdatePrivateStandingOrderRq_Type" />
+    <xsd:complexType name="SrvUpdatePrivateStandingOrderRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientBlock" type="cln:ClientDomestic_Type" />
+					<xsd:element name="DebitAccountBlock" type="prd:DebitAccountBlock_Type" minOccurs="0"/>
+                    <xsd:element name="StandingOrderUpdateBlock" type="pay:StandingOrderUpdateBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvUpdatePrivateStandingOrderRs" type="tns:SrvUpdatePrivateStandingOrderRs_Type"/>
+    <xsd:complexType name="SrvUpdatePrivateStandingOrderRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence/>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvGetPrivateStandingOrderListRq" type="tns:SrvGetPrivateStandingOrderListRq_Type" />
+    <xsd:complexType name="SrvGetPrivateStandingOrderListRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="LastStandingOrderOnPageNumber" type="xsd:int" minOccurs="0"/>
+                    <xsd:element name="ItemsCount" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetPrivateStandingOrderListRs" type="tns:SrvGetPrivateStandingOrderListRs_Type"/>
+    <xsd:complexType name="SrvGetPrivateStandingOrderListRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="StandingOrderGetList" type="pay:StandingOrderGetList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvGetPrivateStandingOrderDetailsRq" type="tns:SrvGetPrivateStandingOrderDetailsRq_Type" />
+    <xsd:complexType name="SrvGetPrivateStandingOrderDetailsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="StandingOrderIdFromLegacy" type="pay:StandingOrderId_Type"/>
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetPrivateStandingOrderDetailsRs" type="tns:SrvGetPrivateStandingOrderDetailsRs_Type"/>
+    <xsd:complexType name="SrvGetPrivateStandingOrderDetailsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="StandingOrderGetDetailsBlock" type="pay:StandingOrderGetDetailsBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvCancelPrivateStandingOrderRq" type="tns:SrvCancelPrivateStandingOrderRq_Type" />
+    <xsd:complexType name="SrvCancelPrivateStandingOrderRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="StandingOrderIdFromLegacy" type="pay:StandingOrderId_Type"/>
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvCancelPrivateStandingOrderRs" type="tns:SrvCancelPrivateStandingOrderRs_Type"/>
+    <xsd:complexType name="SrvCancelPrivateStandingOrderRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint4.MandateCollection-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvCreatePrivateMandateCollectionRq" type="tns:SrvCreatePrivateMandateCollectionRq_Type" />
+    <xsd:complexType name="SrvCreatePrivateMandateCollectionRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="DebitAccountBlock" type="prd:DebitAccountCZBlock_Type"/>
+                    <xsd:element name="MandateCollectionCreateBlock" type="pay:MandateCollectionCreateBlock_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvCreatePrivateMandateCollectionRs" type="tns:SrvCreatePrivateMandateCollectionRs_Type"/>
+    <xsd:complexType name="SrvCreatePrivateMandateCollectionRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvUpdatePrivateMandateCollectionRq" type="tns:SrvUpdatePrivateMandateCollectionRq_Type" />
+    <xsd:complexType name="SrvUpdatePrivateMandateCollectionRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="DebitAccountBlock" type="prd:DebitAccountCZBlock_Type" minOccurs="0"/>
+                    <xsd:element name="MandateCollectionUpdateBlock" type="pay:MandateCollectionUpdateBlock_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvUpdatePrivateMandateCollectionRs" type="tns:SrvUpdatePrivateMandateCollectionRs_Type"/>
+    <xsd:complexType name="SrvUpdatePrivateMandateCollectionRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvGetPrivateMandateCollectionListRq" type="tns:SrvGetPrivateMandateCollectionListRq_Type" />
+    <xsd:complexType name="SrvGetPrivateMandateCollectionListRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="LastMandateCollectionOnPageNumber" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="ItemsCount" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetPrivateMandateCollectionListRs" type="tns:SrvGetPrivateMandateCollectionListRs_Type"/>
+    <xsd:complexType name="SrvGetPrivateMandateCollectionListRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="MandateCollectionGetList" type="pay:MandateCollectionGetList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvGetPrivateMandateCollectionDetailsRq" type="tns:SrvGetPrivateMandateCollectionDetailsRq_Type" />
+    <xsd:complexType name="SrvGetPrivateMandateCollectionDetailsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="MandateCollectionIdFromLegacy" type="pay:MandateCollectionId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetPrivateMandateCollectionDetailsRs" type="tns:SrvGetPrivateMandateCollectionDetailsRs_Type"/>
+    <xsd:complexType name="SrvGetPrivateMandateCollectionDetailsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="MandateCollectionBlock" type="pay:MandateCollectionBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvCancelPrivateMandateCollectionRq" type="tns:SrvCancelPrivateMandateCollectionRq_Type" />
+    <xsd:complexType name="SrvCancelPrivateMandateCollectionRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="MandateCollectionIdFromLegacy" type="pay:MandateCollectionId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvCancelPrivateMandateCollectionRs" type="tns:SrvCancelPrivateMandateCollectionRs_Type"/>
+    <xsd:complexType name="SrvCancelPrivateMandateCollectionRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint4.Transaction_History-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvGetTransactionListRq" type="tns:SrvGetTransactionListRq_Type" />
+    <xsd:complexType name="SrvGetTransactionListRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="FilterBlock" type="trn:FilterBlock_Type" minOccurs="0"/>
+                    <xsd:element name="LastTransactionOnPageNumber" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="ItemsCount" type="xsd:int" minOccurs="0"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetTransactionListRs" type="tns:SrvGetTransactionListRs_Type"/>
+    <xsd:complexType name="SrvGetTransactionListRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="TransactionGetList" type="trn:TransactionGetList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvGetTransactionDetailsRq" type="tns:SrvGetTransactionDetailsRq_Type" />
+    <xsd:complexType name="SrvGetTransactionDetailsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type"/>
+                    <xsd:element name="TransactionId" type="trn:TransactionId_Type"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetTransactionDetailsRs" type="tns:SrvGetTransactionDetailsRs_Type"/>
+    <xsd:complexType name="SrvGetTransactionDetailsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="TransactionDetailsGetBlock" type="trn:TransactionDetailsGetBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvCancelPaymentOrderRq" type="tns:SrvCancelPaymentOrderRq_Type" />
+    <xsd:complexType name="SrvCancelPaymentOrderRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type"/>
+                    <xsd:element name="PaymentOrderId" type="sim:String16_Type" minOccurs="0"/>
+                    <xsd:element name="PaymentOrderIdFromLegacy" type="sim:String16_Type" minOccurs="0"/>
+                    <xsd:element name="PaymentOrderType" type="pay:PaymentOrderType_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvCancelPaymentOrderRs" type="tns:SrvCancelPaymentOrderRs_Type"/>
+    <xsd:complexType name="SrvCancelPaymentOrderRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence/>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvUpdateDomesticPaymentOrderRq" type="tns:SrvUpdateDomesticPaymentOrderRq_Type" />
+    <xsd:complexType name="SrvUpdateDomesticPaymentOrderRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ClientName" type="cln:ClientName_Type" minOccurs="0"/>
+                    <xsd:element name="ResidentialTown" type="cln:ResidentialTown_Type" minOccurs="0"/>
+                    <xsd:element name="ResidentialAddress" type="cln:ResidentialAddress_Type" minOccurs="0"/>
+                    <xsd:element name="DebitAccountBlock" type="prd:DebitAccountBlock_Type"/>
+                    <xsd:element name="PaymentOrderUpdateDomesticBlock" type="pay:PaymentOrderUpdateEsbDomesticBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvUpdateDomesticPaymentOrderRs" type="tns:SrvUpdateDomesticPaymentOrderRs_Type"/>
+    <xsd:complexType name="SrvUpdateDomesticPaymentOrderRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="PaymentOrderUpdateBlock" type="pay:PaymentOrderUpdateBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvUpdateForeignPaymentOrderRq" type="tns:SrvUpdateForeignPaymentOrderRq_Type" />
+    <xsd:complexType name="SrvUpdateForeignPaymentOrderRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientBlock" type="cln:ClientForeign_Type" />
+                    <xsd:element name="DebitAccountBlock" type="prd:DebitAccountBlock_Type"/>
+                    <xsd:element name="PaymentOrderUpdateForeignBlock" type="pay:PaymentOrderUpdateEsbForeignBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvUpdateForeignPaymentOrderRs" type="tns:SrvUpdateForeignPaymentOrderRs_Type"/>
+    <xsd:complexType name="SrvUpdateForeignPaymentOrderRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="PaymentOrderUpdateBlock" type="pay:PaymentOrderUpdateBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvGeneratePaymentOrderConfirmationRq" type="tns:SrvGeneratePaymentOrderConfirmationRq_Type" />
+    <xsd:complexType name="SrvGeneratePaymentOrderConfirmationRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+                    <xsd:element name="PaymentOrderId" type="sim:String16_Type" minOccurs="0"/>
+                    <xsd:element name="PaymentOrderIdFromLegacy" type="sim:String16_Type" minOccurs="0"/>
+                    <xsd:element name="ShouldBeSendToEmail" type="xsd:boolean" minOccurs="0"/>
+                    <xsd:element name="EmailAddress" type="sim:String100_Type" maxOccurs="unbounded"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGeneratePaymentOrderConfirmationRs" type="tns:SrvGeneratePaymentOrderConfirmationRs_Type"/>
+    <xsd:complexType name="SrvGeneratePaymentOrderConfirmationRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="ConfirmationPDFAttachment" type="sim:StringForBase64_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvGetPaymentOrderListRq" type="tns:SrvGetPaymentOrderListRq_Type" />
+    <xsd:complexType name="SrvGetPaymentOrderListRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="LastPaymentOrderOnPageNumber" type="xsd:int" minOccurs="0"/>
+                    <xsd:element name="ItemsCount" type="xsd:int"/>
+                    <xsd:element name="RequestedPOType" type="pay:POType_Type"/>
+                    <xsd:element name="DateFrom" type="xsd:date" minOccurs="0"/>
+                    <xsd:element name="DateTo" type="xsd:date" minOccurs="0"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetPaymentOrderListRs" type="tns:SrvGetPaymentOrderListRs_Type"/>
+    <xsd:complexType name="SrvGetPaymentOrderListRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="PaymentOrderGetList" type="pay:PaymentOrderGetList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvGetPaymentOrderStatusRq" type="tns:SrvGetPaymentOrderStatusRq_Type" />
+    <xsd:complexType name="SrvGetPaymentOrderStatusRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="PaymentOrderId" type="pay:PaymentOrderId_Type" minOccurs="1" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetPaymentOrderStatusRs" type="tns:SrvGetPaymentOrderStatusRs_Type"/>
+    <xsd:complexType name="SrvGetPaymentOrderStatusRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="PaymentOrderGetStatusList" type="pay:PaymentOrderGetStatusList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint4.Manage_Delivery-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvUpdateClientNotificationSettingsRq" type="tns:SrvUpdateClientNotificationSettingsRq_Type" />
+    <xsd:complexType name="SrvUpdateClientNotificationSettingsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ShouldNotify" type="xsd:boolean" />
+                    <xsd:element name="Channel" type="not:Channel_Type"/>
+                    <xsd:element name="NotificationFrequency" type="sim:String16_Type" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvUpdateClientNotificationSettingsRs" type="tns:SrvUpdateClientNotificationSettingsRs_Type"/>
+    <xsd:complexType name="SrvUpdateClientNotificationSettingsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+		</xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvSendAlertCountRq" type="tns:SrvSendAlertCountRq_Type" />
+    <xsd:complexType name="SrvSendAlertCountRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="NotificationCountingList" type="not:NotificationCountingList_Type" />
+                    <xsd:element name="OverallNotificationAmount" type="xsd:int" />
+                    <xsd:element name="DateFrom" type="xsd:date" />
+                    <xsd:element name="DateTo" type="xsd:date" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvSendAlertCountRs" type="tns:SrvSendAlertCountRs_Type"/>
+    <xsd:complexType name="SrvSendAlertCountRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint4.Sales_Wizard-------------</xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:element name="SrvCreatePrivateSavingAccountApplicationRq" type="tns:SrvCreatePrivateSavingAccountApplicationRq_Type" />
+    <xsd:complexType name="SrvCreatePrivateSavingAccountApplicationRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientCreateSABlock" type="cln:ClientCreateSABlock_Type" />
+                    <xsd:element name="OfferingProductId" type="prd:ProductCoreId_Type"/>
+                    <xsd:element name="Name" type="prd:Name_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvCreatePrivateSavingAccountApplicationRs" type="tns:SrvCreatePrivateSavingAccountApplicationRs_Type"/>
+    <xsd:complexType name="SrvCreatePrivateSavingAccountApplicationRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="ContractBlock" type="cln:ContractBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvCreatePrivateTermDepositApplicationRq" type="tns:SrvCreatePrivateTermDepositApplicationRq_Type" />
+    <xsd:complexType name="SrvCreatePrivateTermDepositApplicationRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="ClientCreateTDBlock" type="cln:ClientCreateTDBlock_Type" />
+                    <xsd:element name="DebitAccountBlock" type="prd:DebitAccountHRBlock_Type" minOccurs="0"/>
+                    <xsd:element name="OriginationDate" type="xsd:dateTime"/>
+                    <xsd:element name="TD_OpenBlock" type="prd:TD_OpenBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvCreatePrivateTermDepositApplicationRs" type="tns:SrvCreatePrivateTermDepositApplicationRs_Type"/>
+    <xsd:complexType name="SrvCreatePrivateTermDepositApplicationRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="ContractBlock" type="cln:ContractBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvGetContractRq" type="tns:SrvGetContractRq_Type" />
+    <xsd:complexType name="SrvGetContractRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ContractId" type="cln:ContractId_Type"/>
+                    <xsd:element name="ContractNumber" type="cln:ContractNumber_Type" minOccurs="0"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type" minOccurs="0" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetContractRs" type="tns:SrvGetContractRs_Type"/>
+    <xsd:complexType name="SrvGetContractRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="ContractPDFAttachment" type="cln:ContractPDFAttachment_Type" minOccurs="0"/>
+                    <xsd:element name="WEBLinkToReadContractDetails" type="cln:WEBLinkToReadContractDetails_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvConfirmPrivateAgreemtTermsRq" type="tns:SrvConfirmPrivateAgreemtTermsRq_Type" />
+    <xsd:complexType name="SrvConfirmPrivateAgreemtTermsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ContractId" type="cln:ContractId_Type" minOccurs="0"/>
+                    <xsd:element name="TermsCompliance" type="xsd:boolean"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvConfirmPrivateAgreemtTermsRs" type="tns:SrvConfirmPrivateAgreemtTermsRs_Type"/>
+    <xsd:complexType name="SrvConfirmPrivateAgreemtTermsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint5.Send message-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvSendClientMessageToBankRq" type="tns:SrvSendClientMessageToBankRq_Type" />
+    <xsd:complexType name="SrvSendClientMessageToBankRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" minOccurs="0"/>
+                    <xsd:element name="MessageFromClientBlock" type="not:MessageFromClientBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvSendClientMessageToBankRs" type="tns:SrvSendClientMessageToBankRs_Type"/>
+    <xsd:complexType name="SrvSendClientMessageToBankRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+        </xsd:complexContent>        
+    </xsd:complexType>    
+
+    <xsd:element name="SrvChangeBankMessageToClientStatusRq" type="tns:SrvChangeBankMessageToClientStatusRq_Type" />
+    <xsd:complexType name="SrvChangeBankMessageToClientStatusRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+                    <xsd:element name="MessageFeedbackBlock" type="not:MessageFeedbackBlock_Type" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint5.CallMeBack-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvPutPrivateClientManagerTaskRq" type="tns:SrvPutPrivateClientManagerTaskRq_Type" />
+    <xsd:complexType name="SrvPutPrivateClientManagerTaskRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" minOccurs="0"/>
+                    <xsd:element name="CallBackRequestBlock" type="not:CallBackRequestBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvPutPrivateClientManagerTaskRs" type="tns:SrvPutPrivateClientManagerTaskRs_Type"/>
+    <xsd:complexType name="SrvPutPrivateClientManagerTaskRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:annotation>
+        <xsd:documentation>-----------------Sprint5.Commercial Offer-------------</xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="SrvGetClientOfferListRq" type="tns:SrvGetClientOfferListRq_Type" />
+    <xsd:complexType name="SrvGetClientOfferListRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="ChannelName" type="chl:ChannelName_Type"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetClientOfferListRs" type="tns:SrvGetClientOfferListRs_Type"/>
+    <xsd:complexType name="SrvGetClientOfferListRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="CommercialOfferGetList" type="off:CommercialOfferGetList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+    
+    <xsd:element name="SrvSendClientOfferFeedbackRq" type="tns:SrvSendClientOfferFeedbackRq_Type" />
+    <xsd:complexType name="SrvSendClientOfferFeedbackRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" />
+                    <xsd:element name="CommercialFeedbackBlock" type="off:CommercialFeedbackBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:annotation>
+		<xsd:documentation>----------------- Container 1 -------------</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="SrvChangeDebitCardAccountRq" type="tns:SrvChangeDebitCardAccountRq_Type"/>
+	<xsd:complexType name="SrvChangeDebitCardAccountRq_Type">
+		<xsd:complexContent>
+			<xsd:extension base="com:CommonEsbRq_Type">
+				<xsd:sequence>
+					<xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+					<xsd:element name="ProductBlock" type="prd:ProductBlockCardActions_Type"/>
+					<xsd:element name="AccountBlock" type="prd:AccountBlock_Type"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SrvChangeDebitCardAccountRs" type="tns:SrvChangeDebitCardAccountRs_Type"/>
+	<xsd:complexType name="SrvChangeDebitCardAccountRs_Type">
+		<xsd:complexContent>
+			<xsd:extension base="com:CommonEsbRs_Type"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:element name="SrvRequestPINRq" type="tns:SrvRequestPINRq_Type"/>
+	<xsd:complexType name="SrvRequestPINRq_Type">
+		<xsd:complexContent>
+			<xsd:extension base="com:CommonEsbRq_Type">
+				<xsd:sequence>
+					<xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+					<xsd:element name="ProductBlock" type="prd:ProductBlockCardActions_Type"/>
+					<xsd:element name="DeliveryBlock" type="prd:DeliveryBlock_Type"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SrvRequestPINRs" type="tns:SrvRequestPINRs_Type"/>
+	<xsd:complexType name="SrvRequestPINRs_Type">
+		<xsd:complexContent>
+			<xsd:extension base="com:CommonEsbRs_Type"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:element name="SrvGetProductTariffListRq" type="tns:SrvGetProductTariffListRq_Type"/>
+    <xsd:complexType name="SrvGetProductTariffListRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type" minOccurs="0"/>
+                    <xsd:element name="ProductList" type="prd:ProductList1_Type"/>
+                    <xsd:element name="LanguageSetting" type="sim:Locale_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetProductTariffListRs" type="tns:SrvGetProductTariffListRs_Type"/>
+    <xsd:complexType name="SrvGetProductTariffListRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="ProductTariffBlockList" type="prd:ProductTariffBlockList1_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvUpdateClientProductTariffRq" type="tns:SrvUpdateClientProductTariffRq_Type"/>
+    <xsd:complexType name="SrvUpdateClientProductTariffRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+                    <xsd:element name="ProductBlock" type="prd:ProductGetDetailsBlock_Type"/>
+                    <xsd:element name="TariffCode" type="prd:TariffCode_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvUpdateClientProductTariffRs" type="tns:SrvUpdateClientProductTariffRs_Type"/>
+    <xsd:complexType name="SrvUpdateClientProductTariffRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvUpdateCardIssueParametersRq" type="tns:SrvUpdateCardIssueParametersRq_Type"/>
+    <xsd:complexType name="SrvUpdateCardIssueParametersRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+                    <xsd:element name="ProductBlock" type="prd:ProductGetDetailsBlock_Type"/>
+                    <xsd:element name="AutoReissue" type="xsd:boolean" minOccurs="0"/>
+                    <xsd:element name="DeliveryBlock" type="prd:DeliveryBlock_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvUpdateCardIssueParametersRs" type="tns:SrvUpdateCardIssueParametersRs_Type"/>
+    <xsd:complexType name="SrvUpdateCardIssueParametersRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvCreatePrivateDirectDebitRq" type="tns:SrvCreatePrivateDirectDebitRq_Type"/>
+    <xsd:complexType name="SrvCreatePrivateDirectDebitRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+                    <xsd:element name="DirectDebitCreateBlock" type="pay:DirectDebitCreateBlock_Type"/>
+                    <xsd:element name="AccountBlock" type="pay:AccountBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvCreatePrivateDirectDebitRs" type="tns:SrvCreatePrivateDirectDebitRs_Type"/>
+    <xsd:complexType name="SrvCreatePrivateDirectDebitRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvUpdatePrivateDirectDebitRq" type="tns:SrvUpdatePrivateDirectDebitRq_Type"/>
+    <xsd:complexType name="SrvUpdatePrivateDirectDebitRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+                    <xsd:element name="DirectDebitCreateBlock" type="pay:DirectDebitCreateBlock1_Type"/>
+                    <xsd:element name="AccountBlock" type="pay:AccountBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvUpdatePrivateDirectDebitRs" type="tns:SrvUpdatePrivateDirectDebitRs_Type"/>
+    <xsd:complexType name="SrvUpdatePrivateDirectDebitRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvCancelPrivateDirectDebitRq" type="tns:SrvCancelPrivateDirectDebitRq_Type"/>
+    <xsd:complexType name="SrvCancelPrivateDirectDebitRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+                    <xsd:element name="DirectDebitIdFromLegacy" type="pay:DirectDebitIdFromLegacy_Type"/>
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvCancelPrivateDirectDebitRs" type="tns:SrvCancelPrivateDirectDebitRs_Type"/>
+    <xsd:complexType name="SrvCancelPrivateDirectDebitRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvGetPrivateDirectDebitListRq" type="tns:SrvGetPrivateDirectDebitListRq_Type"/>
+    <xsd:complexType name="SrvGetPrivateDirectDebitListRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="LastDirectDebitOnPageNumber" type="xsd:int" minOccurs="0"/>
+                    <xsd:element name="ItemsCount" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetPrivateDirectDebitListRs" type="tns:SrvGetPrivateDirectDebitListRs_Type"/>
+    <xsd:complexType name="SrvGetPrivateDirectDebitListRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="DirectDebitGetList" type="pay:DirectDebitGetList_Type" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="SrvGetPrivateDirectDebitDetailsRq" type="tns:SrvGetPrivateDirectDebitDetailsRq_Type"/>
+    <xsd:complexType name="SrvGetPrivateDirectDebitDetailsRq_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRq_Type">
+                <xsd:sequence>
+                    <xsd:element name="CoreClientId" type="cln:ClientId_Type"/>
+                    <xsd:element name="DirectDebitIdFromLegacy" type="sim:String32_Type"/>
+                    <xsd:element name="ProductCoreId" type="prd:ProductCoreId_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="SrvGetPrivateDirectDebitDetailsRs" type="tns:SrvGetPrivateDirectDebitDetailsRs_Type"/>
+    <xsd:complexType name="SrvGetPrivateDirectDebitDetailsRs_Type">
+        <xsd:complexContent>
+            <xsd:extension base="com:CommonEsbRs_Type">
+                <xsd:sequence>
+                    <xsd:element name="DirectDebitDetailsBlock" type="pay:DirectDebitCreateBlock1_Type" minOccurs="0"/>
+                    <xsd:element name="AccountBlock" type="pay:AccountBlock_Type"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+</xsd:schema>

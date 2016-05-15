@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Mike (None) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:date="http://sberbank.ru/dem/ifxDateTimeTypes" xmlns:common="http://sberbank.ru/dem/commonAggregates" xmlns:indv="http://sberbank.ru/dem/individual" xmlns="http://sberbank.ru/dem/transactionAggregates" targetNamespace="http://sberbank.ru/dem/transactionAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xs:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xs:import namespace="http://sberbank.ru/dem/ifxDateTimeTypes" schemaLocation="../../innerTypes/ifxDateTypes.xsd"/>
+	<xs:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xs:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xs:complexType name="TransactionAttributes_Type">
+		<xs:annotation>
+			<xs:documentation>Атрибуты транзакции для запроса</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="TrnId" type="TransactionId_Type">
+				<xs:annotation>
+					<xs:documentation>Уникальный номер корзины платежей </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="StartDt" type="ifx:DateTime">
+					<xs:annotation>
+						<xs:documentation>Дата и время начала диапазона времени</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="EndDt" type="ifx:DateTime">
+					<xs:annotation>
+						<xs:documentation>Дата и время окончания диапазона времени</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="TermId" type="TermNum_Type">
+					<xs:annotation>
+						<xs:documentation>Номер УС</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PayerInfo" type="Abonent_Type">
+					<xs:annotation>
+						<xs:documentation>Реквизиты плательщика</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="RecipInfo" type="RecipientInfo_Type">
+					<xs:annotation>
+						<xs:documentation>Реквизиты  получателя</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Transaction_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "Транзакция"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TransDateTime" type="ifx:DateTime">
+				<xs:annotation>
+					<xs:documentation>Дата и время операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrnId" type="TransactionId_Type">
+				<xs:annotation>
+					<xs:documentation>Уникальный номер корзины платежей </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TxId" type="PaymentId_Type">
+				<xs:annotation>
+					<xs:documentation>Уникальный номер платежа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TermId" type="TermNum_Type">
+				<xs:annotation>
+					<xs:documentation>Номер УС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorizationCode" type="ifx:C" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код авторизации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NeedAmount" type="common:CurrencyAmount_Type">
+				<xs:annotation>
+					<xs:documentation>Заказанная сумма операции в копейках</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DepositAmount" type="common:CurrencyAmount_Type">
+				<xs:annotation>
+					<xs:documentation>Внесенная сумма операции в копейках</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaymentStatus" type="PaymentStatus_Type">
+				<xs:annotation>
+					<xs:documentation>Статус платежа в АС РБЦ. Принимает следующие значения:
+Платеж подтвержден в РБЦ.
+Платеж не подтвержден в РБЦ.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayerInfo" type="Abonent_Type">
+				<xs:annotation>
+					<xs:documentation>Реквизиты плательщика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecipInfo" type="RecipientInfo_Type">
+				<xs:annotation>
+					<xs:documentation>Реквизиты получателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddAttributes" type="ifx:C" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сборник дополнительных реквизитов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CommissionAmount" type="common:CurrencyAmount_Type">
+				<xs:annotation>
+					<xs:documentation>Сумма комиссии с плательщика в копейках</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Purpose" type="ifx:C" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Назначение платежа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TranType">
+				<xs:annotation>
+					<xs:documentation>Тип платежного средства. 
+1 – наличные платежи; 
+2 – все остальные
+</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:Long">
+						<xs:totalDigits value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RecipientInfo_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "Реквизиты получателя платежа"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RecipAccount" type="ifxst:AcctId_Type">
+				<xs:annotation>
+					<xs:documentation>Расчетный счет получателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecipOrgName" type="RecipNameOrg_Type">
+				<xs:annotation>
+					<xs:documentation>Наименование получателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecipBic" type="ifxst:Acc_BIC_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>БИК банка получателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecipINN" type="ifxst:TaxId_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ИНН получателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OKATO" type="ifxst:Pty_RusOKATO_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ОКАТО (Общероссийский Классификатор Объектов Административно-Территориального Деления)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CorrespAccount" type="CorrespAcct_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Корреспондентский счет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KBK" type="KBK_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>КБК (Код Бюджетной Классификации)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TransactionList_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "Список транзакций"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Transaction" type="Transaction_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Abonent_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "Реквизиты плательщика"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AbonentKeyValue" type="AbonentKeyValue_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ключевой реквизит плательщика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CardNumber" type="ifxst:CardNum_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер карты плательщика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AbonentFIO" type="indv:PersonName_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ФИО плательщика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayerPhone" type="ifxst:PhoneNumber_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер телефона плательщика.
+Используется при идентификации плательщика.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="AbonentKeyValue_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "Ключевой реквизит абонента"</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ifx:C"/>
+	</xs:simpleType>
+	<xs:simpleType name="TransactionId_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "Идентификатор корзины платежей"</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ifx:C"/>
+	</xs:simpleType>
+	<xs:simpleType name="PaymentId_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "Уникальный номер платежа"</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ifx:C"/>
+	</xs:simpleType>
+	<xs:simpleType name="RecipNameOrg_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "Наименование получателя"</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ifxst:Acc_Number_Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="TermNum_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "Номер Устройства Самообслуживания (УС)"</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ifx:Long"/>
+	</xs:simpleType>
+	<xs:simpleType name="KBK_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "КБК (Код Бюджетной Классификации)"</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ifx:Long">
+			<xs:totalDigits value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CorrespAcct_Type">
+		<xs:annotation>
+			<xs:documentation>Тип данных "Корреспондентский счёт"</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ifx:Long">
+			<xs:totalDigits value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PaymentStatus_Type">
+		<xs:annotation>
+			<xs:documentation>Статус платежа в АС РБЦ. Принимает следующие значения: Платеж подтвержден в РБЦ. Платеж не подтвержден в РБЦ.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ifx:Long"/>
+	</xs:simpleType>
+</xs:schema>

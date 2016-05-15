@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by qqq (Ru-Board) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:acc="http://sberbank.ru/dem/accountTypes" xmlns:agr="http://sberbank.ru/dem/treasury/agreement" xmlns:ins="http://sberbank.ru/dem/instrumentTypes" xmlns:ref="http://sberbank.ru/dem/referenceTypes" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns="http://sberbank.ru/dem/transactionTypes" xmlns:tns="http://sberbank.ru/dem/transactionTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/transactionTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/referenceTypes" schemaLocation="../reference/referenceAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/instrumentTypes" schemaLocation="../instrument/instrumentAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/treasury/agreement" schemaLocation="../agreement/treasuryAgreementAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/accountTypes" schemaLocation="../account/accountAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="../../../domains/currency/CurrencyAggregates.xsd"/>
+	<xsd:complexType name="CashTransactionDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация об операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="TxnDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Ccy" type="cur:Currency_Type">
+						<xsd:annotation>
+							<xsd:documentation>Валюта ДС</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="UnderlyingInstrument" type="ins:Instrument_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Связанный инструмент (для платежей эмитентов)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Amount" type="ifxst:Amt_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сумма</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SecurityTransactionDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация об операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="TxnDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="CleanPrice" type="ref:Price_Type">
+						<xsd:annotation>
+							<xsd:documentation>Цена</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Instrument" type="ins:Instrument_Type">
+						<xsd:annotation>
+							<xsd:documentation>Финансовый инструмент</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AccruedInterest" type="ifxst:Trs_AccruedInterest_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>НКД</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PriceCcy" type="cur:Currency_Type">
+						<xsd:annotation>
+							<xsd:documentation>Валюта цены</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AICcy" type="cur:Currency_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Валюта НКД</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Quantity" type="ref:Quantity_Type">
+						<xsd:annotation>
+							<xsd:documentation>ККоличество акций в штуках, сумма номиналов для облигаций</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CommissionData" type="ref:CommissionData_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Комиссии</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Transaction_Type">
+		<xsd:annotation>
+			<xsd:documentation>Операция</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TransactionID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="ifxst:Trs_TrType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Вид операции (ЦБ или ДС)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="SecurityTransactionDetails" type="SecurityTransactionDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Детальная информация по операции</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="CashTransactionDetails" type="CashTransactionDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Детальная информация по операции</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="ClientAgreement" type="agr:ClientAgreement_Type">
+				<xsd:annotation>
+					<xsd:documentation>Клиентский договор</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TxnDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация об операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SubType" type="ifxst:Trs_SubType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Подтип операции:списание зачисление перевод</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccountFrom" type="acc:Account_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Счет с которого списываются ЦБ/ДС</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccountTo" type="acc:Account_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Счет на который начисляются ЦБ/ДС</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TransactionDate" type="ifxst:Trs_TransactionDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ValueDate" type="ifxst:Trs_ValueDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время отражения операции по счетам</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Comment" type="ifxst:Trs_Comment_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Комментарий</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UpdateTime" type="ifxst:Trs_UpdateTime_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время последнего обновления</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TransactionClass" type="ifxst:Trs_TransactionClass_Type">
+				<xsd:annotation>
+					<xsd:documentation>Класс операции:Поступление денежных средств в доверительное управление;Изъятие денежных средств из доверительного управления НДФЛ;Перевод денежных средств между счетами инвестора;Оплата депозитарных услуг;Оплата расчетных услуг;Поступление купонных платежей;Поступление дивидендов;Поступление платежей в погашение ценных бумаг (в том числе возможно поступление купонных платежей, если они не разделены);Погашение ценных бумаг. Как правило, должно идти в паре с операцией поступления платежей в погашение ценных бумаг;Конвертация ценных бумаг (слияние дополнительного выпуска с основным, замена основного выпуска при изменении номинальной стоимости). Как правило, операции по конвертации ценных бумаг идут в паре – списание / зачисление;Поступление ценных бумаг в доверительное управление;Изъятие ценных бумаг из доверительного управления;Перевод ценных бумаг между счетами инвестора;Прочее (например, штрафы)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

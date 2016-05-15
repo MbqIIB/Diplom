@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:getah="http://sbrf/ru/sbt/mdo/rqrs/getaddrhistory" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs">
+	<xs:import namespace="http://sbrf/ru/sbt/mdo/rqrs/getaddrhistory" schemaLocation="GetAddressHistory/GetAddressHistoryType.xsd"/>
+	<xs:element name="SrvGetAddressHistoryRq" type="getah:Request_Type"/>
+	<xs:element name="SrvGetAddressHistoryRs" type="getah:Response_Type"/>
+</xs:schema>

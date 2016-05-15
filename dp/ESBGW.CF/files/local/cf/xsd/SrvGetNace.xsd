@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:getNc="http://sbrf/ru/sbt/mdo/rqrs/getNace" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs">
+	<xs:import namespace="http://sbrf/ru/sbt/mdo/rqrs/getNace" schemaLocation="GetNace/GetNaceType.xsd"/>
+	<xs:element name="SrvGetNaceRq" type="getNc:Request_Type">
+		<xs:annotation>
+			<xs:documentation>Provides services from system ARES – Access to Registers of Economic Subjects of Ministry of Finance, Czech Republic.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SrvGetNaceRs" type="getNc:Response_Type"/>
+</xs:schema>

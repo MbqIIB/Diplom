@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed Materials - Property of IBM
+  IBM WebSphere DataPower Appliances
+  Copyright IBM Corporation 2004-2009. All Rights Reserved.
+  US Government Users Restricted Rights - Use, duplication or disclosure
+  restricted by GSA ADP Schedule Contract with IBM Corp.
+-->
+<!--
+     SQL-Injection-Patterns.xml
+     Copyright 2004-2009 DataPower Technology, Inc. All Rights Reserved.
+     
+     By default, the SQL-Injection-Filter.xsl style sheet uses the SQL Injection
+     patterns that are defined in this file.
+
+     The filter action for SQL Injection Protection allows a custom pattern 
+     file to substitute this file for other potential SQL attacks. 
+     Define custom patterns in that file to provide better granularity, 
+     especially when the default patterns detect too many or too few SQL 
+     injection attacks for the database system.
+
+     The format of each <pattern type="<pattern-type>"> element is:
+         <name>:  The name of the pattern. Used for logging purposes
+         <regex>: The PCRE (Perl Compatible Regular Expression)
+                  pattern used to detect the pattern.
+                    
+         The value of the 'type' attribute is very important. It
+         specifies to the scanner how that pattern is matched on
+         the XML content:
+         
+           1) <pattern>s with 'type="global"' or with *no* type attribute
+              are considered 'global' patterns. The regex search is performed
+              on a concatenation of all attribute and all element content
+              (two separate searched). If the regex is detected anywhere
+              in the attribute/element content (including substrings of
+              element/attribute content), it will fire and fail the message.
+           2) <pattern>s with 'type="element"' will have the have the regex
+              searched for on each individual element. They are designed to
+              effectively see if any specific element contains or is equal to
+              a specific pattern.
+  -->
+  <patterns>
+    <pattern>
+	    <name>SQL LIKE% Match</name>
+        <regex>'[\s]*[\%]+</regex>
+    </pattern>
+      
+    <!-- SQL Escape Sequences -->
+      <pattern>
+          <name>SQL Escape Sequence</name>
+          <regex>('[\s]*;|'[\s]*[\)]+|'[\s]*[\+]+|'[\s]*[\*]+|'[\s]*[\=]+)</regex>
+      </pattern>
+      
+    <!-- SQL keyword injection -->  
+    <pattern type="element">
+        <name>SQL Keyword Injection</name>
+        <regex>^(insert|as|select|or|procedure|limit|order by|asc|desc|delete|update|distinct|having|truncate|replace|handler|like)$</regex>
+    </pattern>
+
+      <!-- MS SQL Commands -->  
+      <pattern>
+          <name>MS SQL Commands</name>
+          <regex>\b(exec sp|exec xp)\b</regex>
+      </pattern>
+      
+      <!-- SQL Metacharacters -->  
+      <pattern>
+          <name>SQL Metacharacter</name>
+          <regex>(= '|= --|= ;|\\x3D \\x27|\\x3D \\x3B'|/\*[\s]*&amp;.*?\*/|'[\s]*--[\s]*&amp;)</regex>
+      </pattern>
+      
+      <!-- Oracle Buffer Overflow -->  
+      <pattern>
+          <name>Oracle Buffer Overflow</name>
+          <regex>\b(tz_offset|to_timestamp_tz|bfilename)\b</regex>
+      </pattern>
+      
+      <!-- SQL Commands -->  
+      <pattern>
+          <name>SQL Command</name>
+          <regex>('[\s]*or|\\x27[\s]*\\x6F\\x72|\\x27[\s]*\\x4F\\x52|'[\s]*union|\\x27[\s]*union|'[\s]*;)[\s]*(sql-command|abort|alter|analyze|begin|audit|checkpoint|close|cluster|comment|commit|copy|create|deallocate|declare|delete|drop|end|execute|explain|fetch|grant|insert|lock|move|noaudit|notify|prepare|reindex|rename|reset|revoke|rollback|savepoint|select|set|show|shutdown|start|truncate|unlisten|update|vacuum)</regex>
+      </pattern>
+      
+      <!-- SQL Simple Metacharacters -->
+      <pattern type="element">
+          <name>SQL Simple Metacharacter</name>
+          <regex>^('|--|#|\\x27|\\x23)$</regex>
+      </pattern>
+      
+      <!-- SQL and/or occurrence. 
+           As DataPower does not check the syntax for a potential SQL statement that is
+           built with the input message, this pattern might report more errors than you
+           expect. In this case, use a custom pattern file for the SQL Injection Filter
+           action. -->
+      <!--<pattern type="element">
+          <name>SQL OR/AND Attack</name>
+          <regex>(\s|^)(and|or)(\s|$)</regex>
+      </pattern>-->
+ 
+  </patterns>

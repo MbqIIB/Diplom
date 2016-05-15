@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:getwl="http://sbrf/ru/sbt/mdo/rqrs/getwarninglist" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs">
+	<xs:import namespace="http://sbrf/ru/sbt/mdo/rqrs/getwarninglist" schemaLocation="GetWarningList/GetWarningListType.xsd"/>
+	<xs:element name="SrvGetWarningListRq" type="getwl:Request_Type"/>
+	<xs:element name="SrvGetWarningListRs" type="getwl:Response_Type"/>
+</xs:schema>

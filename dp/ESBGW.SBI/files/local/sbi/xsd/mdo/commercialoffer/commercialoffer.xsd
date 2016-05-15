@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://esb.sberbank.com/commercialoffer"
+    xmlns:tns="http://esb.sberbank.com/commercialoffer" 
+    xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+    xmlns:prd="http://esb.sberbank.com/product" 
+    elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+        schemaLocation="../common/simpleTypes.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/product"
+        schemaLocation="../product/product.xsd" />
+
+    <xsd:complexType name="CommercialFeedbackBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="CommercialOfferId" type="tns:CommercialOfferId_Type"/>
+            <xsd:element name="RejectedFromDashBoard" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="RejectedFromList" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="ReadStatus" type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+            
+    <xsd:complexType name="CommercialOfferGetList_Type">
+        <xsd:sequence>
+            <xsd:element name="CommercialOfferGetBlock" type="tns:CommercialOfferGetBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CommercialOfferGetBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="CommercialOfferId" type="tns:CommercialOfferId_Type"/>
+            <xsd:element name="TemplateIdDetails" type="tns:TemplateIdDetails_Type"/>
+            <xsd:element name="ParameterList" type="tns:ParameterList_Type"/>
+            <xsd:element name="CommercialOfferExpiryDate" type="xsd:dateTime"/>
+            <xsd:element name="IsLinkedToCampaign" type="xsd:boolean"/>
+            <xsd:element name="CampaignBlock" type="tns:CampaignBlock_Type" minOccurs="0"/>
+            <xsd:element name="Weight" type="sim:Decimal_0806_Type"/>
+            <xsd:element name="ProductType" type="prd:ProductType_Type"/>
+            <xsd:element name="ProductID" type="tns:ProductID_Type" minOccurs="0"/>
+            <xsd:element name="ShouldBeShownOnDashboard" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="ShouldBeShownOnList" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="ReadStatus" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="ShortDescription" type="tns:ShortDescription_Type" minOccurs="0"/>
+            <xsd:element name="FullDescription" type="tns:FullDescription_Type" minOccurs="0"/>
+            <xsd:element name="LinkToWeb" type="tns:LinkToWeb_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CampaignBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="CampaignId" type="tns:CampaignId_Type"/>
+            <xsd:element name="CampaignName" type="tns:CampaignName_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+  
+    <xsd:complexType name="ParameterList_Type">
+        <xsd:sequence>
+            <xsd:element name="ParameterBlock" type="tns:ParameterBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>   
+    <xsd:complexType name="ParameterBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ParameterName" type="tns:ParameterName_Type"/>
+            <xsd:element name="ParameterValue" type="tns:ParameterValue_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="CommercialOfferId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="TemplateIdDetails_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ParameterName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ParameterValue_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="2000"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CampaignId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CampaignName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="70"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ProductID_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ShortDescription_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="FullDescription_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LinkToWeb_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

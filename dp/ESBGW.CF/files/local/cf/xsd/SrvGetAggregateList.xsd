@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:getfol="http://sbrf/ru/sbt/mdo/rqrs/getaggregatelist" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs">
+	<xs:import namespace="http://sbrf/ru/sbt/mdo/rqrs/getaggregatelist" schemaLocation="GetAggregateList/GetAggregateListType.xsd"/>
+	<xs:element name="SrvGetAggregatedListRq" type="getfol:Request_Type"/>
+	<xs:element name="SrvGetAggregatedListRs" type="getfol:Response_Type"/>
+</xs:schema>

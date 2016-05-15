@@ -1,0 +1,1309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ifxst="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ifxdt="http://sberbank.ru/dem/ifxDateTimeTypes" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:iam="http://sberbank.ru/dem/identityAggregates" xmlns:mt="http://sberbank.ru/dem/moneytransfers/moneytransferAggregates" xmlns:mtblitz="http://sberbank.ru/dem/moneytransfers/blitzAggregates" targetNamespace="http://sberbank.ru/dem/moneytransfers/blitzAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxDateTimeTypes" schemaLocation="../../innerTypes/ifxDateTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../../domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/identityAggregates" schemaLocation="../../domains/identity/identityAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/moneytransfers/moneytransferAggregates" schemaLocation="../../domains/moneytransfers/moneytransferAggregates.xsd"/>
+	<xsd:simpleType name="BankId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код подразделения Сбербанка (11 символов)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:NC">
+			<xsd:maxLength value="11"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="FIXferId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Контрольный номер денежного перевода БЛИЦ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="FIXferMethod_Type">
+		<xsd:annotation>
+			<xsd:documentation>Способ перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:OpenEnum">
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Внутренний (Сбербанк РФ) БП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Международный (ДБ АО "Сбербанк", Казахстан)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>Международный (ОАО "СБЕРБАНК РОССИИ", Украина)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="FIXferOperation_Type">
+		<xsd:annotation>
+			<xsd:documentation>Вид операции с денежным переводом БЛИЦ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:OpenEnum">
+			<xsd:enumeration value="Receive">
+				<xsd:annotation>
+					<xsd:documentation>Выплата перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Reversal">
+				<xsd:annotation>
+					<xsd:documentation>Возврат перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Modification">
+				<xsd:annotation>
+					<xsd:documentation>Корректировка перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="FIXferOperationId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Уникальный идентификатор операции с денежным переводом БЛИЦ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="BankInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о банке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BankId" type="mtblitz:BankId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код подразделения Сбербанка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Country" type="st:CountryCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страна</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="City" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Город получения перевода</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="32"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Confirmation_Type">
+		<xsd:annotation>
+			<xsd:documentation>Подтверждение реквизитов перевода/заявления</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Confirmed" type="ifxst:Boolean">
+				<xsd:annotation>
+					<xsd:documentation>Подтверждено/не подтверждено</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ConfDt" type="ifxst:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время подтверждения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Memo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Примечание</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Factor_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о множителях</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Min" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Минимальный</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Max" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Максимальный</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Default" type="ifxst:Decimal">
+				<xsd:annotation>
+					<xsd:documentation>Множитель по умолчанию</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Divisible" type="ifxst:Decimal">
+				<xsd:annotation>
+					<xsd:documentation>Кратность множителя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FeeChargeAlloc_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о распределении комиссии</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Fee" type="ca:Fee_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация о комиссии и ее сумма</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FeeInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о нормативе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ca:Fee_Type">
+				<xsd:sequence>
+					<xsd:element name="FeeFound" type="ifxst:Boolean">
+						<xsd:annotation>
+							<xsd:documentation>Резальтат поиска норматива</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Memo" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Полученное при поиске норматива сообщение</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="255"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="StartDt" type="ifxst:DateTime" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата начала действия норматива</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="EndDt" type="ifxst:DateTime" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата окончания действия норматива</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RateInfo" type="mtblitz:Rate_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Информация о ставке</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Factor" type="mtblitz:Factor_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Множитель</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Tariff" type="mtblitz:Tariff_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Сумма</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferAdviceInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для запроса на выплату/возврат перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Receiver" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация об получателе перевода</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="BankInfo" type="mtblitz:BankInfo_Type">
+							<xsd:annotation>
+								<xsd:documentation>Информация о банке</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OrigDt" type="ifxst:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата приема документа (заявления) на перевод</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferId" type="mtblitz:FIXferId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Контрольный номер денежного перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FeeChargeAlloc" type="mtblitz:FeeChargeAlloc_Type">
+				<xsd:annotation>
+					<xsd:documentation>Распределение комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Confirmation" type="mtblitz:Confirmation_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о подтверждении реквизитов перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferCustSumInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для запроса сумм перевода по клиенту</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Sender">
+				<xsd:annotation>
+					<xsd:documentation>Информация об отправителе перевода</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="PersonInfo" type="ind:PersonInfo_Type">
+							<xsd:annotation>
+								<xsd:documentation>Информация о физ.лице</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OrigDt" type="ifxst:Date">
+				<xsd:annotation>
+					<xsd:documentation>Дата приема документа (заявления) на перевод</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferMethod" type="mtblitz:FIXferMethod_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Доп. информация для расчетов</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="mtblitz:SettlementInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="SendCurCode" type="st:CurCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Валюта страны отправителя</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferFeeInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для запроса информации о нормативе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Sender" type="mtblitz:Sender_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация об отправителе перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrigDt" type="ifxst:Date">
+				<xsd:annotation>
+					<xsd:documentation>Дата приема документа (заявления) на перевод</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferMethod" type="mtblitz:FIXferMethod_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Доп. информация для расчетов</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="mtblitz:SettlementInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="ReceiveCurCode" type="st:CurCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код валюты получения перевода</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="ReceiveAmtEst" type="mt:Amt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Ожидаемая сумма получения</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="FeeChargeAlloc" type="mtblitz:FeeChargeAlloc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Распределение комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferQueryInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для запроса информации о переводе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Owner" type="mtblitz:Owner_Type">
+				<xsd:annotation>
+					<xsd:documentation>Финансовая организация-регистратор перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Receiver">
+				<xsd:annotation>
+					<xsd:documentation>Информация о получателе перевода</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="PersonInfo" type="ind:PersonInfo_Type">
+							<xsd:annotation>
+								<xsd:documentation>Информация о физ.лице</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OrigDt" type="ifxst:Date">
+				<xsd:annotation>
+					<xsd:documentation>Дата приема документа (заявления) на перевод</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferId" type="mtblitz:FIXferId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Контрольный номер денежного перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Доп. информация для расчетов</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="mtblitz:SettlementInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="ReceiveCurCode" type="st:CurCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код валюты получения перевода</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="ReceiveAmtEst" type="mt:Amt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Ожидаемая сумма получения</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о переводе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Sender" type="mtblitz:Sender_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация об отправителе перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Owner" type="mtblitz:Owner_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Финансовая организация-регистратор перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Receiver" type="mtblitz:Receiver_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация об получателе перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrigDt" type="ifxst:Date">
+				<xsd:annotation>
+					<xsd:documentation>Дата приема документа (заявления) на перевод</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegDt" type="ifxst:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата регистрации заявления на перевод</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferId" type="mtblitz:FIXferId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Контрольный номер денежного перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferMethod" type="mtblitz:FIXferMethod_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Purpose" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Назначение перевода</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Memo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Примечание</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SecretPrompt" type="mt:SecretPrompt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тестовый вопрос, заданный отправителем, для идентификации получателя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementInfo" type="mtblitz:SettlementInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Доп. информация для расчетов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FeeChargeAlloc" type="mtblitz:FeeChargeAlloc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Распределение комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Confirmation" type="mtblitz:Confirmation_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о подтверждении реквизитов перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Checksum" type="mt:Checksum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Контрольная сумма перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferOperInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об операции с денежным переводом</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OperType" type="mtblitz:FIXferOperation_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperDt" type="ifxst:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperId" type="mtblitz:FIXferOperationId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный ссылочный идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный глобальный идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="OperStatus" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Состояние выполнения операции</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Memo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Примечание</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferRec_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запись о переводе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:element name="FIXferId" type="mtblitz:FIXferId_Type">
+					<xsd:annotation>
+						<xsd:documentation>Контрольный номер денежного перевода</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="FIXferInfo" type="mtblitz:FIXferInfo_Type">
+					<xsd:annotation>
+						<xsd:documentation>Информация о переводе</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="FIXferOperInfo" type="mtblitz:FIXferOperInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация об операции с переводом</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferStatus" type="mtblitz:FIXferStatus_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Signature" type="mt:Signature_Type" minOccurs="0" maxOccurs="2">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП под информацией перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferStatus_Type">
+		<xsd:annotation>
+			<xsd:documentation>Статус перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FIXferStatusCode">
+				<xsd:annotation>
+					<xsd:documentation>Код статуса перевода. Значения:
+UNDEFINDED - не определен;
+CLEAR - чистый;
+DELIVERED - принят;
+TO_PAID - к выплате;
+RECEIVED - выплачен;
+REVERCED - возвращен;
+CLOSED - погашен;
+DECOMMISSIONED - списан;
+FOR_RENEW - к переоформлению
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StatusDesc" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание статуса</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="EffDt" type="ifxst:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата изменения статуса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StatusModReason" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Причина изменения статуса</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Owner_Type">
+		<xsd:annotation>
+			<xsd:documentation>Финансовая организация-регистратор перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BankInfo" type="mtblitz:BankInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Rate_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о ставке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Min" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Минимальная</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Max" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Максимальная</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Default" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Ставка по умолчанию</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Divisible">
+				<xsd:annotation>
+					<xsd:documentation>Кратность ставки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:Decimal"/>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Receiver_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об получателе перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BankInfo" type="mtblitz:BankInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PersonInfo" type="ind:PersonInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация о клиенте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Sender_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об отправителе перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BankInfo" type="mtblitz:BankInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PersonInfo" type="ind:PersonInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация о клиенте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SettlementInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дополнительная информация для расчетов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ReceiveCurCode" type="st:CurCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код валюты получения перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceiveAmtEst" type="mt:Amt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ожидаемая сумма получения. Если эта сумма определена и корректна для страны получения, она проверяется Хостом и в случае несовпадения с расчетной суммой, возвращается ошибка. Если эта сумма не определена, то транзакция выполняется без проверки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SendAmt" type="mt:Amt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма, которая посылается в валюте страны отправителя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SendCurCode" type="st:CurCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта страны отправителя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Tariff_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о тарифе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Min" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Минимальная</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Max" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Максимальная</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Default" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сумма по умолчанию</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Divisible">
+				<xsd:annotation>
+					<xsd:documentation>Кратность суммы</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:Decimal"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="CurCode" type="st:CurCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код валюты суммы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BlitzRequest_Type">
+		<xsd:annotation>
+			<xsd:documentation>Общая часть описания запросов по операциям с БЛИЦ-переводами</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="UserInfo" type="iam:UserInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о пользователе, ответственном за выполнение транзакции</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="BlitzResponse_Type">
+		<xsd:annotation>
+			<xsd:documentation>Общая часть описания ответов по операциям с БЛИЦ-переводами</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonResponse_Type"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferRevRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для возврата перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtblitz:FIXferQueryInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferRevRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о возврате перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtblitz:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferAddRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для регистрации перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtblitz:FIXferInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Signature" type="mt:Signature_Type" minOccurs="2" maxOccurs="2">
+						<xsd:annotation>
+							<xsd:documentation>ЭЦП</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferAddRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о регистрации перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtblitz:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferAdviseRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для подтверждения выплаты или возврата перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtblitz:FIXferAdviceInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="FIXferOperInfo" type="mtblitz:FIXferOperInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация об операции с переводом</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferAdviseRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об успешности выплаты или возврата перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtblitz:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferCustSumInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для запроса сумм переводов по клиенту</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtblitz:FIXferCustSumInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferCustSumInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о сумме переводов по клиенту</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="CurAmt" type="ca:CurrencyAmount_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Сумма переводов</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferFeeInfoRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения списка нормативов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtblitz:FIXferFeeInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RowNum" type="ifxst:Long" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Номер строки ячейки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ColNum" type="ifxst:Long" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Номер колонки ячейки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferFeeInfoRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о запрошенных нормативах</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FeeInfo" type="mtblitz:FeeInfo_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Информация о нормативах</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferLockCanRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для отмены блокировки выплаты, возврата или модификации перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtblitz:FIXferQueryInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="FIXferOperInfo" type="mtblitz:FIXferOperInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация об операции с переводом</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferLockCanRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об отмене блокировки выплаты, возврата или модификации перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtblitz:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferModLockRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные блокировки перевода для модификации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtblitz:FIXferQueryInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferModLockRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об блокировке перевода для модификации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtblitz:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferModRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для модификации перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtblitz:FIXferInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Signature" type="mt:Signature_Type" minOccurs="2" maxOccurs="2">
+						<xsd:annotation>
+							<xsd:documentation>ЭЦП</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferModRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос модификации перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtblitz:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferRcvRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для оформления выплаты перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtblitz:FIXferQueryInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferRcvRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об оформлении выплаты перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtblitz:BlitzResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtblitz:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferStatusInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные запроса состояния операций по денежному переводу</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonRequest_Type">
+				<xsd:choice>
+					<xsd:sequence>
+						<xsd:element name="FIXferInfo" type="mtblitz:FIXferInfo_Type">
+							<xsd:annotation>
+								<xsd:documentation>Информация о переводе</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="FIXferOperInfo" type="mtblitz:FIXferOperInfo_Type" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Информация о операции над переводом</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:sequence>
+						<xsd:element name="FIXferOperInfo" type="mtblitz:FIXferOperInfo_Type">
+							<xsd:annotation>
+								<xsd:documentation>Информация о операции над переводом</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferStatusInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Предсталение ответа на запрос состояния операций по денежному переводу</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtblitz:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SvcCodeInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения контрольного номера БЛИЦ-перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="BankInfo" type="mtblitz:BankInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о банке</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SvcCodeInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о контрольном номере БЛИЦ-перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferId" type="mtblitz:FIXferId_Type" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Контрольный номер денежного перевода</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="FIXferRevRq" type="mtblitz:FIXferRevRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для возврата перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferRevRs" type="mtblitz:FIXferRevRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация для возврата перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferAddRq" type="mtblitz:FIXferAddRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для регистрации перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferAddRs" type="mtblitz:FIXferAddRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о регистрации перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferAdviseRq" type="mtblitz:FIXferAdviseRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для возврата или модификации перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferAdviseRs" type="mtblitz:FIXferAdviseRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об успешности возврата или модификации перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferCustSumInqRq" type="mtblitz:FIXferCustSumInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для запроса сумм переводов по клиенту</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferCustSumInqRs" type="mtblitz:FIXferCustSumInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о сумме переводов по клиенту</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferFeeInfoRq" type="mtblitz:FIXferFeeInfoRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения списка нормативов</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferFeeInfoRs" type="mtblitz:FIXferFeeInfoRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о запрошенных нормативах</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferLockCanRq" type="mtblitz:FIXferLockCanRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для отмены блокировки выплаты, возврата или модификации перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferLockCanRs" type="mtblitz:FIXferLockCanRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об отмене блокировки выплаты, возврата или модификации перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferModLockRq" type="mtblitz:FIXferModLockRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные блокировки перевода для модификации</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferModLockRs" type="mtblitz:FIXferModLockRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об блокировке перевода для модификации</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferModRq" type="mtblitz:FIXferModRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация для модификации перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferModRs" type="mtblitz:FIXferModRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос модификации перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferRcvRq" type="mtblitz:FIXferRcvRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для оформления выплаты перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferRcvRs" type="mtblitz:FIXferRcvRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об оформлении выплаты перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferStatusInqRq" type="mtblitz:FIXferStatusInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные запроса состояния операций по денежному переводу</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferStatusInqRs" type="mtblitz:FIXferStatusInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Предсталение ответа на запрос состояния операций по денежному переводу</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SvcCodeInqRq" type="mtblitz:SvcCodeInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения контрольного номера БЛИЦ-перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SvcCodeInqRs" type="mtblitz:SvcCodeInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о контрольном номере БЛИЦ-перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

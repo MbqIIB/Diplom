@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/account" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/account" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="Account_Type">
+		<xsd:sequence>
+			<xsd:element name="AccountNumber" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="AccountName" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="AccountType" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="Description" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="Program" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="Autorization" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="Currency" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="OpenDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="AvailableBalance" type="ifxst:Acc_Balance_Type" minOccurs="0"/>
+			<xsd:element name="ActualBalance" type="ifxst:Acc_Balance_Type" minOccurs="0"/>
+			<xsd:element name="AccountBalance" type="ifxst:Acc_Balance_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:reg="http://sbrf/ru/sbt/mdo/rqrs/CheckRegisterType" xmlns:CR="http://sbrf/ru/sbt/mdo/rqrs" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/CheckRegisterType" schemaLocation="CheckRegister/CheckRegisterType.xsd"/>
+	<xsd:element name="SrvCheckRegisterRq" type="reg:Request_Type"/>
+	<xsd:element name="SrvCheckRegisterRs" type="reg:Response_Type"/>
+</xsd:schema>

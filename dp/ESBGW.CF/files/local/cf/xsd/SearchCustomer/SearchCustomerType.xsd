@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sc="http://sbrf/ru/sbt/mdo/rqrs/searchcustomer" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:cus="http://sberbank.ru/dem/customerTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/searchcustomer" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../DataTypes/domains/organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/customerTypes" schemaLocation="../DataTypes/domains/customers/customerAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../DataTypes/simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRq_Type"/>
+			<xsd:element name="BankInfo" type="bank:BankInfo_Type" minOccurs="0"/>
+			<xsd:element name="Search" type="cus:FilterType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRs_Type"/>
+			<xsd:element name="Customer" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="CustomerType" type="ifxst:CustType_Type" minOccurs="0"/>
+						<xsd:element name="ClientInfo" type="ifxca:ClientInfo_Type" minOccurs="0"/>
+						<xsd:element name="InternalRatingResut" type="ifx:C" minOccurs="0"/>
+						<xsd:element name="InternalRatingSW" type="ifx:C" minOccurs="0"/>
+						<xsd:element name="InternalRatingDate" type="ifx:Date" minOccurs="0"/>
+						<xsd:element name="Person" type="ind:PersonInfoExt_Type" minOccurs="0"/>
+						<xsd:element name="Enterpreneur" type="ind:PersonInfoExt_Type" minOccurs="0"/>
+						<xsd:element name="Company" type="orgs:OrgRec_Type" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

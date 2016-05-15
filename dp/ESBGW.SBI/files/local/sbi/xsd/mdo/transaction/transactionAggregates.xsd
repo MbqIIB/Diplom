@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ta="http://sberbank.ru/mpc/transactionAggregates_Type" targetNamespace="http://sberbank.ru/mpc/transactionAggregates_Type">
+	<xsd:include schemaLocation="simpleTypes\transactionAggregatesSimpleType.xsd"/>
+	<xsd:annotation/>
+	<xsd:annotation>
+		<xsd:documentation>Базовые комплексные типы --------------------------------------------------------------------------------------------</xsd:documentation>
+	</xsd:annotation>
+	<xsd:annotation/>
+	<xsd:complexType name="OperationInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация по операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AuthCode" type="ta:AuthCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код авторизации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpAmount" type="ta:OpAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма в валюте операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpBankNum" type="ta:OpBankNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер операции в банковской системе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpCode" type="ta:OpCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpCurrency" type="ta:OpCurrency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpDt" type="ta:OpDt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpMerchantId" type="ta:OpMerchantId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ID торговца</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpCity" type="ta:OpCity_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Город проведения операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpPlaceOfTransaction" type="ta:OpPlaceOfTransaction_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Место проведения операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpTypeCode" type="ta:OpTypeCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код типа операции </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpTerminalId" type="ta:OpTerminalId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ID терминала</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurExp" type="ta:CurExp_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валютная экспонента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RRN" type="ta:RRN_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный номер транзакции </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TrTypeCode" type="ta:TrTypeCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код типа транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TrDt" type="ta:TrDt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата проведения транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TrTm" type="ta:TrTm_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Время проведение транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TrDtTm" type="ta:TrDtTm_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Время проведения транзакции (прямая или отмена) в SVFE </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OperationInfoList_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список с информацией по операциям</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OperationInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Информация по операции</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="ta:OperationInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="AuthCode" type="ta:AuthCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код авторизации</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpAmount" type="ta:OpAmount_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Сумма в валюте операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpBankNum" type="ta:OpBankNum_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер операции в банковской системе</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpCode" type="ta:OpCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpCurrency" type="ta:OpCurrency_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Валюта операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpDt" type="ta:OpDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Дата и время операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpMerchantId" type="ta:OpMerchantId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID торговца</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpCity" type="ta:OpCity_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Город проведения операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpPlaceOfTransaction" type="ta:OpPlaceOfTransaction_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Место проведения операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpTypeCode" type="ta:OpTypeCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код типа операции </xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpTerminalId" type="ta:OpTerminalId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID терминала</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CurExp" type="ta:CurExp_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Валютная экспонента</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RRN" type="ta:RRN_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Уникальный номер транзакции </xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="TrTypeCode" type="ta:TrTypeCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код типа транзакции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="TrDt" type="ta:TrDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Дата проведения транзакции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="TrTm" type="ta:TrTm_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Время проведение транзакции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="TrDtTm" type="ta:TrDtTm_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Время проведения транзакции (прямая или отмена) в SVFE </xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

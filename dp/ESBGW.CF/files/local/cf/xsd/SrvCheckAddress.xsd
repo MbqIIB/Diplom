@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sa="http://sbrf/ru/sbt/mdo/rqrs/searchaddress" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/searchaddress" schemaLocation="CheckAddress/CheckAddress.xsd"/>
+	<xsd:element name="SrvCheckAddressRq" type="sa:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Request a Adress</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvCheckAddressRs" type="sa:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Response from Adress</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

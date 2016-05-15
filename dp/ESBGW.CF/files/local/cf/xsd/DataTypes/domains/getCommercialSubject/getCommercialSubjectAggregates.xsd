@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/commercialSubject" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:orgs="http://sberbank.ru/dem/organizations"  xmlns:ca="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/commercialSubject" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:complexType name="CommercialSubject_Type">
+		<xsd:sequence>
+			<xsd:element name="OrgInfo" type="orgs:OrgInfo_Type" minOccurs="0"/>
+			<xsd:element name="RegisterInfo" type="orgs:register_Type" minOccurs="0"/>
+			<xsd:element name="RawData" type="ca:RawDataDescription_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

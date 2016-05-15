@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:sms="http://sbrf/ru/sbt/mdo/rqrs/sendSMS" xmlns:offer="http://sbrf/ru/sbt/mdo/rqrs/docOffer" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/docOffer" schemaLocation="DocOffer/DocOfferType.xsd"/>
+	<xsd:element name="SrvDocIndicateOfferRq" type="offer:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Send offer request</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvDocIndicateOfferRs" type="offer:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Offer response</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

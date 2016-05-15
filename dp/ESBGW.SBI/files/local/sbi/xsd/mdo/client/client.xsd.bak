@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://esb.sberbank.com/client"
+    xmlns:tns="http://esb.sberbank.com/client"
+    xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+    xmlns:prd="http://esb.sberbank.com/product"
+    elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+        schemaLocation="../common/simpleTypes.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/product"
+        schemaLocation="../product/product.xsd" />
+
+    <xsd:complexType name="ClientCreateSABlock_Type">
+        <xsd:sequence>
+            <xsd:element name="CoreClientId" type="tns:ClientId_Type" />
+            <xsd:element name="ResidentialTown" type="sim:String70_Type"/>            
+            <xsd:element name="ResidentialAddress" type="sim:String200_Type"/>
+            <xsd:element name="ResidentialCountry" type="sim:String100_Type"/>
+            <xsd:element name="ZIP" type="sim:String10_Type"/>
+            <xsd:element name="PrimaryEmail" type="tns:Email_Type"/>
+            <xsd:element name="ClientName" type="sim:String70_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ClientCreateTDBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="CoreClientId" type="tns:ClientId_Type" />
+            <xsd:element name="ResidentialTown" type="sim:String70_Type" minOccurs="0"/>            
+            <xsd:element name="ResidentialAddress" type="sim:String200_Type" minOccurs="0"/>
+            <xsd:element name="ResidentialCountry" type="sim:String100_Type" minOccurs="0"/>
+            <xsd:element name="ZIP" type="sim:String10_Type" minOccurs="0"/>
+            <xsd:element name="PrimaryEmail" type="tns:Email_Type" minOccurs="0"/>
+            <xsd:element name="ClientName" type="sim:String70_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ContractBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ContractId" type="sim:String20_Type" minOccurs="0"/>
+            <xsd:element name="ContractNumber" type="sim:String30_Type" minOccurs="0"/>            
+            <xsd:element name="ContractText" type="sim:String20000_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ClientSendMessageList_Type">
+        <xsd:sequence>
+            <xsd:element name="CoreClientId" type="tns:ClientId_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+        
+    <xsd:complexType name="ClientLocalizedInfoList_Type">
+        <xsd:sequence>
+            <xsd:element name="ClientLocalizedInfo" type="tns:ClientLocalizedInfo_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ClientLocalizedInfo_Type">
+        <xsd:sequence>
+            <xsd:element name="Locale" type="sim:Locale_Type"/>
+            <xsd:element name="ClientNamePrefix" type="tns:ClientNamePrefix_Type" minOccurs="0"/>
+            <xsd:element name="LastName" type="sim:String64_Type"/>
+            <xsd:element name="FirstName" type="sim:String64_Type"/>
+            <xsd:element name="MiddleName" type="sim:String64_Type" minOccurs="0"/>
+            <xsd:element name="TitleBefore" type="sim:String64_Type" minOccurs="0"/>
+            <xsd:element name="TitleAfter" type="sim:String64_Type" minOccurs="0"/>
+            <xsd:element name="FullResidentialAddress" type="tns:ClientAddressFull_Type" minOccurs="0"/>
+            <xsd:element name="FullPostalAddress" type="tns:ClientAddressFull_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ClientAccountBlock_Type">
+        <xsd:annotation>
+            <xsd:documentation>Information about Client</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="CoreClientId" type="tns:ClientId_Type" />
+            <xsd:element name="PrimaryMobilePhoneNumber" type="tns:MobilePhoneNumber_Type"/>
+            <xsd:element name="ClientLocalizedInfoList" type="tns:ClientLocalizedInfoList_Type"/>
+            <xsd:element name="PrimaryEmail" type="tns:Email_Type" minOccurs="0"/>
+            <xsd:element name="ClientSegment" type="tns:ClientSegment_Type" minOccurs="0"/>
+            <xsd:element name="IsClientPEP" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="NationalIdExpiryDate" type="xsd:date" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ClientAddressFull_Type">
+        <xsd:sequence>
+            <xsd:element name="Country" type="sim:String100_Type" minOccurs="0"/>
+            <xsd:element name="Region" type="sim:String100_Type" minOccurs="0"/>
+            <xsd:element name="Town" type="sim:String100_Type" minOccurs="0"/>
+            <xsd:element name="Address" type="sim:String200_Type" minOccurs="0"/>
+            <xsd:element name="ZIP" type="sim:String10_Type" minOccurs="0"/>
+            <xsd:element name="HouseNumber" type="sim:String16_Type" minOccurs="0"/>
+            <xsd:element name="HouseNumberAdditional" type="sim:String16_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ClientBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="LoginId" type="sim:String32_Type"/>
+            <xsd:element name="ClientRecordStatus" type="tns:ClientRecordStatus_Type"/>
+            <xsd:element name="DateOfUpdatingClientRecordStatus" type="xsd:dateTime"/>            
+            <xsd:element name="LoginAlias" type="sim:String32_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Client_Type">
+        <xsd:sequence>
+            <xsd:element name="CoreClientId" type="tns:ClientId_Type"/>
+            <xsd:element name="ClientName" type="sim:String70_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ClientDomestic_Type">
+        <xsd:complexContent>
+            <xsd:extension base="tns:Client_Type">
+                <xsd:sequence>
+                    <xsd:element name="ResidentialTown" type="sim:String70_Type" minOccurs="0"/>            
+                    <xsd:element name="ResidentialAddress" type="sim:String200_Type" minOccurs="0"/>
+                </xsd:sequence>
+              </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="ClientForeign_Type">
+        <xsd:complexContent>
+            <xsd:extension base="tns:Client_Type">
+                <xsd:sequence>
+                    <xsd:element name="ResidentialCountry" type="sim:String100_Type" minOccurs="0"/>
+                    <xsd:element name="ResidentialTown" type="sim:String70_Type" minOccurs="0"/>            
+                    <xsd:element name="ResidentialAddress" type="sim:String200_Type" minOccurs="0"/>
+                </xsd:sequence>
+              </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:annotation />
+    <xsd:simpleType name="ClientRecordStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="REGISTERED"></xsd:enumeration>
+            <xsd:enumeration value="ACTIVATED"></xsd:enumeration>
+            <xsd:enumeration value="TEMP_BLOCKED"></xsd:enumeration>
+            <xsd:enumeration value="PERM_BLOCKED"></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="ClientNamePrefix_Type">
+        <xsd:restriction base="xsd:string">
+            <!--  <xsd:enumeration value="MR"></xsd:enumeration>
+                <xsd:enumeration value="MRS"></xsd:enumeration>
+                <xsd:enumeration value="MISS"></xsd:enumeration>
+                <xsd:enumeration value="DR"></xsd:enumeration>-->
+            <xsd:maxLength value="10"></xsd:maxLength>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ClientSegment_Type">
+        <xsd:restriction base="xsd:string">
+            <!-- <xsd:enumeration value="NO"/>
+                <xsd:enumeration value="VIP"/> -->
+            <xsd:maxLength value="10"></xsd:maxLength>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="ClientId_Type">
+        <xsd:annotation>
+            <xsd:documentation>
+                Client's ID in the Bank's core banking system
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"></xsd:maxLength>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+
+    <xsd:annotation />
+    <xsd:simpleType name="MobilePhoneNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="15"></xsd:maxLength>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="Email_Type">
+        <xsd:annotation>
+            <xsd:documentation>Client’s e-mail</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"></xsd:maxLength>
+        <!--    <xsd:pattern value="(\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3})"></xsd:pattern> -->
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+</xsd:schema>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://esb.sberbank.com/channel"
+    xmlns:tns="http://esb.sberbank.com/channel" 
+    xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+    elementFormDefault="unqualified" attributeFormDefault="unqualified">    
+    
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+        schemaLocation="../common/simpleTypes.xsd" />
+        
+    <xsd:annotation />
+
+    <xsd:complexType name="ChannelList_Type">
+    <xsd:sequence>
+            <xsd:element name="ChannelBlock" type="tns:ChannelBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:annotation/>
+    <xsd:complexType name="ChannelBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ChannelId" type="tns:ChannelId_Type"/>
+            <xsd:element name="ChannelName" type="tns:ChannelName_Type"/>
+            <xsd:element name="ChannelActivationStatus" type="tns:ChannelActivationStatus_Type"/>      
+            <xsd:element name="ChannelActivationStatusUpdateDate" type="xsd:dateTime"/>    
+            <xsd:element name="ChannelStatus" type="tns:ChannelStatus_Type"/>      
+            <xsd:element name="ChannelStatusUpdateDate" type="xsd:dateTime"/>    
+            <xsd:element name="LimitGetList" type="tns:LimitGetList_Type"/>
+			<xsd:element name="SMSStatusList" type="tns:SMSStatusList_Type" minOccurs="0"/>
+			<xsd:element name="SMSStatus" type="xsd:boolean"/>
+            <xsd:element name="SMSUsed" type="xsd:int"/>
+            <xsd:element name="SMSLimit" type="xsd:int"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+	<xsd:complexType name="SMSStatusList_Type">
+		<xsd:sequence>
+			<xsd:element name="SMSStatusBlock" type="tns:SMSStatusBlock_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SMSStatusBlock_Type">
+		<xsd:sequence>
+			<xsd:element name="SMSType" type="tns:SMSType_Type"/>
+			<xsd:element name="SMSStatus" type="xsd:boolean"/>
+			<xsd:element name="SMSUsed" type="xsd:int"/>
+			<xsd:element name="SMSLimit" type="xsd:int"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+    <xsd:complexType name="ChannelStatusList_Type">
+        <xsd:sequence>
+            <xsd:element name="ChannelStatusBlock" type="tns:ChannelStatusBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>    
+    <xsd:annotation/>
+    <xsd:complexType name="ChannelStatusBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ChannelId" type="tns:ChannelId_Type"/>
+            <xsd:element name="ChannelActivationStatus" type="tns:ChannelActivationStatus_Type" minOccurs="0"/>
+            <xsd:element name="ChannelStatus" type="tns:ChannelStatus_Type" minOccurs="0"/>
+			<xsd:element name="SMSStatus" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="SMSUpdateStatusList" type="tns:SMSUpdateStatusList_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+	<xsd:complexType name="SMSUpdateStatusList_Type">
+		<xsd:sequence>
+			<xsd:element name="SMSUpdateStatusBlock" type="tns:SMSUpdateStatusBlock_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SMSUpdateStatusBlock_Type">
+		<xsd:sequence>
+			<xsd:element name="SMSType" type="tns:SMSType_Type"/>
+			<xsd:element name="SMSStatus" type="xsd:boolean"/>
+			<xsd:element name="SMSUsed" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="SMSLimit" type="xsd:int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+    <xsd:complexType name="ChannelLimitList_Type">
+    <xsd:sequence>
+            <xsd:element name="ChannelLimitBlock" type="tns:ChannelLimitBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>    
+    <xsd:annotation/>
+    <xsd:complexType name="ChannelLimitBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ChannelId" type="tns:ChannelId_Type"/>
+            <xsd:element name="LimitUpdateList" type="tns:LimitUpdateList_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="LimitUpdateList_Type">
+    <xsd:sequence>
+            <xsd:element name="LimitUpdateBlock" type="tns:LimitUpdateBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>    
+    <xsd:annotation/>
+    <xsd:complexType name="LimitUpdateBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="LimitId" type="tns:LimitId_Type"/>
+            <xsd:element name="LimitType" type="tns:LimitType_Type" minOccurs="0"/>
+            <xsd:element name="LimitUserValue" type="sim:Decimal_1502_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="LimitGetList_Type">
+    <xsd:sequence>
+            <xsd:element name="LimitGetBlock" type="tns:LimitGetBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType> 
+     <xsd:annotation/>
+    <xsd:complexType name="LimitGetBlock_Type">
+        <xsd:complexContent>
+        <xsd:extension base="tns:LimitUpdateBlock_Type">
+            <xsd:sequence>
+                <xsd:element name="LimitMaxValue" type="sim:Decimal_1502_Type" />
+                <xsd:element name="LimitAvailable" type="sim:Decimal_1502_Type"/>
+            </xsd:sequence>
+        </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:simpleType name="ChannelId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>    
+
+    <xsd:simpleType name="ChannelName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="MOBILE_BANK"/>
+            <xsd:enumeration value="INTERNET_BANK"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ChannelActivationStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="NOTACTIVE"></xsd:enumeration>
+            <xsd:enumeration value="ACTIVE"></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ChannelStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="INACTIVE"></xsd:enumeration>
+            <xsd:enumeration value="ACTIVE"></xsd:enumeration>
+            <xsd:enumeration value="BLOCK_ANTIFRAUD"></xsd:enumeration>
+            <xsd:enumeration value="BLOCK_BANK"></xsd:enumeration>
+            <xsd:enumeration value="BLOCK_CLIENT"></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LimitId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="8"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LimitType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+	<xsd:simpleType name="SMSType_Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="MB"/>
+			<xsd:enumeration value="IB_SMS_ACTIVATION"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

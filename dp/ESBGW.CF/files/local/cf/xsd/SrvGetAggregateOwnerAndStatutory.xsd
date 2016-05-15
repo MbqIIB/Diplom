@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:getaos="http://sbrf/ru/sbt/mdo/rqrs/getaggregateownerandstatutory" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs">
+	<xs:import namespace="http://sbrf/ru/sbt/mdo/rqrs/getaggregateownerandstatutory" schemaLocation="GetAggregateOwnerAndStatutory/GetAggregateOwnerAndStatutoryType.xsd"/>
+	<xs:element name="SrvGetAggregateOwnerAndStatutoryRq" type="getaos:Request_Type"/>
+	<xs:element name="SrvGetAggregateOwnerAndStatutoryRs" type="getaos:Response_Type"/>
+</xs:schema>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:getLic="http://sbrf/ru/sbt/mdo/rqrs/getLicense" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs">
+	<xs:import namespace="http://sbrf/ru/sbt/mdo/rqrs/getLicense" schemaLocation="GetLicense/GetLicenseType.xsd"/>
+	<xs:element name="SrvGetLicenseRq" type="getLic:Request_Type">
+		<xs:annotation>
+			<xs:documentation>Searches economical subject and their trade licenses in register</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SrvGetLicenseRs" type="getLic:Response_Type"/>
+</xs:schema>

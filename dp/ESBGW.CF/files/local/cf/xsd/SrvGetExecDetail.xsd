@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:ed="http://sbrf/ru/sbt/mdo/rqrs/executionDetail" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/executionDetail" schemaLocation="ExecutionDetail/GetExecDetailType.xsd"/>
+	<xsd:element name="SrvGetExecDetailRq" type="ed:Request_Type"/>
+	<xsd:element name="SrvGetExecDetailRs" type="ed:Response_Type"/>
+</xsd:schema>

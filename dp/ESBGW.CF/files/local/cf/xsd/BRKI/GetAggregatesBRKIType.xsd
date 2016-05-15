@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ga="http://sbrf/ru/sbt/mdo/rqrs/GetAggregatesBRKI" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:cus="http://sberbank.ru/dem/customerTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:st="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/GetAggregatesBRKI" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/customerTypes" schemaLocation="../DataTypes/domains/customers/customerAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../DataTypes/simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="Response_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRs_Type"/>
+			<xsd:element name="RawData" type="st:C" minOccurs="0"/>
+			<xsd:element name="Aggregates" type="ga:Aggregates_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Aggregates_Type">
+		<xsd:sequence>
+			<xsd:element name="QueryId" type="st:Int" minOccurs="0"/>
+			<xsd:element name="CustomerNumber" type="st:C" minOccurs="0"/>
+			<xsd:element name="GUID" type="st:C" minOccurs="0"/>
+			<xsd:element name="Person" type="ind:PersonInfo_Type" minOccurs="0"/>
+			<xsd:element name="Address" type="ifxca:PostAddr_Type" minOccurs="0"/>
+			<xsd:element name="SumMonthlyReps" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="SumDueReps" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="SumGuarantees" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="SumMonthlyRepZeroPrincipal" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="SumMonthlyRepNext" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="AvgDrawLimitPerc" type="ga:PercentValueList_Type" minOccurs="0"/>
+			<xsd:element name="NumRepInst" type="st:Int" minOccurs="0"/>
+			<xsd:element name="NumDueRestrReps" type="ga:NumberValueList_Type" minOccurs="0"/>
+			<xsd:element name="NumDueReps" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="ga:NumberValueList_Type">
+							<xsd:sequence>
+								<xsd:element name="Value" type="st:Int" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MaxNumDueReps" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="ga:NumberValueList_Type">
+							<xsd:sequence>
+								<xsd:element name="Value" type="st:Int" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="NumDueMonths" type="ga:NumberValueList_Type" minOccurs="0"/>
+			<xsd:element name="NumNonDueMonths" type="ga:NumberValueList_Type" minOccurs="0"/>
+			<xsd:element name="MaxDueAmount" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="ga:AmountValueList_Type">
+							<xsd:sequence>
+								<xsd:element name="Value" type="st:Decimal" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SumDueAmount" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="ga:AmountValueList_Type">
+							<xsd:sequence>
+								<xsd:element name="Value" type="st:Decimal" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="NumProducts" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="ga:NumberValueList_Type">
+							<xsd:sequence>
+								<xsd:element name="Value" type="st:Int" minOccurs="0"/>
+								<xsd:element name="Value_BI" type="st:Int" minOccurs="0"/>
+								<xsd:element name="Value_NI" type="st:Int" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Cards" type="ga:ProductAggregates_Type" minOccurs="0"/>
+			<xsd:element name="Overdrafts" type="ga:ProductAggregates_Type" minOccurs="0"/>
+			<xsd:element name="Requests" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="NumOpened" type="st:Int" minOccurs="0"/>
+						<xsd:element name="NumRejected" type="ga:NumberValueList_Type" minOccurs="0"/>
+						<xsd:element name="NumCanceled" type="ga:NumberValueList_Type" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Loans" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="ga:ProductAggregates_Type">
+							<xsd:sequence>
+								<xsd:element name="NumberWithHistory" type="st:Int" minOccurs="0"/>
+								<xsd:element name="NumberZeroPrincipal" type="st:Int" minOccurs="0"/>
+								<xsd:element name="NumberPayHolidays" type="st:Int" minOccurs="0"/>
+								<xsd:element name="NumberLastOpened" type="st:Int" minOccurs="0"/>
+								<xsd:element name="SumOutPayHolidays" type="st:Decimal" minOccurs="0"/>
+								<xsd:element name="NumRepaid" type="ga:NumberValueList_Type" minOccurs="0"/>
+								<xsd:element name="NumAccelerated" minOccurs="0">
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:extension base="ga:NumberValueList_Type">
+												<xsd:sequence>
+													<xsd:element name="Value" type="st:Int" minOccurs="0"/>
+												</xsd:sequence>
+											</xsd:extension>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="Restruct_1" type="ga:DetailedAggregates_Type" minOccurs="0"/>
+								<xsd:element name="Restruct_2" type="ga:DetailedAggregates_Type" minOccurs="0"/>
+								<xsd:element name="Mortgage" type="ga:ProductAggregates_Type" minOccurs="0"/>
+								<xsd:element name="Consumer" type="ga:ProductAggregates_Type" minOccurs="0"/>
+								<xsd:element name="Business" type="ga:ProductAggregates_Type" minOccurs="0"/>
+								<xsd:element name="Leasing" type="ga:ProductAggregates_Type" minOccurs="0"/>
+								<xsd:element name="Revolving" type="ga:ProductAggregates_Type" minOccurs="0"/>
+								<xsd:element name="Building" type="ga:ProductAggregates_Type" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CBScore" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ErrorCode" type="st:Int" minOccurs="0"/>
+						<xsd:element name="ErrorDesc" type="st:C" minOccurs="0"/>
+						<xsd:element name="Raw" type="st:Int" minOccurs="0"/>
+						<xsd:element name="Range" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="SFCode1" type="st:C" minOccurs="0"/>
+						<xsd:element name="SFDesc1" type="st:C" minOccurs="0"/>
+						<xsd:element name="SFCode2" type="st:C" minOccurs="0"/>
+						<xsd:element name="SFDesc2" type="st:C" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GeneralAggregates_Type">
+		<xsd:sequence>
+			<xsd:element name="Number" type="st:Int" minOccurs="0"/>
+			<xsd:element name="SumOrigin" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="SumMonthlyRep" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="SumMonthlyRepNext" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="SumLimits" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="SumOutstanding" type="st:Decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DetailedAggregates_Type">
+		<xsd:complexContent>
+			<xsd:extension base="ga:GeneralAggregates_Type">
+				<xsd:sequence>
+					<xsd:element name="Count" type="ga:NumberValueList_Type" minOccurs="0"/>
+					<xsd:element name="NumDue" minOccurs="0">
+						<xsd:complexType>
+							<xsd:complexContent>
+								<xsd:extension base="ga:NumberValueList_Type">
+									<xsd:sequence>
+										<xsd:element name="Value" type="st:Int" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:extension>
+							</xsd:complexContent>
+						</xsd:complexType>
+					</xsd:element>			
+					<xsd:element name="SumOriginOpened" type="ga:AmountValueList_Type" minOccurs="0"/>
+					<xsd:element name="SumMonthlyOpened" type="ga:AmountValueList_Type" minOccurs="0"/>
+					<xsd:element name="SumMonthlyRepOpened" type="ga:AmountValueList_Type" minOccurs="0"/>
+					<xsd:element name="SumRepaid" type="ga:AmountValueList_Type" minOccurs="0"/>
+					<xsd:element name="SumClosedLimits" type="ga:AmountValueList_Type" minOccurs="0"/>
+					<xsd:element name="SumClosedReps" type="ga:AmountValueList_Type" minOccurs="0"/>
+					<xsd:element name="NumOpened" type="ga:NumberValueList_Type" minOccurs="0"/>
+					<xsd:element name="NumberMonthLastOpened" type="st:Int" minOccurs="0"/>
+					<xsd:element name="NumClosed" type="ga:NumberValueList_Type" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ProductAggregates_Type">
+		<xsd:complexContent>
+			<xsd:extension base="ga:GeneralAggregates_Type">
+				<xsd:sequence>
+					<xsd:element name="AverageDrawLimits" type="ga:AmountValueList_Type" minOccurs="0"/>
+					<xsd:element name="AS" type="ga:DetailedAggregates_Type" minOccurs="0"/>
+					<xsd:element name="R" type="ga:GeneralAggregates_Type" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PercentValueList_Type">
+		<xsd:sequence>
+			<xsd:element name="Value_1" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="Value_3" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="Value_6" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="Value_12" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="Value_18" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="Value_24" type="st:Decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AmountValueList_Type">
+		<xsd:sequence>
+			<xsd:element name="Value_1" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="Value_3" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="Value_6" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="Value_12" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="Value_18" type="st:Decimal" minOccurs="0"/>
+			<xsd:element name="Value_24" type="st:Decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="NumberValueList_Type">
+		<xsd:sequence>
+			<xsd:element name="Value_1" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_2" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_3" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_3_X" type="ga:Number_XValueList_Type" minOccurs="0"/>
+			<xsd:element name="Value_6" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_6_X" type="ga:Number_XValueList_Type" minOccurs="0"/>
+			<xsd:element name="Value_9" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_12" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_12_X" type="ga:Number_XValueList_Type" minOccurs="0"/>
+			<xsd:element name="Value_18" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_18_X" type="ga:Number_XValueList_Type" minOccurs="0"/>
+			<xsd:element name="Value_24" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_24_X" type="ga:Number_XValueList_Type" minOccurs="0"/>
+			<xsd:element name="Value_500" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_1000" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_2000" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_5000" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_10000" type="st:Int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Number_XValueList_Type">
+		<xsd:sequence>
+			<xsd:element name="Value_500" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_500_X" type="ga:Number_X_XValueList_Type" minOccurs="0"/>
+			<xsd:element name="Value_1000" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_1000_X" type="ga:Number_X_XValueList_Type" minOccurs="0"/>
+			<xsd:element name="Value_2000" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_2000_X" type="ga:Number_X_XValueList_Type" minOccurs="0"/>
+			<xsd:element name="Value_5000" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_5000_X" type="ga:Number_X_XValueList_Type" minOccurs="0"/>
+			<xsd:element name="Value_10000" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_10000_X" type="ga:Number_X_XValueList_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Number_X_XValueList_Type">
+		<xsd:sequence>
+			<xsd:element name="Value_5" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_10" type="st:Int" minOccurs="0"/>
+			<xsd:element name="Value_20" type="st:Int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

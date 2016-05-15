@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/organizations/banks" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:commons="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/organizations/banks" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../common/commonAggregates.xsd"/>
+	<!-- Типы данных для описания и идентификации банков -->
+	<xsd:complexType name="BankInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Реквизиты банков. Тип используется для идентификации банка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BankIdType" type="ifxst:BankIdType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип банковского идентификатора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankId" type="ifxst:BankId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор банка (БИК)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankId_SWIFT" type="ifxst:BankId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код SWIFT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CorAcctId" type="ifxst:RUS.CorrAcct_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Коррсчет банка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование банка</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="BranchId" type="ifxst:BranchId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор филиала банка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BranchName" type="ifxst:BranchName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование филиала банка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegionId" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код тербанка</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AdditionalOfficeId" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="AgencyId" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код отделения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="4"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ClearingCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Клиринговый код участника расчетов (банка)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:element name="PostAddr" type="commons:PostAddr_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Почтовый адрес банка</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:sequence>
+					<xsd:element name="City" type="ifxst:City_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Наименование города</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CityCode" type="ifxst:CityCode_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Код населенного пункта банка</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="StateProv" type="ifxst:StateProv_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Область, штат, провинция.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="StateProvCode" type="ifxst:StateProvCode_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Код области, штата, провинции.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PostalCode" type="ifxst:PostalCode_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Почтовый индекс</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Country" type="ifxst:Country_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Страна</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

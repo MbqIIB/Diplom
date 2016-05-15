@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ba="http://sberbank.ru/mpc/bankAggregates_Type" targetNamespace="http://sberbank.ru/mpc/bankAggregates_Type" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="simpleTypes\bankAggregatesSimpleType.xsd"/>
+	<xsd:annotation/>
+	<xsd:annotation>
+		<xsd:documentation>Базовые комплексные типы --------------------------------------------------------------------------------------------</xsd:documentation>
+	</xsd:annotation>
+	<xsd:annotation/>
+	<xsd:complexType name="BankInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о банке </xsd:documentation>
+			<xsd:documentation>Этот агрегат содержит дополнительную информацию для идентификации банка.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BranchId" type="ba:BranchId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер филиала.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AgencyId" type="ba:AgencyId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер отделения.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegionId" type="ba:RegionId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер террбанка.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RbTbBrchId" type="ba:RbTbBrchType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>8-ный код территориального банка, в котором открыт счет МБК, по которой клиент произвел идентификацию на УС</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RbBrchId" type="ba:RbBrchType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>6-ный код территориального банка, в котором ведется продукт клиента (кредит, вклад, ОМС, карты)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

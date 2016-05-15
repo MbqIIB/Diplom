@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/preappr" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:st="http://sberbank.ru/dem/simpleTypes" targetNamespace="http://sberbank.ru/dem/preappr" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:complexType name="PreaprovedItem_Type">
+		<xsd:sequence>
+			<xsd:element name="ClientInfo" type="ca:ClientInfo_Type" minOccurs="0"/>
+			<xsd:element name="Product" type="ca:Product_Type">
+				<xsd:annotation>
+					<xsd:documentation>
+    				The Product for which the client is pre-approved
+    			</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="xsd:decimal">
+				<xsd:annotation>
+					<xsd:documentation>
+    				The amount for which the client is pre-approved
+    			</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Currency" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="st:CurCode_Type"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="CustomerName" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+    				The source of the pre-approval
+    			</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Category" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+    				The type of offer (pre-approved, preferred etc.)
+    			</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaturityInMonths" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+    				Maximum Tenor (Months)
+    			</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateOfOfferExpiry" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>
+    				The date to which the offer is valid
+    			</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InterestRate" type="xsd:decimal">
+				<xsd:annotation>
+					<xsd:documentation>
+    				The Interest Rate of the Offer
+    			</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpectedIncomeTurnover" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+    				If a monthly income has been assumed for the
+    				customer
+    			</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaxLimit" type="xsd:decimal">
+				<xsd:annotation>
+					<xsd:documentation>
+    				The maximum exposure the customer is allowed
+    			</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SearchPreApproved_Type">
+		<xsd:sequence>
+			<xsd:element name="ClientInfo" type="ca:ClientInfo_Type"/>
+			<xsd:element name="Product" type="ca:Product_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

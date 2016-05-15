@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/bankruptcy" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ind="http://sberbank.ru/dem/individual" targetNamespace="http://sberbank.ru/dem/bankruptcy" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xsd:complexType name="Bankruptcy_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о нахождении в реестре банкротств</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Company" type="orgs:OrgId_Type" minOccurs="0"/>
+			<xsd:element name="Person" type="ind:PersonInfo_Type" minOccurs="0"/>
+			<xsd:element name="Controller" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="Court" type="ifxst:Court_Type" minOccurs="0"/>
+			<xsd:element name="DecisionDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="PublishDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="FullDocument" type="ifxst:FullDocument_Type" minOccurs="0"/>
+			<xsd:element name="Value" type="ifx:Boolean" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

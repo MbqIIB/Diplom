@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ifxdt="http://sberbank.ru/dem/ifxDateTimeTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:pers="http://sberbank.ru/dem/individual" xmlns="http://sberbank.ru/dem/organizations" targetNamespace="http://sberbank.ru/dem/organizations" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- Описание сложных типов данных, относящихся к организации -->
+	<xs:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xs:import namespace="http://sberbank.ru/dem/ifxDateTimeTypes" schemaLocation="../../innerTypes/ifxDateTypes.xsd"/>
+	<xs:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xs:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xs:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xs:complexType name="IndustId_Type">
+		<xs:annotation>
+			<xs:documentation>Классификатор видов деятельности организации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Org" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="ifx:C"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="IndustNum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код классификации</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifxst:IndustNum_Type">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="IndustName" type="ifx:C" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Название отрасли</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubIndustrNum" type="ifx:C" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код подотрасли</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsPrimary" type="ifx:Boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак основного кода:
+- True- основной;
+- False - не основной</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LicenseInfo_Type">
+		<xs:annotation>
+			<xs:documentation>Учредительный документ организации, либо индивидуального предпринимателя</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LicenseType" type="ifx:C" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseStatus" type="ifx:Boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус документа:
+- True – активен,
+- False – не активен
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseSerie" type="ifx:C" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Серия документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseNum" type="ifx:C" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseIssueDt" type="ifx:Date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата выдачи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseStopDt" type="ifx:Date" minOccurs="0"/>
+			<xs:element name="LicenseIssuedBy" type="ifx:C" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код подразделения выдавшего документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgId_Type">
+		<xs:annotation>
+			<xs:documentation>Идентификатор организации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OrgType" type="ifxst:OrgIdType_Type">
+				<xs:annotation>
+					<xs:documentation>Тип идентификатора организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgNum" type="ifx:Identifier">
+				<xs:annotation>
+					<xs:documentation>Идентификационный номер организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgContact_Type">
+		<xs:annotation>
+			<xs:documentation>Контактная информация организации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ContactType" type="ifx:OpenEnum"/>
+			<xs:element name="Desc" type="ifxst:Desc_Type" minOccurs="0"/>
+			<xs:element name="Phone" type="ifxst:PhoneNumber_Type" minOccurs="0"/>
+			<xs:element name="Fax" type="ifxst:PhoneNumber_Type" minOccurs="0"/>
+			<xs:element name="EmailAddr" type="ifxst:EMailAddr_Type" minOccurs="0"/>
+			<xs:element name="URL" type="ifx:URL" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Licenses_Type">
+		<xs:sequence>
+			<xs:element name="LicenseInfo" type="orgs:LicenseInfo_Type" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Учредительный документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgInfo_Type">
+		<xs:annotation>
+			<xs:documentation>Информация об организации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IndustId" type="orgs:IndustId_Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Вид деятельности организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name">
+				<xs:annotation>
+					<xs:documentation>Наименование организации</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:C">
+						<xs:maxLength value="500"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LegalName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Юридическое наименование организации</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:C">
+						<xs:maxLength value="500"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LegalNameEn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Юридическое наименование организации на английском языке</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:C">
+						<xs:maxLength value="500"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FullNameEn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Полное наименование организации на английском языке</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:C">
+						<xs:maxLength value="500"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MnemonicName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Мнемоническое имя организации</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:C">
+						<xs:maxLength value="500"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CompositeContactInfo" type="ifxca:CompositeContactInfo_Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Контактная информация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Licenses" type="orgs:Licenses_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Учредительные документы организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TINInfo" type="ifxca:TINInfo_Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>ИНН организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KIOInfo" type="ifxca:TINInfo_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>КИО организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EstablishDt" type="ifx:Date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата создания организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LiquidateDt" type="ifx:Date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата ликвидации организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NumEmployees" type="ifx:Long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество сотрудников</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployerCode" type="ifxst:EmployerCode_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код организационно-правовой формы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KPPInfo" type="ifxca:TINInfo_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>КПП организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Age" type="xs:nonNegativeInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Возраст бизнеса / Age of business</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgRec_Type">
+		<xs:annotation>
+			<xs:documentation>Организация</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OrgId" type="orgs:OrgId_Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Идентификаторы организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgInfo" type="orgs:OrgInfo_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Информация об организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgStateReg" type="OrgStateReg_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сведения о государственной регистрации организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TaxRegReasonCode" type="ifxst:TaxRegReasonCode_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>КПП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Resident" type="ifx:Boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак резидента</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Shareholder" type="ifx:Boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак акционера Банка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AffiliatedCompany" type="ifx:Boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак дочерней компании Банка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelPerson" type="RelPerson_Type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Связанные физические лица.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConsentGiven" type="ifx:Boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customer has approved usage of his personal data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateConsentGiven" type="ifx:Date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>date of approval of personal data usage</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Branch" type="ifxst:BranchId_Type" minOccurs="0"/>
+			<xs:element name="AccountOfficer" type="ifxst:AccountOfficer_Type" minOccurs="0"/>
+			<xs:element name="AcountOfficerCode" type="ifx:C" minOccurs="0"/>
+			<xs:element name="RegisteredDate" type="ifx:Date" minOccurs="0"/>
+			<xs:element name="employeeNumber" type="ifx:Int" minOccurs="0"/>
+			<xs:element name="OperatingIncome" type="xs:double" minOccurs="0"/>
+			<xs:element name="NaceCode" type="ifx:C" minOccurs="0"/>
+			<xs:element name="Relations" type="RelationCreateType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgStateReg_Type">
+		<xs:annotation>
+			<xs:documentation>Данные о государственной регистрации организации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StateRegPrimeNum" type="ifxst:StateRegNum_Type">
+				<xs:annotation>
+					<xs:documentation>ОГРН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StateRegPrimeDate" type="ifx:Date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата присвоения ОГРН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StateRegPrimePlace" type="ifxst:StateRegPlace_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Место государственной регистрации организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StateRegDate" type="ifx:Date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата государственной регистрации до присвоения  ОГРН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RelPerson_Type">
+		<xs:annotation>
+			<xs:documentation>Физическое лицо, либо ИП, связанное с организацией</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RelType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип представителя</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:OpenEnum">
+						<xs:enumeration value="Affiliated">
+							<xs:annotation>
+								<xs:documentation>Аффилированные лица</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Shareholder">
+							<xs:annotation>
+								<xs:documentation>Акционер</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Director">
+							<xs:annotation>
+								<xs:documentation>Руководитель организации, директор</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="ChiefAccountant">
+							<xs:annotation>
+								<xs:documentation>Главный бухгалтер</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Individual">
+							<xs:annotation>
+								<xs:documentation>Индивидуальный предприниматель</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Other">
+							<xs:annotation>
+								<xs:documentation>Иное</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="President">
+							<xs:annotation>
+								<xs:documentation>Президент или председатель правления</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Employee">
+							<xs:annotation>
+								<xs:documentation>Сотрудник</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PersonInfo" type="pers:PersonInfoExt_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BisAndTradeRegister_Type">
+		<xs:sequence>
+			<xs:element name="Status" type="ifxca:Status_Type" minOccurs="0"/>
+			<xs:element name="OrgInfo" type="orgs:OrgInfo_Type" minOccurs="0"/>
+			<xs:element name="OrgStateReg" type="orgs:OrgStateReg_Type" minOccurs="0"/>
+			<xs:element name="IsInTradeRegister" type="ifx:Boolean" minOccurs="0"/>
+			<xs:element name="IsInBusRegister" type="ifx:Boolean" minOccurs="0"/>
+			<xs:element name="IsInterupted" type="ifx:Boolean" minOccurs="0"/>
+			<xs:element name="IsCancelled" type="ifx:Boolean" minOccurs="0"/>
+			<xs:element name="IsBakruptcy" type="ifx:Boolean" minOccurs="0"/>
+			<xs:element name="IsLiquidation" type="ifx:Boolean" minOccurs="0"/>
+			<xs:element name="InstitutionalSubject" type="ifx:C" minOccurs="0"/>
+			<xs:element name="Id" type="ifx:Int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TaxInfo_Type">
+		<xs:sequence>
+			<xs:element name="Basis" type="ifxca:CurrencyAmount_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Налогооблагаемая база</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Yearly" type="ifxca:CurrencyAmount_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Налог за год</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TaxPayment" type="ifx:Boolean" minOccurs="0"/>
+			<xs:element name="TaxReturn" type="orgs:TaxReturnInfo_Type" minOccurs="0"/>
+			<xs:element name="Desc" type="ifx:C" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TaxReturnInfo_Type">
+		<xs:sequence>
+			<xs:element name="Confirmed" type="ifx:Boolean"/>
+			<xs:element name="ConfirmedBy" type="ifxst:FullName_Type" minOccurs="0"/>
+			<xs:element name="issueDate" type="ifx:Date" minOccurs="0"/>
+			<xs:element name="ContactData" type="ifxca:ContactData_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Supplier_Type">
+		<xs:sequence>
+			<xs:element name="Supplier_Type" type="ifx:NC" minOccurs="0"/>
+			<xs:element name="Supplier_Name" type="ifxst:Name1000_Type" minOccurs="0"/>
+			<xs:element name="Supplier_Code" type="ifxst:ClassifierCode_Type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OwnOrgInfo_Type">
+		<xs:annotation>
+			<xs:documentation>Собственнная компания</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OrgInfo" type="orgs:OrgInfo_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgStateReg" type="orgs:OrgStateReg_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационные данные организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ownership" type="ifxst:Persent_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ownership in percent</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Relation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Relation to company</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifx:OpenEnum">
+						<xs:enumeration value="OWNER_EMPLOYER"/>
+						<xs:enumeration value="OWNER"/>
+						<xs:enumeration value="SOLE_TRADER"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Desc" type="ifx:C" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Description</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BusinessAge" type="ifx:C" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="register_Type">
+		<xs:sequence>
+			<xs:element name="EvidenceNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="Section" type="xs:string" minOccurs="0"/>
+			<xs:element name="RegistrationDistrict" type="xs:string" minOccurs="0"/>
+			<xs:element name="BasicCapital" type="xs:string" minOccurs="0"/>
+			<xs:element name="BasicCapitalCCY" type="xs:string" minOccurs="0"/>
+			<xs:element name="ActingForm" type="xs:string" minOccurs="0"/>
+			<xs:element name="LegalForm" type="xs:string" minOccurs="0"/>
+			<xs:element name="Nace" type="xs:string" minOccurs="0"/>
+			<xs:element name="EmployeesNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>number of employees - category</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LicenseStop_Type">
+		<xs:annotation>
+			<xs:documentation>Информация о датах приостановки лицензии</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StartDate" type="ifx:Date" minOccurs="0"/>
+			<xs:element name="EndDate" type="ifx:Date" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ActivityField_Type">
+		<xs:sequence>
+			<xs:element name="Name" type="ifx:C" minOccurs="0"/>
+			<xs:element name="ValidFrom" type="ifx:Date" minOccurs="0"/>
+			<xs:element name="ValidTo" type="ifx:Date" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RelationCreateType">
+		<xs:sequence>
+			<xs:element name="fesID" type="ifx:Int"/>
+			<xs:element name="personOwnerType" type="pers:PersonInfoExt_Type"/>
+			<xs:element name="isStatutary" type="ifx:Boolean"/>
+			<xs:element name="isOwner" type="ifx:Boolean"/>
+			<xs:element name="description" type="ifx:C" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

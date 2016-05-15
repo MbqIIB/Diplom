@@ -1,0 +1,1353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://esb.sberbank.com/product"
+			xmlns:tns="http://esb.sberbank.com/product"
+			xmlns:sim="http://esb.sberbank.com/common/simpleTypes"
+			xmlns:cur="http://esb.sberbank.com/currency"
+			elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://esb.sberbank.com/common/simpleTypes"
+        schemaLocation="../common/simpleTypes.xsd" />
+    <xsd:import namespace="http://esb.sberbank.com/currency"
+        schemaLocation="../currency/currency.xsd" />
+
+	<xsd:complexType name="TD_OpenBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="OfferingProductId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="Name" type="tns:Name_Type"/>
+            <xsd:element name="Amount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateFrequency" type="tns:InterestRateFrequency_Type" minOccurs="0"/>
+            <xsd:element name="CapitalizationOption" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="AutomaticRenewalDate" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="IncomeAccountNumber" type="tns:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="IncomeAccountReferenceNumber" type="tns:ReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="IncomeAccountModel" type="tns:Model_Type" minOccurs="0"/>
+            <xsd:element name="InterestAccountReferenceNumber" type="tns:ReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="InterestAccountModel" type="tns:Model_Type" minOccurs="0"/>
+            <xsd:element name="InterestAccountNumber" type="tns:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="PeriodMonths" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="FATCACompliance" type="xsd:boolean"/>
+            <xsd:element name="USCitizenshipFlag" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="ReportingAccountFinCENFlag" type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ProductInfoBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductName" type="sim:ShortString_Type"/>
+            <xsd:element name="ProductType" type="tns:ProductType_Type"/>
+            <xsd:element name="ProductShortDescription" type="sim:ShortString_Type"/>
+            <xsd:element name="ProductLink2Web" type="sim:ShortString_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ProductGetDetailsList_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductGetDetailsBlock" type="tns:ProductGetDetailsBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ProductGetDetailsBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductType" type="tns:ProductType_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ProductList_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductBlock" type="tns:ProductBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ProductBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductType" type="tns:ProductType_Type"/>
+            <xsd:element name="ProductName" type="sim:ShortString_Type"/>
+            <xsd:element name="ProductStatus" type="sim:String32_Type"/>
+            <xsd:element name="ProductStatusLastUpdateDate" type="xsd:dateTime"/>
+            <xsd:element name="DisplayedProductType" type="tns:DisplayedProductType_Type" minOccurs="0"/>
+            <xsd:element name="OfferingProductId" type="tns:OfferingProductId_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCodeList" type="cur:CurrencyCodeList_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ProductList1_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductBlock" type="tns:ProductBlock1_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ProductBlock1_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductType" type="tns:ProductType_Type"/>
+            <xsd:element name="CurrentTariffCode" type="tns:CurrentTariffCode_Type"/>
+            <xsd:element name="TargetTariffCode" type="tns:CurrentTariffCode_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ProductBlockCardActions_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductType" type="tns:ProductType_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="AccountBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="LocalAccountCoreID" type="tns:LocalAccountCoreID_Type"/>
+            <xsd:element name="ForeignAccountCoreID" type="tns:ForeignAccountCoreID_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="LinkedProductList_Type">
+        <xsd:sequence>
+            <xsd:element name="LinkedProductBlock" type="tns:LinkedProductBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LinkedProductBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="sim:String32_Type"/>
+            <xsd:element name="ProductType" type="tns:ProductType_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RepaymentAccountBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="AccountNumberIBAN" type="tns:AccountNumber_Type"/>
+            <xsd:element name="Model" type="tns:Model_Type" minOccurs="0"/>
+            <xsd:element name="ReferenceNumber" type="tns:ReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="AccountPrefix" type="tns:AccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="AccountBankCode" type="tns:AccountBankCode_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CC_DetailsList_Type">
+        <xsd:sequence>
+            <xsd:element name="CC_DetailsBlock" type="tns:CC_DetailsBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CC_DetailsBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductStatus" type="sim:String32_Type"/>
+            <xsd:element name="BlockingReason" type="tns:BlockingReason_Type" minOccurs="0"/>
+            <xsd:element name="ProductStatusLastUpdateDate" type="xsd:dateTime"/>
+            <xsd:element name="BalanceList" type="tns:BalanceList_Type"/>
+            <xsd:element name="IssueDate" type="xsd:date"/>
+            <xsd:element name="ExpiryDate" type="xsd:date"/>
+            <xsd:element name="CardAutoReissueFlag" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="PaymentSystem" type="tns:PaymentSystem_Type"/>
+            <xsd:element name="CardProductClass" type="tns:CardProductClass_Type"/>
+            <xsd:element name="CardMaskedNumber" type="tns:CardMaskedNumber_Type"/>
+            <xsd:element name="HolderName" type="tns:HolderName_Type"/>
+            <xsd:element name="AccountNumberLocal" type="tns:AccountNumberLocal_Type" minOccurs="0"/>
+            <xsd:element name="AccountNumberIBAN" type="tns:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="Model" type="tns:Model_Type" minOccurs="0"/>
+            <xsd:element name="ReferenceNumber" type="tns:ReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="RepaymentAccountBlock" type="tns:RepaymentAccountBlock_Type" minOccurs="0"/>
+            <xsd:element name="AccountPrefix" type="tns:AccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="AccountBankCode" type="tns:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="AccountProductStatus" type="sim:String32_Type" minOccurs="0"/>
+            <xsd:element name="AccountBlockingReason" type="tns:AccountBlockingReason_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="BlockedAmount" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="NextRepaymentDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="ActualDebt" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="ActualDebtAmountGracePer" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="InterestRate" type="sim:Decimal_0804_Type"/>
+            <xsd:element name="InterestRateFrequency" type="sim:String16_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateOverdue" type="sim:Decimal_0804_Type"/>
+            <xsd:element name="InterestRateOverdueFrequency" type="sim:String16_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateForATMTransactions" type="sim:Decimal_0804_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateForATMTransactionsFrequency" type="sim:String16_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateForPOSTransactions" type="sim:Decimal_0804_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateForPOSTransactionsFrequency" type="sim:String16_Type" minOccurs="0"/>
+            <xsd:element name="AvailableCreditLimit" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="MinimumInstallmentAmount" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="MinimumInstallmentDueDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="RealMoney" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="ApprovedCreditLimit" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="CreditStatus" type="tns:CreditStatus_Type" minOccurs="0"/>
+            <xsd:element name="OverdueDays" type="xsd:integer" minOccurs="0"/>
+            <xsd:element name="OverdueDebtAmount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="TotalDebtAmount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="DeliveryBlockList" type="tns:DeliveryBlockList_Type" minOccurs="0"/>
+            <xsd:element name="LoyaltyProgramList" type="tns:LoyaltyProgramList_Type" minOccurs="0"/>
+            <xsd:element name="CardAdditionalServicesList" type="tns:CardAdditionalServicesList_Type" minOccurs="0"/>
+            <xsd:element name="KTCList" type="tns:KTCList_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="BalanceList_Type">
+        <xsd:sequence>
+            <xsd:element name="BalanceBlock" type="tns:BalanceBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="BalanceBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="BalanceAvailable" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="InterestEarnedInfoBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="Amount" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CrA_DetailsList_Type">
+        <xsd:sequence>
+            <xsd:element name="CrA_DetailsBlock" type="tns:CrA_DetailsBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CrA_DetailsBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductStatus" type="tns:ProductStatus_Type"/>
+            <xsd:element name="AccountType" type="tns:AccountType_Type" minOccurs="0"/>
+            <xsd:element name="BlockingReason" type="tns:BlockingReason_Type" minOccurs="0"/>
+            <xsd:element name="ProductStatusLastUpdateDate" type="xsd:dateTime"/>
+            <xsd:element name="BalanceList" type="tns:BalanceList_Type"/>
+            <xsd:element name="OpenDate" type="xsd:date"/>
+            <xsd:element name="AccountNumberLocal" type="tns:AccountNumberLocal_Type" minOccurs="0"/>
+            <xsd:element name="AccountNumberIBAN" type="tns:AccountNumberLocal_Type" minOccurs="0"/>
+            <xsd:element name="ReferenceNumber" type="sim:String22_Type" minOccurs="0"/>
+            <xsd:element name="LinkedProductList" type="tns:LinkedProductList_Type" minOccurs="0"/>
+            <xsd:element name="LoyaltyProgramList" type="tns:LoyaltyProgramList_Type" minOccurs="0"/>
+            <xsd:element name="DebtBlock" type="tns:DebtBlock_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DebtBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="TotalDebt" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="DueDebt" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="DebtAmountForGracePeriod" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="CreditLimitAmount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="MinimalInstallmentAmount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="MinimalInstallmentDueDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="OverdueDays" type="sim:Decimal_0804_Type" minOccurs="0"/>
+            <xsd:element name="OverdueDebtAmount" type="sim:Decimal_16_Type" minOccurs="0"/>
+            <xsd:element name="PenaltyInterestRate" type="sim:Decimal_0804_Type" minOccurs="0"/>
+            <xsd:element name="PenaltyInterestRateFrequency" type="tns:InterestRateFrequency_Type" minOccurs="0"/>
+            <xsd:element name="HoldAmount" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="InterestRateForCashTransactions" type="sim:Decimal_16_Type"/>
+            <xsd:element name="InterestRateForCashTransactionsFrequency" type="tns:InterestRateFrequency_Type"
+                         minOccurs="0"/>
+            <xsd:element name="InterestRateForPOSTransactions" type="sim:Decimal_16_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateForPOSTransactionsFrequency" type="tns:InterestRateFrequency_Type"
+                         minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="MaestroInstallmentService_Type">
+        <xsd:sequence>
+            <xsd:element name="Id" type="tns:MaestroInstallmentServiceId_Type"/>
+            <xsd:element name="Status" type="tns:MaestroInstallmentServiceStatus_Type"/>
+            <xsd:element name="InstallmentAccountNumber" type="tns:InstallmentAccountNumber_Type"/>
+            <xsd:element name="InstallmentApprovedLimitAmount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="InstallmentAmount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="InstallmentStatus" type="tns:InstallmentStatus_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ProductTariffBlockList1_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductTariffBlock" type="tns:ProductTariffBlock1_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ProductTariffBlock1_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="TariffCode" type="tns:TariffCode_Type"/>
+            <xsd:element name="TariffName" type="tns:CurrentTariffName_Type" minOccurs="0"/>
+            <xsd:element name="TariffDescription" type="tns:TariffDescription_Type" minOccurs="0"/>
+            <xsd:element name="AvailableTariffChangesList" type="tns:AvailableTariffChangesList1_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AvailableTariffChangesList1_Type">
+        <xsd:sequence>
+            <xsd:element name="TariffChangeBlock" type="tns:TariffChangeBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="TariffChangeBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="TariffCode" type="tns:TariffCode_Type"/>
+            <xsd:element name="TariffName" type="tns:CurrentTariffName_Type" minOccurs="0"/>
+            <xsd:element name="TariffDescription" type="tns:TariffDescription_Type" minOccurs="0"/>
+            <xsd:element name="DisclaimerCode" type="tns:DisclaimerCode_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DeliveryBlockList_Type">
+        <xsd:sequence>
+            <xsd:element name="DeliveryBlock" type="tns:DeliveryBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeliveryBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="DeliveryMethod" type="tns:DeliveryMethodEnum_Type"/>
+            <xsd:element name="DeliveryAddressType" type="tns:DeliveryAddressEnum_Type"/>
+            <xsd:element name="DeliveryAddress" type="tns:DeliveryAddress_Type" minOccurs="0"/>
+            <xsd:element name="Branch" type="tns:Branch_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DeliveryAddress_Type">
+        <xsd:sequence>
+            <xsd:element name="ZIPCode" type="tns:ZIPCode_Type" minOccurs="0"/>
+            <xsd:element name="City" type="tns:City_Type" minOccurs="0"/>
+            <xsd:element name="Street" type="tns:Street_Type" minOccurs="0"/>
+            <xsd:element name="Home" type="tns:Home_Type" minOccurs="0"/>
+            <xsd:element name="Apartment" type="tns:Apartment_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="LoyaltyProgramList_Type">
+        <xsd:sequence>
+            <xsd:element name="LoyaltyProgramBlock" type="tns:LoyaltyProgramBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LoyaltyProgramBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="LoyaltyIndicator" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="Id" type="tns:LoyaltyId_Type"/>
+            <xsd:element name="LoyaltyName" type="tns:LoyaltyName_Type" minOccurs="0"/>
+            <xsd:element name="LoyaltyProgramStatus" type="tns:LoyaltyProgramStatus_Type" minOccurs="0"/>
+            <xsd:element name="LoyaltyProgramDescription" type="tns:LoyaltyProgramDescription_Type" minOccurs="0"/>
+            <xsd:element name="CollectedPoints" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="PointsExpiryDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="PointsSoonToExpire" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="VoucherList" type="tns:VoucherList_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="VoucherList_Type">
+        <xsd:sequence>
+            <xsd:element name="VoucherBlock" type="tns:VoucherBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="VoucherBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="Id" type="tns:VoucherId_Type"/>
+            <xsd:element name="VoucherName" type="tns:VoucherName_Type" minOccurs="0"/>
+            <xsd:element name="VoucherStatus" type="tns:VoucherStatus_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="VoucherValue" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="VoucherExpiryDate" type="xsd:date" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="KTCList_Type">
+        <xsd:sequence>
+            <xsd:element name="KTCBlock" type="tns:KTCBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="KTCBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="Id" type="tns:KTCId_Type"/>
+            <xsd:element name="Status" type="tns:KTCStatus_Type" minOccurs="0"/>
+            <xsd:element name="Amount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="AccountNumberIBAN" type="tns:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="Description" type="tns:KTCDescription_Type" minOccurs="0"/>
+            <xsd:element name="Name" type="tns:KTCName_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DC_DetailsList_Type">
+        <xsd:sequence>
+            <xsd:element name="DC_DetailsBlock" type="tns:DC_DetailsBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DC_DetailsBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductStatus" type="sim:String32_Type"/>
+            <xsd:element name="BlockingReason" type="tns:BlockingReason_Type" minOccurs="0"/>
+            <xsd:element name="ProductStatusLastUpdateDate" type="xsd:dateTime"/>
+            <xsd:element name="IssueDate" type="xsd:date"/>
+            <xsd:element name="ExpiryDate" type="xsd:date"/>
+            <xsd:element name="CardAutoReissueFlag" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="PaymentSystem" type="tns:PaymentSystem_Type"/>
+            <xsd:element name="CardMaskedNumber" type="tns:CardMaskedNumber_Type"/>
+            <xsd:element name="CardProductClass" type="tns:CardProductClass_Type"/>
+            <xsd:element name="HolderName" type="tns:HolderName_Type"/>
+            <xsd:element name="DeliveryBlockList" type="tns:DeliveryBlockList_Type" minOccurs="0"/>
+            <xsd:element name="CardAdditionalServicesList" type="tns:CardAdditionalServicesList_Type" minOccurs="0"/>
+            <xsd:element name="MaestroInstallmentService" type="tns:MaestroInstallmentService_Type" minOccurs="0"/>
+            <xsd:element name="LinkedAccountList" type="tns:LinkedAccountList_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Loan_DetailsList_Type">
+        <xsd:sequence>
+            <xsd:element name="Loan_DetailsBlock" type="tns:Loan_DetailsBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Loan_DetailsBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductStatus" type="sim:String32_Type"/>
+            <xsd:element name="BlockingReason" type="tns:BlockingReason_Type" minOccurs="0"/>
+            <xsd:element name="ProductStatusLastUpdateDate" type="xsd:dateTime"/>
+            <xsd:element name="LoanNumber" type="tns:LoanNumber_Type"/>
+            <xsd:element name="Model" type="tns:Model_Type" minOccurs="0"/>
+            <xsd:element name="ReferenceNumber" type="tns:ReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="AccountPrefix" type="tns:BeneficiaryAccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="AccountBankCode" type="tns:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="AccountNumberLocal" type="tns:AccountNumberLocal_Type" minOccurs="0"/>
+            <xsd:element name="LoanType" type="tns:LoanType_Type"/>
+            <xsd:element name="OpenDate" type="xsd:date"/>
+            <xsd:element name="InitialBalance" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="ClientStatus" type="tns:ClientStatus_Type" minOccurs="0"/>
+            <xsd:element name="RepaymentAccountBlock" type="tns:RepaymentAccountBlock_Type" minOccurs="0"/>
+            <xsd:element name="HolderName" type="tns:HolderName_Type" minOccurs="0"/>
+            <xsd:element name="LoanStatus" type="tns:LoanStatus_Type" minOccurs="0"/>
+            <xsd:element name="CurrentBalance" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="DisbursedAmount" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="Bonus" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="BonusCurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="InterestRate" type="sim:Decimal_0804_Type"/>
+            <xsd:element name="InterestRateFrequency" type="sim:String16_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateValidTo" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="InterestRateOverdue" type="sim:Decimal_0804_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateOverdueFrequency" type="sim:String16_Type" minOccurs="0"/>
+            <xsd:element name="MaturityDate" type="xsd:date"/>
+            <xsd:element name="PeriodMonths" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="LastPaidDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="LastPaidAmount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="MonthlyAnuity" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="MonthlyAnuityBaseCurrency" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="DueDebt" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="ExtraordinaryPayment" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="NextAnnuityDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="AdditionalServicesList" type="tns:AdditionalServicesList_Type" minOccurs="0"/>
+            <xsd:element name="RemainingPeriods" type="xsd:integer" minOccurs="0"/>
+            <xsd:element name="OverdueDays" type="xsd:integer" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="TD_DetailsList_Type">
+        <xsd:sequence>
+            <xsd:element name="TD_DetailsBlock" type="tns:TD_DetailsBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="TD_DetailsBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductStatus" type="sim:String32_Type"/>
+            <xsd:element name="ProductPhase" type="tns:ProductPhase_Type" minOccurs="0"/>
+            <xsd:element name="BlockingReason" type="tns:BlockingReason_Type" minOccurs="0"/>
+            <xsd:element name="ProductStatusLastUpdateDate" type="xsd:dateTime"/>
+            <xsd:element name="BalanceList" type="tns:BalanceList_Type"/>
+            <xsd:element name="HolderName" type="tns:HolderName_Type"/>
+            <xsd:element name="InterestRate" type="sim:Decimal_0804_Type"/>
+            <xsd:element name="InterestRateFrequency" type="tns:InterestRateFrequency_Type"/>
+            <xsd:element name="InterestRateIncomeMethod" type="tns:InterestRateIncomeMethod_Type"/>
+            <xsd:element name="FrequencyOfPayouts" type="tns:InterestRateFrequency_Type" minOccurs="0"/>
+            <xsd:element name="MaturityDate" type="xsd:date"/>
+            <xsd:element name="AutomaticRenewalDate" type="xsd:boolean"/>
+            <xsd:element name="Text" type="tns:Text_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateMatrixList" type="tns:InterestRateMatrixList_Type" minOccurs="0"/>
+            <xsd:element name="IncomeAccountNumber" type="tns:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="InterestAccountNumber" type="tns:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="CapitalizationOption" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="InterestEarnedInfoBlock" type="tns:InterestEarnedInfoBlock_Type" minOccurs="0"/>
+            <xsd:element name="OpenDate" type="xsd:date"/>
+            <xsd:element name="AccountNumberLocal" type="tns:AccountNumberLocal_Type"/>
+            <xsd:element name="AccountNumberIBAN" type="tns:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="Model" type="tns:Model_Type" minOccurs="0"/>
+            <xsd:element name="ReferenceNumber" type="tns:ReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="AccountPrefix" type="tns:BeneficiaryAccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="AccountBankCode" type="tns:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="ReservedOnLegalRestraint" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="TermDepositType" type="tns:TermDepositType_Type"/>
+            <xsd:element name="LockedAgainstChanging" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="MoneyReplenishment" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="PartlyWithdrawal" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="FeedDetailsBlockList" type="tns:FeeDetailsBlockList_Type" minOccurs="0"/>
+        </xsd:sequence>
+	</xsd:complexType>
+
+    <xsd:complexType name="FeeDetailsBlockList_Type">
+		<xsd:sequence>
+            <xsd:element name="FeeDetailsBlock" type="tns:FeeDetailsBlock_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+    <xsd:complexType name="FeeDetailsBlock_Type">
+		<xsd:sequence>
+            <xsd:element name="FeeType" type="tns:FeeType_Type"/>
+            <xsd:element name="FeeDescription" type="tns:FeeDescription_Type" minOccurs="0"/>
+            <xsd:element name="FeeFrequency" type="tns:FeeFrequency_Type" minOccurs="0"/>
+            <xsd:element name="FeeValue" type="tns:FeeValue_Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+    <xsd:complexType name="SA_DetailsList_Type">
+        <xsd:sequence>
+            <xsd:element name="SA_DetailsBlock" type="tns:SA_DetailsBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+	<xsd:complexType name="SA_DetailsBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductStatus" type="sim:String32_Type"/>
+            <xsd:element name="BlockingReason" type="tns:BlockingReason_Type" minOccurs="0"/>
+            <xsd:element name="ProductStatusLastUpdateDate" type="xsd:dateTime"/>
+            <xsd:element name="BalanceList" type="tns:BalanceList_Type"/>
+            <xsd:element name="HolderName" type="tns:HolderName_Type"/>
+            <xsd:element name="CloseDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="Text" type="tns:Text_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateMatrixList" type="tns:InterestRateMatrixList_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateFrequency" type="sim:String16_Type"/>
+            <xsd:element name="WeightedInterestRate" type="sim:Decimal_0804_Type"/>
+            <xsd:element name="InterestEarnedInfoBlock" type="tns:InterestEarnedInfoBlock_Type" minOccurs="0"/>
+            <xsd:element name="LinkedToAnotherAccount" type="xsd:boolean"/>
+            <xsd:element name="BeneficiaryAccountIBAN" type="tns:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="Model" type="tns:Model_Type" minOccurs="0"/>
+            <xsd:element name="ReferenceNumber" type="tns:ReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="AutomaticRenewalDate" type="xsd:boolean"/>
+            <xsd:element name="OpenDate" type="xsd:date"/>
+            <xsd:element name="AccountNumberLocal" type="tns:AccountNumberLocal_Type" minOccurs="0"/>
+            <xsd:element name="AccountNumberIBAN" type="tns:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="AccountPrefix" type="tns:BeneficiaryAccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="AccountBankCode" type="tns:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="ReservedOnLegalRestraint" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="SavingAccountType" type="tns:SavingAccountType_Type"/>
+            <xsd:element name="CurrentTariffCode" type="tns:CurrentTariffCode_Type" minOccurs="0"/>
+            <xsd:element name="CurrentTariffName" type="tns:CurrentTariffName_Type" minOccurs="0"/>
+            <xsd:element name="FeeDetailsBlockList" type="tns:FeeDetailsBlockList_Type" minOccurs="0"/>
+        </xsd:sequence>
+	</xsd:complexType>
+
+    <xsd:complexType name="CA_DetailsList_Type">
+        <xsd:sequence>
+            <xsd:element name="CA_DetailsBlock" type="tns:CA_DetailsBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CA_DetailsBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="ProductStatus" type="sim:String32_Type"/>
+            <xsd:element name="BlockingReason" type="tns:BlockingReason_Type" minOccurs="0"/>
+			<xsd:element name="ProductStatusLastUpdateDate" type="xsd:dateTime"/>
+            <xsd:element name="BalanceList" type="tns:BalanceList_Type"/>
+            <xsd:element name="DueDebt" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="HolderName" type="tns:HolderName_Type"/>
+            <xsd:element name="GeneralLedgerBalance" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="RealMoney" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="BlockedAmount" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="OverdraftStatus" type="tns:OverdraftStatus_Type" minOccurs="0"/>
+            <xsd:element name="ApprovedOverdraft" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="AvailableOverdraft" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="UsedOverdraft" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="OverdraftOpeningDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="OverdraftInterestRate" type="sim:Decimal_0804_Type" minOccurs="0"/>
+            <xsd:element name="OverdraftInterestRateFrequency" type="sim:String16_Type" minOccurs="0"/>
+            <xsd:element name="OverdraftMaturityDate" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="ReservedOnLegalRestraint" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="InterestRate" type="sim:Decimal_0804_Type"/>
+            <xsd:element name="InterestRateFrequency" type="sim:String16_Type" minOccurs="0"/>
+            <xsd:element name="OverdraftOverdueInterestRate" type="sim:Decimal_0804_Type" minOccurs="0"/>
+            <xsd:element name="OverdraftOverdueInterestRateFrequency" type="sim:String16_Type" minOccurs="0"/>
+            <xsd:element name="Text" type="tns:Text_Type" minOccurs="0"/>
+            <xsd:element name="InterestRateMatrixList" type="tns:InterestRateMatrixList_Type" minOccurs="0"/>
+            <xsd:element name="OpenDate" type="xsd:date"/>
+            <xsd:element name="AccountNumberLocal" type="tns:AccountNumberLocal_Type" minOccurs="0"/>
+            <xsd:element name="AccountNumberIBAN" type="tns:AccountNumber_Type" minOccurs="0"/>
+            <xsd:element name="Model" type="tns:Model_Type" minOccurs="0"/>
+            <xsd:element name="ReferenceNumber" type="tns:ReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="AccountPrefix" type="tns:BeneficiaryAccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="AccountBankCode" type="tns:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="CurrentAccountType" type="tns:CurrentAccountType_Type"/>
+            <xsd:element name="TariffInformationBlock" type="tns:TariffInformationBlock_Type" minOccurs="0"/>
+            <xsd:element name="OverdraftOverdueDays" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="FeeDetailsBlockList" type="tns:FeeDetailsBlockList_Type" minOccurs="0"/>
+        </xsd:sequence>
+	</xsd:complexType>
+
+    <xsd:complexType name="TariffInformationBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="CurrentTariffCode" type="tns:CurrentTariffCode_Type" minOccurs="0"/>
+            <xsd:element name="CurrentTariffName" type="tns:CurrentTariffName_Type" minOccurs="0"/>
+            <xsd:element name="NewTariffCode" type="tns:CurrentTariffCode_Type" minOccurs="0"/>
+            <xsd:element name="TargetTariffName" type="tns:CurrentTariffName_Type" minOccurs="0"/>
+            <xsd:element name="NewTariffEffectiveDate" type="xsd:date" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="LinkedAccountList_Type">
+        <xsd:sequence>
+            <xsd:element name="LinkedAccountBlock" type="tns:LinkedAccountBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LinkedAccountBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="LinkedAccountId" type="tns:LinkedAccountId_Type"/>
+            <xsd:element name="LinkedAccountType" type="tns:LinkedAccountType_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CardAdditionalServicesList_Type">
+        <xsd:sequence>
+            <xsd:element name="CardAdditionalServicesBlock" type="tns:CardAdditionalServicesBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CardAdditionalServicesBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="Id" type="tns:СardAdditionalServicesId_Type"/>
+            <xsd:element name="Name" type="tns:СardAdditionalServicesName_Type" minOccurs="0"/>
+            <xsd:element name="Status" type="tns:СardAdditionalServicesStatus_Type" minOccurs="0"/>
+            <xsd:element name="ValidFrom" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="ValidTo" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="Description" type="tns:СardAdditionalServicesDescription_Type" minOccurs="0"/>
+        </xsd:sequence>
+	</xsd:complexType>
+
+     <xsd:complexType name="AdditionalServicesList_Type">
+        <xsd:sequence>
+            <xsd:element name="AdditionalServicesBlock" type="tns:CardAdditionalServicesBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AdditionalServicesBlock_Type">
+        <xsd:complexContent>
+            <xsd:extension base="tns:CardAdditionalServicesBlock_Type"/>
+        </xsd:complexContent>
+	</xsd:complexType>
+
+    <xsd:complexType name="CardLimitGetList_Type">
+        <xsd:sequence>
+            <xsd:element name="CardLimitGetBlock" type="tns:CardLimitGetBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CardLimitGetBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="LimitId" type="tns:LimitId_Type"/>
+            <xsd:element name="LimitType" type="tns:LimitType_Type"/>
+            <xsd:element name="CurrencyCode" type="cur:CurrencyCode_Type" minOccurs="0"/>
+            <xsd:element name="LimitUserValue" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="LimitMaxValue" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="LimitMinValue" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="LimitAvailableValue" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="LimitNextResetMoment" type="xsd:dateTime" minOccurs="0"/>
+            <xsd:element name="FrequencyOfRefresh" type="tns:InterestRateFrequency_Type" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+       <xsd:complexType name="CardLimitSetList_Type">
+        <xsd:sequence>
+            <xsd:element name="CardLimitSetBlock" type="tns:CardLimitSetBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+     <xsd:complexType name="CardLimitSetBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="LimitId" type="tns:LimitId_Type"/>
+            <xsd:element name="LimitUserValue" type="sim:Decimal_1502_Type"/>
+            <xsd:element name="LimitType" type="tns:LimitType_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+	<xsd:complexType name="ProductGetList_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductGetBlock" type="tns:ProductGetBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductGetBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+			<xsd:element name="ProductType" type="tns:ProductType_Type"/>
+        </xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ProductBalanceList_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductBalanceBlock" type="tns:ProductBalanceBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductBalanceBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+            <xsd:element name="BalanceList" type="tns:BalanceList_Type"/>
+            <xsd:element name="ProductStatus" type="tns:ProductStatus_Type"/>
+            <xsd:element name="ProductStatusLastUpdateDate" type="xsd:dateTime" minOccurs="0"/>
+        </xsd:sequence>
+	</xsd:complexType>
+
+    <xsd:complexType name="DebitAccountTransactionBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="DebitAccount" type="tns:AccountNumber_Type"/>
+            <xsd:element name="DebitModel" type="tns:DebitModel_Type" minOccurs="0"/>
+            <xsd:element name="DebitAccountPrefix" type="tns:BeneficiaryAccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="DebitAccountBankCode" type="tns:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="DebitReferenceNumber" type="tns:DebitReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="DebitAccountBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="DebitAccount" type="tns:AccountNumber_Type"/>
+            <xsd:element name="DebitAccountPrefix" type="tns:BeneficiaryAccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="DebitAccountBankCode" type="tns:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="DebitReferenceNumber" type="tns:DebitReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="DebitModel" type="tns:DebitModel_Type" minOccurs="0"/>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DebitAccountBlockMod2_Type">
+        <xsd:sequence>
+            <xsd:element name="DebitAccount" type="tns:AccountNumber_Type"/>
+            <xsd:element name="DebitModel" type="tns:DebitModel_Type" minOccurs="0"/>
+            <xsd:element name="DebitAccountPrefix" type="tns:BeneficiaryAccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="DebitAccountBankCode" type="tns:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="DebitReferenceNumber" type="tns:DebitReferenceNumber_Type" minOccurs="0"/>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DebitAccountCZBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="DebitAccount" type="tns:AccountNumber_Type"/>
+            <xsd:element name="DebitAccountPrefix" type="tns:BeneficiaryAccountPrefix_Type" minOccurs="0"/>
+            <xsd:element name="DebitAccountBankCode" type="tns:BeneficiaryAccountBankCode_Type" minOccurs="0"/>
+            <xsd:element name="ProductCoreId" type="tns:ProductCoreId_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="InterestRateMatrixList_Type">
+        <xsd:sequence>
+            <xsd:element name="InterestRateMatrixBlock" type="tns:InterestRateMatrixBlock_Type" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="InterestRateMatrixBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="RangeOfValues" type="tns:RangeOfValues_Type"/>
+            <xsd:element name="AccrualInterest" type="sim:Decimal_0804_Type"/>
+            <xsd:element name="AmountFrom" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="AmountTo" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="Balance" type="sim:Decimal_1502_Type" minOccurs="0"/>
+            <xsd:element name="PeriodFrom" type="xsd:date" minOccurs="0"/>
+            <xsd:element name="PeriodTo" type="xsd:date" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DebitAccountHRBlock_Type">
+        <xsd:sequence>
+            <xsd:element name="DebitAccount" type="tns:AccountNumber_Type"/>
+            <xsd:element name="DebitModel" type="tns:DebitModel_Type" minOccurs="0"/>
+            <xsd:element name="DebitReferenceNumber" type="tns:DebitReferenceNumber_Type" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="SavingAccountType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="GENERAL"/>
+            <xsd:enumeration value="BFREE"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CurrentAccountType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="CURACC"/>
+            <xsd:enumeration value="GIRACC"/>
+            <xsd:enumeration value="FCACC"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+ 
+    <xsd:simpleType name="TermDepositType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="TERM_DEPOSIT"/>
+            <xsd:enumeration value="BONUS_SAVINGS"/>
+            <xsd:enumeration value="IDEAL_SAVINGS"/>
+            <xsd:enumeration value="OTHER_CCY"/>
+            <xsd:enumeration value="HRK_SAVINGS"/>
+            <xsd:enumeration value="CHILDREN_SAVINGS"/>
+        </xsd:restriction>
+    </xsd:simpleType>   
+        
+    <xsd:simpleType name="BlockingReason_Type">
+        <xsd:restriction base="sim:String255_Type">
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AccountType_Type">
+        <xsd:restriction base="sim:String255_Type"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="TariffCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="LoanStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="PAST_DUE"/>
+            <xsd:enumeration value="DEPT_THAT_WAS_MADE_DUE"/>
+            <xsd:enumeration value="DEPT_THAT_WAS_MADE_DUE_PAID"/>
+            <xsd:enumeration value="REGULAR_PAYMENT"/>
+            <xsd:enumeration value="OVERDUE"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LinkedAccountType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="DOMESTIC_ACCOUNT"/>
+            <xsd:enumeration value="FOREIGN_ACCOUNT"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="InterestRateFrequency_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="DAILY"/>
+            <xsd:enumeration value="WEEKLY"/>
+            <xsd:enumeration value="MONTHLY"/>
+            <xsd:enumeration value="BIANNUALLY"/>
+            <xsd:enumeration value="ANNUALLY"/>
+            <xsd:enumeration value="TWO_WEEKLY"/>
+            <xsd:enumeration value="BIMONTHLY"/>
+            <xsd:enumeration value="QUARTERLY"/>
+            <xsd:enumeration value="TWO_MONTHLY"/>
+            <xsd:enumeration value="ON_REQUEST"/>
+            <xsd:enumeration value="ON_MATURITY"/>
+        </xsd:restriction>
+	</xsd:simpleType>
+
+    <xsd:simpleType name="CreditStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+	</xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="LimitType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ATMW"/>
+            <xsd:enumeration value="POSTRV"/>
+            <xsd:enumeration value="CNPTRV"/>
+            <xsd:enumeration value="TOTHIGH"/>
+            <xsd:enumeration value="TOTCUST"/>
+            <xsd:enumeration value="TRCNTATM"/>
+            <xsd:enumeration value="TRCNTPOS"/>
+            <xsd:enumeration value="TRCNTCNP"/>
+            <xsd:enumeration value="POSCASHADV"/>
+            <xsd:enumeration value="TRCNTTOT"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="ProductType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="CURRENT_ACC"/>
+            <xsd:enumeration value="SAVINGS_ACC"/>
+            <xsd:enumeration value="LOAN_ACC"/>
+            <xsd:enumeration value="TERM_DEPOSIT"/>
+            <xsd:enumeration value="DEBIT_CARD"/>
+            <xsd:enumeration value="CREDIT_CARD"/>
+            <xsd:enumeration value="INSURANCE"/>
+            <xsd:enumeration value="INVESTMENT"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="ProductStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ACTIVE"/>
+            <xsd:enumeration value="INACTIVE"/>
+            <xsd:enumeration value="TEMP_BLOCKED"/>
+            <xsd:enumeration value="PERM_BLOCKED"/>
+            <xsd:enumeration value="EXPIRED"/>
+            <xsd:enumeration value="CLOSED"/>
+            <xsd:enumeration value="DEBIT_BLOCKED"/>
+            <xsd:enumeration value="CREDIT_BLOCKED"/>
+        </xsd:restriction>
+	</xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="ClientStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="DEBTOR"></xsd:enumeration>
+            <xsd:enumeration value="CODEBTOR"></xsd:enumeration>
+            <xsd:enumeration value="GUARANTOR"></xsd:enumeration>
+            <!-- <xsd:maxLength value="16"></xsd:maxLength> -->
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="KTCStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ACTIVATED"/>
+            <xsd:enumeration value="NOT_ACTIVATED"/>
+            <xsd:enumeration value="TEMP_SUSP"/>
+        </xsd:restriction>
+	</xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="PaymentSystem_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CardProductClass_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="12"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="City_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\{\}\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:annotation />
+    <xsd:simpleType name="VoucherStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AddBeneficiaryAccountNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AccountNumberLocal_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AccountNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="34"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Model_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ReferenceNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="22"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AccountPrefix_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="6"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AccountBankCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CardMaskedNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="19"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="HolderName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryAccountPrefix_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="6"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryAccountBankCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AccountBlockingReason_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ProductCoreId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+	</xsd:simpleType>
+
+    <xsd:simpleType name="DisplayedProductType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ZIPCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+            <xsd:pattern value="[0-9A-Za-z\s\-]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Street_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Home_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Apartment_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="OfferingProductId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DeliveryMethodEnum_Type">
+		<xsd:restriction base="sim:String16_Type">
+			<xsd:enumeration value="CARD"/>
+			<xsd:enumeration value="PIN"/>
+			<xsd:enumeration value="BOTH"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+    <xsd:simpleType name="DeliveryAddressEnum_Type">
+		<xsd:restriction base="sim:String16_Type">
+			<xsd:enumeration value="HOME"/>
+			<xsd:enumeration value="BRANCH"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+    <xsd:simpleType name="Branch_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LoyaltyId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LoyaltyName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LoyaltyProgramStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LoyaltyProgramDescription_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="VoucherId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="VoucherName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="СardAdditionalServicesId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="СardAdditionalServicesName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="СardAdditionalServicesStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="СardAdditionalServicesDescription_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="KTCId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="KTCDescription_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="KTCName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MaestroInstallmentServiceId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MaestroInstallmentServiceStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="InstallmentAccountNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="34"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="InstallmentStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LinkedAccountId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LoanNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="34"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LoanType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ProductPhase_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="InterestRateIncomeMethod_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Text_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="RangeOfValues_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="40"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="FeeType_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="FeeDescription_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="FeeFrequency_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="FeeValue_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CurrentTariffCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CurrentTariffName_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="OverdraftStatus_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="TariffDescription_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DisclaimerCode_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LocalAccountCoreID_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ForeignAccountCoreID_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="32"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="LimitId_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="16"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n\s]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Name_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DebitModel_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DebitReferenceNumber_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="22"/>
+            <xsd:pattern value="[^#/\\\(\)\{\},\t\r\n]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

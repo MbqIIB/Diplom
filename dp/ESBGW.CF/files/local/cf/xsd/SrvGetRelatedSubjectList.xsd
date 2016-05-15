@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:getrsl="http://sbrf/ru/sbt/mdo/rqrs/getrelatedsubjectlist" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs">
+	<xs:import namespace="http://sbrf/ru/sbt/mdo/rqrs/getrelatedsubjectlist" schemaLocation="GetRelatedSubjectList/GetRelatedSubjectListType.xsd"/>
+	<xs:element name="SrvGetRelatedSubjectListRq" type="getrsl:Request_Type"/>
+	<xs:element name="SrvGetRelatedSubjectListRs" type="getrsl:Response_Type"/>
+</xs:schema>

@@ -1,0 +1,999 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/individual" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:orgs="http://sberbank.ru/dem/organizations" targetNamespace="http://sberbank.ru/dem/individual" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:complexType name="DriversLicense_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">Водительское удостоверение</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="LicenseNum" type="ifxst:LicenseNum_Type">
+				<xsd:annotation>
+					<xsd:documentation>Номер водительского удостоверения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StateProv" type="ifxst:StateProv_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Штат, провинция, область, где выдано водительское удостоверение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Country" type="ifxst:Country_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страна, выдавшая водительское удостоверение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Employee_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о сотруднике</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifxst:EmployeeType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>				Тип сотрудника. Предопределенные значения:
+						Director – директор
+						BookKeeper – главный бухгалтер
+						Staff – служащий
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="FullName" type="ifxst:FullName_Type">
+					<xsd:annotation>
+						<xsd:documentation>ФИО</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PersonName" type="PersonName_Type">
+					<xsd:annotation>
+						<xsd:documentation>Расширенные параметры ФИО</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="EmploymentData" type="EmploymentData_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о работе по найму</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EmployeeIdent_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">Идентификатор сотрудника</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="EmployerName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование работодателя</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="80"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Desc" type="ifxst:Desc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EmployeeIdentlNum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентифицирующий номер(удостоверение) сотрудника</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:NC">
+						<xsd:maxLength value="32"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="IssueLoc" type="ifxst:IssueLoc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Местонахождение, где удостоверение сотрудника было выдано</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssDt" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата выдачи</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpDt" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания срока действия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EmploymentData_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">Информация о работе по найму</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="EmployeeIdent" type="EmployeeIdent_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор работника</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EmploymentHistory" type="EmploymentHistory_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>История работы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EmploymentHistory_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">Запись о месте работы</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OrgId" type="orgs:OrgId_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="EmploymentStatus" type="ifxst:EmploymentStatus_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус места работы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrgInfo" type="orgs:OrgInfo_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Информация об организации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrgStateReg" type="orgs:OrgStateReg_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Регистрационный номер огранизации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Occupation" type="ifxst:Occupation_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Подразделение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Income" type="ifxca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заработная плата</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="JobTitle" type="ifxst:JobTitle_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название должности</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TrialPeriod" type="ifx:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Флаг испытательный срок</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EndDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата конца</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Days" type="xsd:nonNegativeInteger" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>кол-во дней </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ContractType" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>тип договора: бессрочный или на фиксированное время</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Company" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GovIssueIdent_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">Документ, выданный государственными органами</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="GovIssueIdentType" type="ifx:OpenEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип документа, выданного государственным органом
+PassportRF - Паспорт РФ
+MilitaryID – Удостоверение личности военнослужащего
+MilitaryPassport – Военный билет
+ForeignPassport – Паспорт иностранного гражданина
+BirthCertificate – Свидетельство о рождении
+ResidenceRF – Вид на жительство РФ
+OtherDocs - Иной документ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IdentSerialNum" type="ifxst:IdNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Серийный номер удостоверения, выданного органом власти.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="GovOrg" type="ifxst:GovOrg_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Уровень органа власти, выдавшей удостоверение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="GovOrgName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование органа власти, которое выдало удостоверение</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="80"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="GovRank" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ранг органа власти.Только для военных организаций</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="32"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="StateProv" type="ifxst:StateProv_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Штат, провинция, область</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Country" type="ifxst:Country_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страна</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Desc" type="ifxst:Desc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssDt" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата выдачи</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssDate" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата выдачи в формате Date</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpDt" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания срока действия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpDate" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания срока действия в формате Date</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IdentSerie" type="ifxst:IdentSerie_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Серия документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="GovOrgUnit" type="ifxst:GovOrgUnit_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код подразделения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IdentityCard_Type">
+		<xsd:annotation>
+			<xsd:documentation>Универсальный тип ДУЛ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="IdType" type="ifx:OpenEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IdStatus" type="ifx:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус ДУЛ. True - активен, False - неактивен</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IdSeries" type="ifxst:IdSeries_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Серия ДУЛ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IdNum" type="ifxst:IdNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер ДУЛ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата выдачи ДУЛ.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpirationDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="IssuedBy" type="ifxst:IssuedBy_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Орган, выдавший ДУЛ.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Code" type="ifxst:Issuer_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование, либо код организации, выдавшей ДУЛ.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueLoc" type="ifxst:IssueLoc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Место выдачи ДУЛ.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IdStatus_ext" type="xsd:long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус ДУЛ
+1 - активный;
+2 - неактивный;
+3 - с истекшей датой действия
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Country" type="ifxst:Country_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OtherIdentDoc_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">Другой документ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DocType" type="ifxst:Desc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IdentSerialNum" type="ifxst:IdNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Issuer" type="ifxst:IssuedBy_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Кем выдан</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueLoc" type="ifxst:IssueLoc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Где выдан</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssDt" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала действия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpDt" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания действия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Passport_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">Документ удостоверяющий личность(ДУЛ). Паспорт</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PassportNumber" type="ifxst:PassportNumber_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DocSeries" type="ifxst:IdSeries_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Серия документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PassportCountry" type="ifxst:Country_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код страны, где выдан документ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueLoc" type="ifxst:IssueLoc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Орган, выдавший документ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssDt" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата выдачи документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpDt" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания действия документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PersonInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Персональная информация</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="NameAddrType" type="ifxst:NameAddrType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип имени/адреса.
+Предопределенные значения:
+Delivery – только информация для доставки корреспонденции (для потенциальных потребителей)
+Customer – заполняются все данные, которые необходимы для обслуживания потребителя
+aggregate.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="FullName" type="ifxst:FullName_Type">
+					<xsd:annotation>
+						<xsd:documentation>ФИО</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PersonName" type="PersonName_Type">
+					<xsd:annotation>
+						<xsd:documentation>Расширенные параметры ФИО</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="ContactInfo" type="ifxca:ContactInfo_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Контактная информацию(адрес, телефон)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TINInfo" type="ifxca:TINInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ИНН</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BirthDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата рождения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BirthDtString" type="ifx:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата рождения (строка)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DriversLicense" type="DriversLicense_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация о водительском удостоверении</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MotherMaidenName" type="ifxst:MotherMaidenName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Девичья фамилия матери</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SpouseName" type="ifxst:SpouseName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имя супруга (супруги)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="EmploymentHistory" type="EmploymentHistory_Type" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>История работы</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="EmploymentData" type="EmploymentData_Type" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная история работы</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="Gender" type="ifxst:Gender_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Пол</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaritalStatus" type="ifxst:MaritalStatus_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Семейное положение.
+Предопределенные значения:
+Married – женат (замужем)
+Single – холост (не замужем)
+Divorced – разведен (-а)
+Widow – вдовец (вдова)
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="USAMilitaryRank" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Воинское звание</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="32"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Passport" type="Passport_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ДУЛ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OEDCode" type="ifx:OpenEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Должность
+Предопределенные значения:
+Officer – гос.служащий
+Employee – служащий
+Director – директор
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OEDInstitution_Type" type="ifx:OpenEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Учреждение, ведомство персоны</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="GovIssueIdent" type="GovIssueIdent_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Документ описывающий личность (водительское удостоверение, справки и пр), выданный государственными органами власт
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OtherIdentDoc" type="OtherIdentDoc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Другой документ, описывающий личность</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IdentityCards" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Перечень ДУЛ</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="IdentityCard_Type"/>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="BirthPlace" type="ifxst:BirthPlace_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Место рождения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BirthPlaceForcing" type="ifxst:BirthPlace_Type" minOccurs="0"/>
+			<xsd:element name="BirthState" type="ifxst:BirthPlace_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Место рождения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BirthCountry" type="ifxst:BirthCountry_Type" minOccurs="0"/>
+			<xsd:element name="BirthNumber" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="PolitacallyExposedPerson" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="Resident" type="ifxst:Resident_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак резидента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MilitaryDocFlag" type="ifxst:MilitaryDocFlag_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак предоставления  физическим лицом военного билета</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Citizenship" type="ifxst:CitizenShip_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Гражданство</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Nationality" type="ifxst:Nationality_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Национальность</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ElectronicSignatureHolder" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PersonName_Type">
+		<xsd:annotation>
+			<xsd:documentation source="WMQI_DOCUMENTATION">ФИО</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="LastName" type="ifxst:LastName_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Фамилия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FirstName" type="ifxst:FirstName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MiddleName" type="ifxst:MiddleName_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Отчество </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BirthName" type="ifxst:LastName_Type" minOccurs="0"/>
+			<xsd:element name="TitlePrefix" type="ifxst:TitlePrefix_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Префикс перед фамилией клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NameSuffix" type="ifxst:NameSuffix_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Суффикс имени</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Nickname" type="ifxst:Nickname_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Псевдоним</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LegalName" type="ifxst:LegalName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Официальное название (для частных предпринимателей). Передается только в именительном падеже.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PersonNameInOtherCaseOrLang" type="PersonNameInOtherCaseOrLang_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>ФИО в другом падеже (кроме именительного) или на иностранном языке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PersonNameInOtherCaseOrLang_Type">
+		<xsd:annotation>
+			<xsd:documentation>ФИО в другом падеже (кроме именительного) или на иностранном языке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CaseOrLanguageID">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор иностранного языка или падежа (кроме именительного)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:OpenEnum">
+						<xsd:enumeration value="Eng"/>
+						<xsd:enumeration value="GenitiveCase"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="LastNameInOtherCaseOrLang" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Фамилия в другом падеже или на иностранном языке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="FirstNameInOtherCaseOrLang" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Имя в другом падеже или на иностранном языке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="MiddleNameInOtherCaseOrLang" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Отчество в другом падеже или на иностранном языке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RelPerson_Type">
+		<xsd:annotation>
+			<xsd:documentation>Физическое лицо, либо ИП, связанное с организацией</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RelType">
+				<xsd:annotation>
+					<xsd:documentation>Тип представителя</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:OpenEnum">
+						<xsd:enumeration value="Affiliated">
+							<xsd:annotation>
+								<xsd:documentation>Аффилированные лица</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="Shareholder">
+							<xsd:annotation>
+								<xsd:documentation>Акционер</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="Director">
+							<xsd:annotation>
+								<xsd:documentation>Руководитель организации, директор</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="ChiefAccountant">
+							<xsd:annotation>
+								<xsd:documentation>Главный бухгалтер</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="Individual">
+							<xsd:annotation>
+								<xsd:documentation>Индивидуальный предприниматель</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="Other">
+							<xsd:annotation>
+								<xsd:documentation>Иное</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="President">
+							<xsd:annotation>
+								<xsd:documentation>Президент или председатель правления</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+						<xsd:enumeration value="Employee">
+							<xsd:annotation>
+								<xsd:documentation>Сотрудник</xsd:documentation>
+							</xsd:annotation>
+						</xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PersonInfo" type="PersonInfo_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Employer_Type">
+		<xsd:annotation>
+			<xsd:documentation>For Business and Trade Register</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="regNum" type="ifxst:StateRegNum_Type" minOccurs="0"/>
+			<xsd:element name="companyName" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="firstName" type="ifxst:FirstName_Type" minOccurs="0"/>
+			<xsd:element name="lastName" type="ifxst:LastName_Type" minOccurs="0"/>
+			<xsd:element name="address" type="ifxca:PostAddr_Type" minOccurs="0"/>
+			<xsd:element name="inTradeRegister" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="inBusinessRegister" type="ifx:Boolean" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Family_Type">
+		<xsd:sequence>
+			<xsd:element name="NumberChildrenTo18" type="ifx:Long" minOccurs="0"/>
+			<xsd:element name="NumberYoungAdults18To26" type="ifx:Long" minOccurs="0"/>
+			<xsd:element name="NumberAdults" type="ifx:Long" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PersonInfoExt_Type">
+		<xsd:complexContent>
+			<xsd:extension base="PersonInfo_Type">
+				<xsd:sequence>
+					<xsd:element name="SpecialRelationship" type="ifx:Boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Is customer with special relationshit with bank</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RelationshipDescription" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Type of relationship with bank</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifx:OpenEnum">
+								<xsd:enumeration value="BOARD_MEMBER"/>
+								<xsd:enumeration value="MANAGER/PROCURIST"/>
+								<xsd:enumeration value="EMPLOYEE"/>
+								<xsd:enumeration value="NO"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="BureauConsentBank" type="ifx:Boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Bureau Consent - Bank Area</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="BureauConsentNonBank" type="ifx:Boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Bureau Consent - Non-bank Area</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="SpecialConsentList" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Доболнительные разрешения / Additional consents</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Consent" type="SpecialConsent_Type" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="ConsentGiven" type="ifx:Boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Customer has approved usage of his personal data</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="DateConsentGiven" type="ifx:Date" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>date of approval of personal data usage</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="FirstContactDate" type="ifx:Date" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Date of first contact with customer</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Status" type="ifx:C" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Status of the Customer</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Segment" type="ifx:C" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Customer segment</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="SubSegment" type="ifx:C" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Customer subsegment</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="SubSubSegment" type="ifx:C" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Custmer subsubsegment</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="TypeOfCare" type="ifx:C" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Type of customer care</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Branch" type="ifxst:BranchId_Type" minOccurs="0"/>
+					<xsd:element name="AccountOfficer" type="ifxst:AccountOfficer_Type" minOccurs="0"/>
+					<xsd:element name="AcountOfficerCode" type="ifx:C" minOccurs="0"/>
+					<xsd:element name="RegisteredDate" type="ifx:Date" minOccurs="0"/>
+					<xsd:element name="employeeNumber" type="ifx:Int" minOccurs="0"/>
+					<xsd:element name="OperatingIncome" type="xsd:double" minOccurs="0"/>
+					<xsd:element name="NaceCode" type="ifx:C" minOccurs="0"/>
+					<xsd:element name="CompanyName" type="ifx:C" minOccurs="0"/>
+					<xsd:element name="CompanyRegisterNumber" type="ifx:C" minOccurs="0"/>
+					<xsd:element name="TaxID" type="ifx:C" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Accommodation_Type">
+		<xsd:sequence>
+			<xsd:element name="type" type="ifxst:AccmdType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип места проживания / Accommodation type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ownershipType" type="ifxst:AccmdOwnType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип собвственности места проживания / Accomodation ownership type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ownership" type="ifxst:PartInPercent_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Часть собственности в процентах / Percentage of ownership of accommodation
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Expenses_Type">
+		<xsd:sequence>
+			<xsd:element name="Accomodation" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="TypeOwnership" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="PerCentOwnership" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="Housing" type="ifxca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Расходы на жилье / Housing expenses</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Living" type="ifxca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Расходы на проживание / Living expenses</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InsurancePerMonth" type="ifxca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>стоимость страховки в месяц / Insurance monthly payment</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Other" type="ifxca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Прочие расходы в месяц / Other monthly costs
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SpecialConsent_Type">
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifx:C">
+				<xsd:annotation>
+					<xsd:documentation>Тип разрешения / Consent type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Flag" type="ifx:Boolean">
+				<xsd:annotation>
+					<xsd:documentation>Flag</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="StolenDocs_Type">
+		<xsd:sequence>
+			<xsd:element name="EntityID" type="ifx:Int"/>
+			<xsd:element name="Document" type="GovIssueIdent_Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="StolenDocsResponse_Type">
+		<xsd:sequence>
+			<xsd:element name="Code" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="Description" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SearchByPerson_Type">
+		<xsd:sequence>
+			<xsd:element name="PersonName" type="PersonName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Расширенные параметры ФИО</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BirthDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата рождения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IdentityCards" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Перечень ДУЛ</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="IdentityCard_Type"/>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="coApplicantMicro_Type">
+		<xsd:sequence>
+			<xsd:element name="Person" type="PersonInfo_Type"/>
+			<xsd:element name="Statutary" type="Statutary_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddressDetail_Type">
+		<xsd:sequence>
+			<xsd:element name="AddressType" type="ifx:C"/>
+			<xsd:element name="Address" type="ifxca:PostAddr_Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Contractor_Type">
+		<xsd:sequence>
+			<xsd:element name="TradeName" type="ifx:C"/>
+			<xsd:element name="CompanyID" type="ifx:C"/>
+			<xsd:element name="LegalForm" type="ifx:C"/>
+			<xsd:element name="Court" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="EvidenceNumber" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="Section" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="RegistrationDistrict" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="RegistrationNumber" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="EmployeeNumber" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="Addresses" type="AddressDetail_Type" maxOccurs="unbounded"/>
+			<xsd:element name="Contacts" type="ifxca:ContactData_Type" maxOccurs="unbounded"/>
+			<xsd:element name="Statutary" type="Statutary_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Statutary_Type">
+		<xsd:sequence>
+			<xsd:element name="Person" type="PersonName_Type" minOccurs="0"/>
+			<xsd:element name="PersonalID" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="Function" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="SingleActing" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="Address" type="AddressDetail_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

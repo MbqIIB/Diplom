@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/ecf"  targetNamespace="http://sberbank.ru/dem/ecf" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:complexType name="ExistingCusFile_Type">
+		<xsd:sequence>
+			<xsd:element name="CustomerID" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Internal Customer Number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExistingCustomer" type="xsd:boolean" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Derived Field if customer is defined as Payroll</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PayrollCustromer" type="xsd:boolean" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Derived Field if customer is defined as existing</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CustomerSince" type="xsd:date" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The Date First Product Opened in the Bank</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateLastProd" type="xsd:date" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Date Last Product was opened by the Customer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateLastRest" type="xsd:date" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Date Last Restructuring was completed </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateLastDefault" type="xsd:date" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Date of last Default - If account still in default or written off then date is current, if not date shown is when exited default</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberClosedPersonalLoans" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of Closed Personal Loans ever</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberClosedCreditCards" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of Closed Credit Cards Ever</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberClosedCarLoans" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of Closed Car Loans Ever</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberClosedPOSLoans" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of Closed POS Loans Ever</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberClosedMortgageLoans" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of Closed Mortgage Loans Ever</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Last24monthsSummarisedCreditHistory" type="xsd:string" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Last 24 months Summarised Credit History</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Last24monthsSummarisedCreditHistoryUnsecuredproduct" type="xsd:string" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Last 24 months Summarised Credit History</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Last24monthsSummarisedCreditHistorySecuredProduct" type="xsd:string" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Last 24 months Summarised Credit History</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberActivePersonalLoans" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number Active Personal Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberActiveRevolvingProducts" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number Active Revolving Products</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberActiveCarLoans" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number Active Car Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberActivePOSLoans" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number Active Mortgage Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberActiveMortgageLoans" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number Active POS Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentFinancedPrincipalOnAllActiveProducts" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current financed principal on all active products (for revolving loans take the current utilisation)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InitialFinancedPrincipalOnAllActiveProducts" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Initial financed principal on all active products (for revolving loans take the current limit)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentOverdraftUtilisation" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Overdraft Utilisation</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentOverdraftLimit" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Overdraft Limit</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentOutstandingPrincipalonUnsecuredLoans" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Outstanding Principal on Unsecured Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentOutstandingPrincipalonSecuredLoans" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Outstanding Principal on Secured Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateExpiryOvdLimit" type="xsd:date" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Date of Expiry of Ovd Limit</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllCurrentCreditCardsLimits" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Current Credit Cards Limits</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllcurrentCreditCardBalances" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all current Credit Card Balances</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LastCreditCardPaymentAmount" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Last Credit Card Payment Amount</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitBalancesPreviousmonth" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Balances at the end of the previous month</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitBalancesPreviousmonth1" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Balances at the end of the previous month -1</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitBalancesPreviousmonth2" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Balances at the end of the previous month -2</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitBalancesPreviousmonth3" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Balances at the end of the previous month -3</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitBalancesPreviousmonth4" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Balances at the end of the previous month -4</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitBalancesPreviousmonth5" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Balances at the end of the previous month -5</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitUsagePreviousCalenderMonth" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Usage for the Previous Calender Month</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitUsagePreviousCalenderMonth1" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Usage for the Previous Calender Month-1</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitUsagePreviousCalenderMonth2" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Usage for the Previous Calender Month-2</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitUsagePreviousCalenderMonth3" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Usage for the Previous Calender Month-3</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitUsagePreviousCalenderMonth4" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Usage for the Previous Calender Month-4</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllRevolvingLimitUsagePreviousCalenderMonth5" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all Revolving Limit Usage for the Previous Calender Month-5</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentLastMonth" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all installments paid last month</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentLastMonth1" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all installments paid last month-1</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentLastMonth2" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all installments paid last month-2</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentLastMonth3" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all installments paid last month-3</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentLastMonth4" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all installments paid last month-4</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentLastMonth5" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all installments paid last month-5</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAllAmountsOverdueStatus" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all amounts currently in overdue status</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAllAmountsOverdueStatusPersonalLoans" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all amounts currently in overdue status on Personal Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAllAmountsOverdueStatusCreditCards" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all amounts currently in overdue status on Credit Cards</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAllAmountsOverdueStatusCarLoans" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all amounts currently in overdue status on Car Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAllAmountsOverdueStatusPOS" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all amounts currently in overdue status on POS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAllAmountsOverdueStatusMortgageLoans" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Sum of all amounts currently in overdue status on Mortgage Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentDPDMaxAnyProduct" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current DPD (Maximum DPD of any product at the current date)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentMonthBehavioralRating" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Month Behavioral Rating </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentMonthBehavioralRating1" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Month -1 Behavioral Rating </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentMonthBehavioralRating2" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Month -2 Behavioral Rating </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentMonthBehavioralRating3" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Month -3 Behavioral Rating </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentMonthBehavioralRating4" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Month -4 Behavioral Rating </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentMonthBehavioralRating5" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Month -5 Behavioral Rating </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberCurrentAccountsOpen" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of Current Accounts open</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FirstMonthPayrollRecieved" type="xsd:string" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>First Month Payroll Recieved YYYYMM</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberMonthsPayrollLast6Months" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of Months Payroll Last 6 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberMonthsPayrollLast12Months" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of Months Payroll Last 12 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AveragePayrollLast3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average Payroll Last 3M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AveragePayrollLast6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average Payroll Last 6M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AveragePayrollLast12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average Payroll Last 12M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PayrollamountlastMonth" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Payroll amount last Month</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgCurrentAccountsL6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Av Current Accounts (Balance start of Month + Balance end of Month)/2  over last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgCurrentAccountsL12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Av Current Accounts (Balance start of Month + Balance end of Month)/2  over last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgCurrentAccountsL3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Av Current Accounts (Balance start of Month + Balance end of Month)/2  over last 3 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalDaysOverdrawnLast6Months" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total days overdrawn Last 6 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalDaysOverdrawnLast12Months" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total days overdrawn Last 12 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberDaysOverdrawnLastMonth" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of days overdrawn last month</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberDaysOverODLimitL6M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of days over agreed OD Limit L6M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberDaysOverODLimitL12M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of days over agreed OD Limit L12M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgCurrentAccountCreditsL3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average current account credits L3M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgCurrentAccountCreditsL6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average current account credits L6M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgCurrentAccountCreditsL12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average current account credits L12M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgCurrentAccountDebitsL3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average current account debits L3M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgCurrentAccountDebitsL6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average current account debits L6M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgCurrentAccountDebitsL12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average current account debits L12M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgOverdraftUtilisationLastMonthPerc" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average Overdraft Utilisation Last Month %</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgOverdraftUtilisationLast3MonthsPerc" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average Overdraft Utilisation Last 3 Months %</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgOverdraftUtilisationLast6MonthsPerc" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average Overdraft Utilisation Last 6 Months %</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgOverdraftUtilisationLast12MonthsPerc" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average Overdraft Utilisation Last 12 Months %</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalSumATMWithdrawalsLast3Months" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Sum ATM Withdrawals Last 3 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalSumATMWithdrawalsLast6Months" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Sum ATM Withdrawals Last 6 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalSumATMWithdrawalsLast12Months" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Sum ATM Withdrawals Last 12 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalNumberATMWithdrawalsLast3Months" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Number ATM Withdrawals Last 3 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalNumberATMWithdrawalsLast6Months" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Number ATM Withdrawals Last 6 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalNumberATMWithdrawalsLast12Months" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Number ATM Withdrawals Last 12 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalCurrentAccountBalance" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Current Account Balance</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberDebitCards" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation> Number of Debit Cards</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentDepositValue" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Deposit Value</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberCurrentDeposit" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of Current Deposit</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AverageDepositValueL3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average Deposit Value L3M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AverageDepositValueL6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average Deposit Value L6M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AverageDepositValueL12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average Deposit Value L12M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateLastTransferToWorkoutDepartment" type="xsd:date" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Date of  Last Transfer to Workout Department</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateLastTrasferFromWorkOut" type="xsd:date" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Date of Last Trasfer from Work Out</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateLastCustomerOverdue" type="xsd:date" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The date the customer was last Overdue</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberActiveAccountBlockadesAllAccounts" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Number of Active Account Blockades on all Customer Accounts</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AmountActiveAccountBlockadesAllAccounts" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The amount for whihc all current blockades are on customer accounts</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalNumberAccountBlockadesAllAccounts3M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical blocking - the total number of all blocking on all accounts of the client for the last § months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalAmountAccountBlockadesAllAccounts3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical blocking - the sum of blocking amount on all accounts of the client for the last 3 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalNumberAccountBlockadesAllAccounts6M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical blocking - the total number of all blocking on all accounts of the client for the last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalAmountAccountBlockadesAllAccounts6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical blocking - the sum of blocking amount on all accounts of the client for the last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalNumberAccountBlockadesAllAccounts12M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical blocking - the total number of all blocking on all accounts of the client for the last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalAmountAccountBlockadesAllAccounts12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical blocking - the sum of blocking amount on all accounts of the client for the last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllQueriesStateInstitutionLast3M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The sum of all queries from the state institution for the last 3 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllQueriesStateInstitutionLast6M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The sum of all queries from the state institution for the last 6 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SumAllQueriesStateInstitutionLast12M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The sum of all queries from the state institution for the last 12 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountCurrentAccountCreditsL3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Amount of current account credits L3M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountCurrentAccountCreditsL6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Amount of current account credits L6M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountCurrentAccountCreditsL12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Amount of current account credits L12M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountCurrentAccountDebitsL3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Amount of current account debits L3M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountCurrentAccountDebitsL6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Amount of current account debits L6M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountCurrentAccountDebitsL12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Total Amount of current account debits L12M</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgMonthlyNumberCashTransactionLast3M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average monthly number of cash transaction for the last 3 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgMonthlySumCashTransactionLast3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average monthly sum of cash transaction for the last 3 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgMonthlyNumberNonCashTransactionLast3M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average monthly number of non-cash transaction for the last 3 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgMonthlyNumberCashTransactionLast6M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average monthly number of cash transaction for the last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgMonthlySumCashTransactionLast6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average monthly sum of cash transaction for the last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgMonthlyNumberNonCashTransactionLast6M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average monthly number of non-cash transaction for the last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgMonthlyNumberCashTransactionLast12M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average monthly number of cash transaction for the last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgMonthlySumCashTransactionLast12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average monthly sum of cash transaction for the last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgMonthlyNumberNonCashTransactionLast12M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Average monthly number of non-cash transaction for the last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalSumAlldaysOverdueLast3M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the sum of all days in overdue status for the last 3 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalNumberAlldaysOverdueLast3M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the number of overdue status for the last 3 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalMaxDaysOverdueLast3M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the maximum days in overdue for the last 3 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalSumAllOverdueAmountsLast3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the  sum of all overdue amounts for the last 3 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalMaxSumAllOverduesLast3M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the max. sum of all overdues for the last 3 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalNumberOverdueStatusLast6M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the number of overdue status for the last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalMaxDaysOverdueLast6M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the maximum days in overdue for the last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalSumAllOverdueAmountsLast6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the  sum of all overdue amounts for the last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalMaxSumAllOverduesLast6M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the max. sum of all overdues for the last 6 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalNumberOverdueStatusLast12M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the number of overdue status for the last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalMaxDaysOverdueLast12M" type="xsd:int" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the maximum days in overdue for the last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalSumAllOverdueAmountsLast12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the  sum of all overdue amounts for the last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HistoricalMaxSumAllOverduesLast12M" type="xsd:decimal" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Historical overdue - the max. sum of all overdues for the last 12 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurrentInternalClassificationCustomer" type="xsd:string" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Current Internal Classification for Customer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="WorstInternalClassificationLast6M" type="xsd:string" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Worst Internal Classification in Last 6 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HighestInternalClassificationLast6M" type="xsd:string" minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Highest Internal Classification in Last 6 Months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cbr="http://sbrf/ru/sbt/mdo/rqrs/chckbankrptcy" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:bnkr="http://sberbank.ru/dem/bankruptcy" xmlns:st="http://sberbank.ru/dem/simpleTypes" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/chckbankrptcy" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../DataTypes/domains/organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/bankruptcy" schemaLocation="../DataTypes/domains/bankruptcy/bankruptcyAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../DataTypes/simpleTypes/simpleTypes.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRq_Type"/>
+			<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+			<xsd:element name="IdentificationNumber" type="st:IdNum_Type" minOccurs="0"/>
+			<xsd:element name="Company" type="orgs:OrgId_Type" minOccurs="0"/>
+			<xsd:element name="Person" type="ind:SearchByPerson_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRs_Type"/>
+			<xsd:element name="Bankruptcy" type="bnkr:Bankruptcy_Type" minOccurs="0"/>
+			<xsd:element name="RawData" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

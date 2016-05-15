@@ -1,0 +1,41 @@
+<routes>
+	<!--
+	<adapter name="CrossBorderGWErrorNf">
+		<route SystemId="urn:sbrfsystems:tr-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+		<route SystemId="urn:sbrfsystems:by-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+		<route SystemId="urn:sbrfsystems:kz-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+		<route SystemId="urn:sbrfsystems:ua-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+		<route SystemId="urn:sbrfsystems:99-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+	</adapter>
+	<adapter name="UpdateLegalClientCrossBorderRq">
+		<route SystemId="urn:sbrfsystems:tr-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+		<route SystemId="urn:sbrfsystems:by-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+		<route SystemId="urn:sbrfsystems:kz-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+		<route SystemId="urn:sbrfsystems:ua-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+	</adapter>
+	<adapter name="UpdateLegalClientGroupCrossBorderRq">
+		<route SystemId="urn:sbrfsystems:tr-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+		<route SystemId="urn:sbrfsystems:by-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+		<route SystemId="urn:sbrfsystems:kz-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+		<route SystemId="urn:sbrfsystems:ua-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+	</adapter>
+	<adapter name="UpdateLegalClientSubsidiaryDealRq">
+		<route SystemId="urn:sbrfsystems:99-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+	</adapter>
+	<adapter name="UpdateLegalClientSubsidiaryRq">
+		<route SystemId="urn:sbrfsystems:99-crmcorp" ReplyQ="ESB.GW1.TO.CA" ReplyQMgr="M99.ESB.GW1">dpmq://IN.MQGR/?RequestQueue=IRUS.ESB.IN.GW1</route>
+	</adapter>
+	<adapter name="CheckInStopListRq">
+			<route ReplyQ="KORUS.DOS.OUT" ReplyQMgr="KORUS.ESB.OUT.GW1">dpmq://OUT.MQGR/?RequestQueue=KORUS.ESB.OUT.GW1</route>
+	</adapter>
+	<adapter name="OpenLegalAccountRq">
+			<route ReplyQ="KORUS.DOS.OUT" ReplyQMgr="KORUS.ESB.OUT.GW1">dpmq://OUT.MQGR/?RequestQueue=KORUS.ESB.OUT.GW1</route>
+	</adapter>
+	<adapter name="SrvCheckEGRInfоRq">
+			<route ReplyQ="KORUS.DOS.OUT" ReplyQMgr="KORUS.ESB.OUT.GW1">dpmq://OUT.MQGR/?RequestQueue=KORUS.ESB.OUT.GW1</route>
+	</adapter>
+	<adapter name="YANDEX.MPG">
+                <route system="YANDEX" type="request">http://10.68.198.38:18089/mockShopInfoServiceSoapBinding</route>
+	</adapter>
+	-->
+</routes>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:hst="http://sbrf/ru/sbt/mdo/rqrs/checkhistory/srbi/history" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:ha="http://sberbank.ru/dem/historyAggregates" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/checkhistory/srbi/history" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../DataTypes/simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/historyAggregates" schemaLocation="../DataTypes/domains/history/historyAggregates.xsd"/>
+	<xsd:complexType name="History_Type">
+		<xsd:sequence>
+			<xsd:element name="ContractList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Contract" type="hst:ContractData_Type" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CustomerStatus" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="FlagUCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+						<xsd:element name="FlagECount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+						<xsd:element name="FlagPCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ContractData_Type">
+		<xsd:complexContent>
+			<xsd:extension base="ha:ContractData_Type">
+				<xsd:sequence>
+					<xsd:element name="IsAcclereratedOrWrittenOff" type="ifx:Boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Contract is WrittenOff Accelerated</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="StatusList" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="FlagPCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagQCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagCCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagVCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagDCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagZCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagOCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagFCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagSCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagACount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagLCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagMCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagJCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagICount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+								<xsd:element name="FlagBCount" type="xsd:nonNegativeInteger" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

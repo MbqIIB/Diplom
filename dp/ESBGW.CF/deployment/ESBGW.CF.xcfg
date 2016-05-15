@@ -1,0 +1,111 @@
+
+<datapower-configuration version="3">
+	<export-details>
+		<user>generated mannualy by  xslt</user>
+		<domain>generated mannualy by  xslt</domain>
+		<comment>generated mannualy by  xslt</comment>
+		<device-name>generated mannualy by  xslt</device-name>
+		<firmware-version>XI50.4.0.2.10</firmware-version>
+		<display-firmware-version>XI50.4.0.2.10</display-firmware-version>
+	</export-details>
+	<interface-data>
+		<interface name="mgt0" ip-addr="10.73.50.128"/>
+	</interface-data>
+	<configuration domain="none">
+		<ConfigDeploymentPolicy name="ESBGW.CF" xmlns:env="http://www.w3.org/2003/05/soap-envelope" xmlns:dp="http://www.datapower.com/schemas/management">
+			<mAdminState read-only="true">enabled</mAdminState>
+				
+			<ModifiedConfig>
+				<Match>*/*/network/mq-qm?Name=IRUS.SBI.OUT.GW1&amp;Property=QMname</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>IRUS.SBI.OUT.GW1</Value>
+			</ModifiedConfig>
+							
+			<ModifiedConfig>
+				<Match>*/*/network/mq-qm?Name=IRUS.SBI.OUT.GW1&amp;Property=HostName</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>addressIRUSSBIOUTGW1</Value>
+			</ModifiedConfig>
+			<ModifiedConfig>
+				<Match>*/*/network/mq-qm?Name=IRUS.SBI.OUT.GW1&amp;Property=ChannelName</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>ESBGW.SVRCONN</Value>
+			</ModifiedConfig>
+							
+			<ModifiedConfig>
+				<Match>*/*/network/mq-qm?Name=IRUS.SBI.OUT.GW1&amp;Property=TotalConnectionLimit</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>500</Value>
+			</ModifiedConfig>
+							
+			<ModifiedConfig>
+				<Match>*/*/network/mq-qm?Name=IRUS.SBI.OUT.GW1&amp;Property=InitialConnections</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>10</Value>
+			</ModifiedConfig>
+							
+			<ModifiedConfig>
+				<Match>*/*/network/mq-qm?Name=IRUS.SBI.GW1&amp;Property=QMname</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>IRUS.SBI.GW1</Value>
+			</ModifiedConfig>
+							
+			<ModifiedConfig>
+				<Match>*/*/network/mq-qm?Name=IRUS.SBI.GW1&amp;Property=HostName</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>addressIRUSSBIGW1</Value>
+			</ModifiedConfig>
+			<ModifiedConfig>
+				<Match>*/*/network/mq-qm?Name=IRUS.SBI.GW1&amp;Property=ChannelName</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>ESBGW.SVRCONN</Value>
+			</ModifiedConfig>
+							
+			<ModifiedConfig>
+				<Match>*/*/network/mq-qm?Name=IRUS.SBI.GW1&amp;Property=TotalConnectionLimit</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>500</Value>
+			</ModifiedConfig>
+							
+			<ModifiedConfig>
+				<Match>*/*/network/mq-qm?Name=IRUS.SBI.GW1&amp;Property=InitialConnections</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>10</Value>
+			</ModifiedConfig>
+							
+			<ModifiedConfig>
+				<Match>*/*/services/multiprotocol-gateway?Name=ESBGW.CF.MPG&amp;Property=BackendUrl</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>NA</Value>
+			</ModifiedConfig>
+							
+			<ModifiedConfig>
+				<Match>*/*/services/multiprotocol-gateway?Name=ESBGW.CF.MPG&amp;Property=FrontTimeout</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>120</Value>
+			</ModifiedConfig>
+							
+			<ModifiedConfig>
+				<Match>*/*/services/multiprotocol-gateway?Name=ESBGW.CF.MPG&amp;Property=BackTimeout</Match>
+				<Type>change</Type>
+				<Property/>
+				<Value>120</Value>
+			</ModifiedConfig>
+							
+		</ConfigDeploymentPolicy>
+	</configuration>
+	<files/>
+</datapower-configuration>
+			

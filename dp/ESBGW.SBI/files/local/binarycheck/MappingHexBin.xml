@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files>
+	<file name="JPG,jpeg" uses="true">
+		<hex>FFD8FFE0</hex>
+		<hex>FFD8FFE1</hex>
+		<hex>FFD8FFE2</hex>
+		<hex>FFD8FFE3</hex>
+	</file>
+	<file name="rar" uses="true">
+		<hex>526172211A0700</hex>
+		<hex>526172211A070100</hex>
+	</file>
+	<file name="pdf" uses="true">
+		<hex>25504446</hex>
+	</file>
+	<file name="zip" uses="true">
+		<hex>504B0304</hex>
+		<hex>504B0506</hex>
+		<hex>504B0708</hex>
+	</file>
+	<file name="7z" uses="true">
+		<hex>377ABCAF271C</hex>
+	</file>
+</files>

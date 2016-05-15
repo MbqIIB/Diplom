@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:sia="http://sbrf/ru/sbt/mdo/rqrs/checkinfo/sia" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/checkinfo/sia" schemaLocation="./CheckInfoSIA/CheckInfoSIA.xsd"/>
+	<xsd:element name="SrvCheckInfoSIARq" type="sia:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Get 16 answers from SIA</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvCheckInfoSIARs" type="sia:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Check information about client's employment.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/IsirEvents" targetNamespace="http://sberbank.ru/dem/IsirEvents" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	
+	<xsd:complexType name="IsirEvent_Type">
+		<xsd:sequence>
+			<xsd:element name="EventID" type="xsd:int"/>
+			<xsd:element name="EventDate" type="xsd:dateTime"/>
+			<xsd:element name="FileReferenceNumber" type="xsd:string"/>
+			<xsd:element name="CompanyID" type="xsd:string" nillable="true" minOccurs="0"/>
+			<xsd:element name="PersonalNumber" type="xsd:string" nillable="true" minOccurs="0"/>
+			<xsd:element name="StatusEvents" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

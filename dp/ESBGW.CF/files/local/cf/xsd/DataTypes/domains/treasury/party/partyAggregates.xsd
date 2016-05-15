@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by any (Ru-Board) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:org="http://sberbank.ru/dem/organizations" xmlns:ref="http://sberbank.ru/dem/referenceTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns="http://sberbank.ru/dem/partyTypes" xmlns:tns="http://sberbank.ru/dem/partyTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/partyTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../../../domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../../../domains/organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/referenceTypes" schemaLocation="../reference/referenceAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="../../../domains/currency/CurrencyAggregates.xsd"/>
+	<xsd:complexType name="Party_Type">
+		<xsd:annotation>
+			<xsd:documentation>Контрагент</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PartyID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список  идентификаторов контрагента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsStop" type="ifxst:Pty_IsStop_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак нахождения контрагента в стоп-листе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="ifxst:Pty_Type_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип контрагента:Физическое лицо, Юридическое лицо</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StopDate" type="ifxst:Pty_StopDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата помещения контрагентов в стоп-лист</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsQualifiedInvestor" type="ifxst:Pty_IsQualifiedInvestor_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак квалифицированного инвестора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="QualifiedInvestorDate" type="ifxst:Pty_QualifiedInvestorDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата признания контрагента квалифицированным инвестором.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="PartyIndividualDetails" type="PartyIndividualDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация о контрагенте - частном лице</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PartyCorporateDetails" type="PartyCorporateDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация о контрагенте юридическом лице</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PartyCorporateShortDetails" type="PartyCorporateShortDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>TODO</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PartyDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация о контрагенте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Language" type="ifxst:Pty_Language_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Язык коммуникаций с клиентом:Русский Английский</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsAssetMngmtClient" type="ifxst:Pty_IsAssetMngmtClient_Type">
+				<xsd:annotation>
+					<xsd:documentation>Признак клиента по ДУ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PartyIndividualDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация о контрагенте - частном лице</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="PartyDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Number" type="ifxst:Pty_Number_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Номер анкеты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Code" type="ifxst:Pty_Code_Type">
+						<xsd:annotation>
+							<xsd:documentation>Код анкеты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Date" type="ifxst:Pty_Date_Type">
+						<xsd:annotation>
+							<xsd:documentation>Дата создания анкеты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PersonInfo" type="ind:PersonInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Персональная информация</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="FullName" type="ifxst:FullName_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Имя для подписи (фамилия с инициалами)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AdditionalInfo" type="ifxst:Pty_AdditionalInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дополнительная информация</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Addresses" type="Address_Type" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Адреса (почтовый, фактического пребывания и другие)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Country" type="ref:Country_Type">
+						<xsd:annotation>
+							<xsd:documentation>Страна</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="UpdateTime" type="ifxst:Pty_UpdateTime_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата и время последнего обновления</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Address_Type">
+		<xsd:annotation>
+			<xsd:documentation>Адрес</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ifxca:PostAddr_Type">
+				<xsd:sequence>
+					<xsd:element name="Country" type="ref:Country_Type">
+						<xsd:annotation>
+							<xsd:documentation>Страна</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PartyCorporateDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация о контрагенте юридическом лице</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="PartyDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="OrgInfo" type="org:OrgInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация об организации</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="BusinessType" type="ifxst:Pty_BusinessType_Type">
+						<xsd:annotation>
+							<xsd:documentation>Организационно-правовая форма:
+ООО,
+ОАО,
+ОДО,
+ЗАО
+LTD</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Sector" type="ifxst:Pty_Sector_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сектор:Федеральные органы управления,Региональные и местные органы управления,Корпорации,Банки и кредитные небанковские организации, прочие финансовые учреждения</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RusKPP" type="ifxst:TaxRegReasonCode_Type">
+						<xsd:annotation>
+							<xsd:documentation>КПП (Код причины постановки на учет для российских и иностранных юридических лиц)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="BIC" type="ifxst:BIC_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>БИК</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="GovRegDate" type="ifxst:Pty_GovRegDate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Дата госрегистрации</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="GovRegNumber" type="ifxst:GovRegNumber_Type">
+						<xsd:annotation>
+							<xsd:documentation>Номер свидетельства госрегистрации</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="GovRegOrganization" type="ifxst:GovRegOrganization_Type">
+						<xsd:annotation>
+							<xsd:documentation>Орган госрегистрации</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Jurisdiction" type="ref:Country_Type">
+						<xsd:annotation>
+							<xsd:documentation>Юрисдикция</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Managers" type="Party_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Уполномоченные лица, действующие от имени юридического лица</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ContactPersons" type="Party_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Контактные лица</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AdditionalInfo" type="ifxst:Pty_AdditionalInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дополнительная информация</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ProfMemberLicence" type="License_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Лицензии профессионального участника рынка ценных бумаг</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="SWIFT" type="ifxst:SWIFT_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Код SWIFT</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RussianSpecificData" type="RussianSpecificData_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Специфичные российские параметры контрагента, имеющего российскую специфику</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="UpdateTime" type="ifxst:Pty_UpdateTime_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата и время последнего обновления</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="License_Type">
+		<xsd:annotation>
+			<xsd:documentation>Лицензия профессионального учатника рынка ценных бумаг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifxst:Pty_LicType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Вид лицензии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Number" type="ifxst:Pty_LicNumber_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Серия и номер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueBy" type="ifxst:Pty_IssueBy_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Орган, выдавший лицензию</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueDate" type="ifxst:Pty_IssueDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата выдачи лицензии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpireDate" type="ifxst:Pty_ExpireDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончательного срока действия лицензии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RussianSpecificData_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список российских кодов-идентификаторов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RusOKPO" type="ifxst:Pty_RusOKPO_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код ОКПО</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RusOKVAD" type="ifxst:Pty_RusOKVAD_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код ОКВЭД</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RusOKATO" type="ifxst:Pty_RusOKATO_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код ОКАТО</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RusOGRN" type="ifxst:Pty_RusOGRN_Type">
+				<xsd:annotation>
+					<xsd:documentation>ОГРН</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OldJuridicalIndication" type="ifxst:Pty_OldJuridicalIndication_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак юридического лица, зарегистрированного до 01.07.2002</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RusOKOGU" type="ifxst:Pty_RusOKOGU_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ОКОГУ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RusOKOPF" type="ifxst:Pty_RusOKOPF_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ОКОПФ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RusOKFS" type="ifxst:Pty_RusOKFS_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ОКФС</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PartyCorporateShortDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация о контрагенте юридическом лице</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="PartyDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="OrgInfo" type="org:OrgInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация об организации</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Sector" type="ifxst:Pty_Sector_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сектор.
+Government - Федеральные органы управления
+MunicipalGovernment - Региональные и местные органы управления
+Corporate - Корпорации
+Banks - Банки и кредитные небанковские организации, прочие финансовые учреждения</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<!--
+					<xsd:element name="Industry">
+						<xsd:annotation>
+							<xsd:documentation>Отрасль</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ActualIndustry" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Фактическая отрасль (для компаний специального назначения):
+Государственное правительство,
+Региональные власти и муниципалитеты
+Черная металлургия
+</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+-->
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CommissionData_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о комиссии</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifxst:Ref_ComType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип комиссии: биржевая/брокерская/депозитарная/клиринговая</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SubType" type="ifxst:Ref_SubType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Подтип комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ifxst:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сумма комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ComissionCcy" type="cur:Currency_Type">
+				<xsd:annotation>
+					<xsd:documentation>3-символьный ISO код валюты комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PaymentDate" type="ifxst:Ref_PaymentDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата платежа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Agent" type="Party_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Агент, в пользу которого уплачивается комиссия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

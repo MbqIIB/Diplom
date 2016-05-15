@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by any (Ru-Board) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/referenceTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:pty="http://sberbank.ru/dem/partyTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/referenceTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/partyTypes" schemaLocation="../party/partyAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="../../../domains/currency/CurrencyAggregates.xsd"/>
+	<!--<xsd:complexType name="Currency_Type">
+		<xsd:annotation>
+			<xsd:documentation>Валюта</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CurrencyID" type="ifxca:TypedId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор валюты в разных системах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Code" type="ifxst:Ref_CurCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Цифровой код валюты по Общероссийскому классификатору</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ISOCode" type="ifxst:CurCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Символьный ISO код валюты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NameRus" type="ifxst:Ref_NameRus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Наименование валюты на русском</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NameEng " type="ifxst:Ref_NameEng_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование валюты на английском</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LotSize" type="ifxst:Ref_LotSize_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Масштаб валюты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpenDate" type="ifxst:Ref_OpenDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата открытия валют</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CloseDate" type="ifxst:Ref_CloseDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата закрытия валюты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsClearingCcy" type="ifxst:Ref_IsClearingCcy_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак клиринговой валюты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsOldCcy" type="ifxst:Ref_IsOldCcy_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак валюты ЭВС</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>-->
+	<xsd:complexType name="Quantity_Type">
+		<xsd:annotation>
+			<xsd:documentation>Количество</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="QuantityType" type="ifxst:Ref_QuantityType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Value" type="ifxst:Ref_Value_Type">
+				<xsd:annotation>
+					<xsd:documentation>Значение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Country_Type">
+		<xsd:annotation>
+			<xsd:documentation>Страна</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Code" type="ifxst:Ref_Code_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Цифровой код страны согласно Общероссийскому классификатору стран</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ISOCode" type="ifxst:Ref_ISOCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>символьный ISO код страны</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NameRus" type="ifxst:Ref_NameRus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Наименование страны (рус.)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NameEng" type="ifxst:Ref_NameEng_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование страны (англ.)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Region" type="ifxst:Ref_Region_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Регион</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CommissionData_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о комиссии</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifxst:Ref_ComType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип комиссии: биржевая/брокерская/депозитарная/клиринговая</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SubType" type="ifxst:Ref_SubType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Подтип комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ifxst:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сумма комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ComissionCcy" type="cur:Currency_Type">
+				<xsd:annotation>
+					<xsd:documentation>3-символьный ISO код валюты комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PaymentDate" type="ifxst:Ref_PaymentDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата платежа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Agent" type="pty:Party_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Агент, в пользу которого уплачивается комиссия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Price_Type">
+		<xsd:annotation>
+			<xsd:documentation>Цена</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PriceType" type="ifxst:Ref_PriceType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Цена задана в: процентах от номинала, валюте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Price" type="ifxst:Ref_Price_Type">
+				<xsd:annotation>
+					<xsd:documentation>Значение цены</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PriceCcy" type="cur:Currency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>3-символьный ISO код валюты цены (обязательно, если цена задана в валюте)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="QuotedPriceType" type="ifxst:Ref_QuotedPriceType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип рыночной цены в момент заключения сделки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="QuotedPrice" type="ifxst:Ref_QuotedPrice_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Рыночная цена в момент заключения сделки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MessageDigest_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об ЭЦП объекта</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SignType" type="ifxst:Ref_SignType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип подписи</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="KeyId" type="ifxst:Ref_KeyId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор ключа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="User" type="ifxst:Ref_User_Type">
+				<xsd:annotation>
+					<xsd:documentation>Пользователь</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DigestAlg" type="ifxst:Ref_DigestAlg_Type">
+				<xsd:annotation>
+					<xsd:documentation>Алгоритм формирования дайджеста</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Digest" type="ifxst:Ref_Digest_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дайджест</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Sign" type="ifxst:Ref_Sign_Type">
+				<xsd:annotation>
+					<xsd:documentation>Значение ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

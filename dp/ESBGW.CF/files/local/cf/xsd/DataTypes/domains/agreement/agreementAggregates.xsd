@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Mike (None) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/agreement" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:common="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/agreement" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:complexType name="AcctBal_Type">
+		<xsd:annotation>
+			<xsd:documentation>Остаток счета 	</xsd:documentation>
+			<xsd:documentation/>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BalType" type="ifxst:BalType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип остатка.Предопределенные значения:значения
+из списка 3.2.7.1.1BAI:xxx () Пример: BAI:010		(Beginning Ledger Balance).</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurAmt" type="common:CurrencyAmount_Type">
+				<xsd:annotation>
+					<xsd:documentation>Величина остатка.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EffDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата остатка.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpDt" type="ifx:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата истечения актуальности данных</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Desc" type="ifxst:Desc1024_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IntRate_Type">
+		<xsd:annotation>
+			<xsd:documentation>Процентная ставка</xsd:documentation>
+			<xsd:documentation/>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="IntMethodCode" type="ifxst:IntMethodCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код схемы процентов.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IntBy" type="ifxst:IntBy_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>От какой величины рассчитываются проценты.
+				Предопределенные значения:Current – от текущего
+				остаткаOrig – от суммы по договору.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IntRateType" type="ifxst:IntRateType2_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип процентной ставки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IntRateAmtSlab" type="IntRateAmtSlab_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Разбивка процентной ставки по суммам.	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Rate" type="ifxst:Rate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Величина процентной ставки.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IntRateAmtSlab_Type">
+		<xsd:annotation>
+			<xsd:documentation>Разбивка процентной ставки по суммам</xsd:documentation>
+			<xsd:documentation/>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Amt" type="ifxst:AmtLong_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сумма процентной ставки.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Rate" type="ifxst:Rate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Величина процентной ставки.	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

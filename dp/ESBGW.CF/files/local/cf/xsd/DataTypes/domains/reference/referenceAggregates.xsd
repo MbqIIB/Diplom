@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/reference" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" targetNamespace="http://sberbank.ru/dem/reference" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:complexType name="ReferenceRate_Type">
+		<xsd:sequence>
+			<xsd:element name="ReferenceDate" type="xsd:date" minOccurs="1"/>
+			<xsd:element name="ReferenceGroup" type="xsd:string" minOccurs="1"/>
+			<xsd:element name="InstrumentCode" type="xsd:string"/>
+			<xsd:element name="CurrencyCode" type="ifxst:CurCode_Type"/>
+			<xsd:element name="RateValue" type="xsd:decimal"/>
+		</xsd:sequence>
+	</xsd:complexType>	
+</xsd:schema>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:hm="http://sbrf/ru/sbt/mdo/rqrs/history/midas" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/history/midas" schemaLocation="./CheckInternalHistory/CheckInternalHistory.xsd"/>
+	<xsd:element name="SrvCheckInternalHistoryRq" type="hm:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Get internal history from MIDAS</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvCheckInternalHistoryRs" type="hm:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Internal history</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/loan" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/loan" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:complexType name="Loan_Type">
+		<xsd:sequence>
+			<xsd:element name="Product" type="ca:ProductInfo_Type" minOccurs="0"/>
+			<xsd:element name="ClientRole" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContractAgreementDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="LoanDescription" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ApplicationNumber" type="ifx:NC" minOccurs="0"/>
+						<xsd:element name="LoanType" type="ifx:NC" minOccurs="0"/>
+						<xsd:element name="LoanAmount" type="ifxst:Amt_Type" minOccurs="0"/>
+						<xsd:element name="LoanAccount" type="ifx:NC" minOccurs="0"/>
+						<xsd:element name="LoanTotalCost" type="ifx:Decimal" minOccurs="0"/>
+						<xsd:element name="LoanLimit" type="ifx:Decimal" minOccurs="0"/>
+						<xsd:element name="Purpose" type="ifx:C" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="APR" type="ifx:Decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>average persentual range</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="APRNbs" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="InterestRateInfo" type="InterestRateInfo_Type" minOccurs="0"/>
+			<xsd:element name="Fee" type="ca:Fee_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Processing fee, maintance fee, flat fee for Slovakia</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReferenceRate" type="ReferenceRate_Type" minOccurs="0"/>
+			<xsd:element name="RepaymentInfo" type="RepaymentInfo_Type" minOccurs="0"/>
+			<xsd:element name="MonthsToMaturity" type="ifx:Long" minOccurs="0"/>
+			<xsd:element name="FacilityCurrency" type="ifxst:CurCode_Type" minOccurs="0"/>
+			<xsd:element name="FacilityType" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="ExpiryDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="MaturityInMonths" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="DealDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="ValueDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="ValueDateTime" type="ifx:DateTime" minOccurs="0"/>
+			<xsd:element name="FrbCode" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="PayOurNostro" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="ReceiptOurNostro" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="IsSalaryAccount" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="IsRealEstateCollateral" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="IsLoanInsurance" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="DrawingType" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="DrawingAccount" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="BorrowerAccount" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="ConditionTurnover" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="postInstallment" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="numberMonth" type="ifx:Long" minOccurs="0"/>
+						<xsd:element name="subjectPostponement" type="ifx:C" minOccurs="0"/>
+						<xsd:element name="typePostponement" type="ifx:C" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Doc_Type">
+		<xsd:sequence>
+			<xsd:element name="DocType" type="ifxst:Desc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Title" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="DocName" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="IdentSerialNum" type="ifxst:IdNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер документа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Issuer" type="ifxst:IssuedBy_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Кем выдан</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueLocation" type="ifxst:IssueLoc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Где выдан</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartDate" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала действия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EndDate" type="ifx:DateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания действия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateOfGeneration" type="ifx:DateTime" minOccurs="0"/>
+			<xsd:element name="Attachment" type="ifx:BinData" minOccurs="0"/>
+			<xsd:element name="DocumentPath" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Contract_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип, описывающий кредитный договор / Loan contract type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ProductType" type="ifxst:ProdType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип кредитного продукта / Loan product type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Role" type="ifxst:App_ClientRole_Type">
+				<xsd:annotation>
+					<xsd:documentation>Роль клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Payments" type="Payments_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание платежей по кредиту / Loan payments description</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма кредита / Loan Amount</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Payments_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип описывающий платежи / Loan paymnets type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Number" type="xsd:nonNegativeInteger" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Количество платежей / Number of intalments</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MethodCode" type="ifxst:KindPmtCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Code of the paymnet method / Код cпособа платежа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Periodicity" type="ifxst:Periodicity_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Periodicity of the load payments / переодисночть платежей по кредиту</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Месячный платеж / Value of the monthly instalment</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Signatures_Type">
+		<xsd:sequence>
+			<xsd:element name="signaturePlace" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="signatureDate1" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="signatureDate2" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="signatureEmployee1" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="Employee1Role" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="signatureEmployee2" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="Employee2Role" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="signatureBorrower" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="signatureCoBorrower" type="ifx:C" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="LoanContract_Type">
+		<xsd:sequence>
+			<xsd:element name="ContractNumber" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="DrawdownConditions" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="DurationCreditAgreement" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="InterestRateType" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="FeeGrantingLoan" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="FeeMonthly" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="FeeReminder" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="ExternalDistributionNumber" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="EmployeeParagraph" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="IsArbitration" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="IsPoliticalyExposed" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="EndUserBenefits" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="Signatures" type="Signatures_Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RepaymentInfo_Type">
+		<xsd:sequence>
+			<xsd:element name="RepaymentType" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="RepaymentAccount" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="RepaymentAmount" type="ifxst:Amt_Type" minOccurs="0"/>
+			<xsd:element name="RepaymentPrincipal" type="ifxst:Amt_Type" minOccurs="0"/>
+			<xsd:element name="RepaymentInterest" type="ifxst:Amt_Type" minOccurs="0"/>
+			<xsd:element name="Outstanding" type="ifxst:Amt_Type" minOccurs="0"/>
+			<xsd:element name="RepaymentFrequency" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="RepaymentDayNumber" type="ifx:Long" minOccurs="0"/>
+			<xsd:element name="FirstRepaymentDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="NextRepaymentDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="FirstRepaymentDateTime" type="ifx:DateTime" minOccurs="0"/>
+			<xsd:element name="NextRepaymentDateTime" type="ifx:DateTime" minOccurs="0"/>
+			<xsd:element name="RepaymentCount" type="ifx:Long" minOccurs="0"/>
+			<xsd:element name="RepaymentPerMonth" type="ifx:Decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InterestRateInfo_Type">
+		<xsd:sequence>
+			<xsd:element name="InterestRate" type="ifxst:Rate_Type" minOccurs="0"/>
+			<xsd:element name="InterestRateDiscount" type="ifxst:Rate_Type" minOccurs="0"/>
+			<xsd:element name="RateSpread" type="ifxst:Rate_Type" minOccurs="0"/>
+			<xsd:element name="CurRate1M" type="ifxst:Rate_Type" minOccurs="0"/>
+			<xsd:element name="CurRate3M" type="ifxst:Rate_Type" minOccurs="0"/>
+			<xsd:element name="ExtRate1M" type="ifxst:Rate_Type" minOccurs="0"/>
+			<xsd:element name="ExtRate3M" type="ifxst:Rate_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ReferenceRate_Type">
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="Rate" type="ifxst:Rate_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DocRes_Type">
+		<xsd:sequence minOccurs="0">
+			<xsd:element name="DocumentId" type="ifx:Int"/>
+			<xsd:element name="ErrorMessage" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="URL" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="Name" type="ifx:NC" minOccurs="0"/>
+			<xsd:element name="Size" type="ifx:Long" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InterestRateMargin_Type">
+		<xsd:sequence>
+			<xsd:element name="ReferenceRates" type="ReferenceRate_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="Margin" type="ifx:Decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DealDetails_Type">
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="AccountOfficerCode" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="BranchCode" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

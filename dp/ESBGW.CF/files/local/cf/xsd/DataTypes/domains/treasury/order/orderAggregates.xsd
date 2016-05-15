@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Mike (None) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dea="http://sberbank.ru/dem/dealTypes" xmlns:mar="http://sberbank.ru/dem/marketdataTypes" xmlns:ins="http://sberbank.ru/dem/instrumentTypes" xmlns:agr="http://sberbank.ru/dem/treasury/agreement" xmlns:acc="http://sberbank.ru/dem/accountTypes" xmlns:pty="http://sberbank.ru/dem/partyTypes" xmlns:ref="http://sberbank.ru/dem/referenceTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns="http://sberbank.ru/dem/orderTypes" xmlns:tns="http://sberbank.ru/dem/orderTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/orderTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/referenceTypes" schemaLocation="../reference/referenceAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/treasury/agreement" schemaLocation="../agreement/treasuryAgreementAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/accountTypes" schemaLocation="../account/accountAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/partyTypes" schemaLocation="../party/partyAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/instrumentTypes" schemaLocation="../instrument/instrumentAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/marketdataTypes" schemaLocation="../marketdata/marketdataAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/dealTypes" schemaLocation="../deal/dealAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:complexType name="Book_Type">
+		<xsd:annotation>
+			<xsd:documentation>Потрфель</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name" type="ifxst:Ord_Name_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование портфеля</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BookID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CancelOrder_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация заявки на отмену</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CancelOrderID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор заявки на отмену в различных системах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CancelOrderDetails" type="CancelOrderDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Детальная информация</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Order" type="Order_Type">
+				<xsd:annotation>
+					<xsd:documentation>Заявка, которую нужно отменить</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Dealer" type="pty:Party_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дилер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CancelOrderDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация заявки на отмену</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CancelOrderDate" type="ifxst:Ord_CancelOrderDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время формирования</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExecutionReport_Type">
+		<xsd:annotation>
+			<xsd:documentation>Отчет о поставке ценных бумаг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ExecutionReportID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExecType" type="ifxst:Ord_ExecType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Причина формирования отчета:Новая заявка;Запрос на отмену заявки;Запрос статуса заявка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="ifxst:Ord_Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус заявки: Новая заявка;полностью;исполнена;частично;исполнена;отменена;отменяется;отклонена;просрочена;не обеспечена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CumQuantity" type="ref:Quantity_Type">
+				<xsd:annotation>
+					<xsd:documentation>Исполненное количество по заявке. Для акций в штуках, для облигаций в номиналах.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LeavesQuantity" type="ref:Quantity_Type">
+				<xsd:annotation>
+					<xsd:documentation>Неисполненное количество по заявке. Для акций в штуках, для облигаций в номиналах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RejectReason" type="ifxst:Ord_RejectReason_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Причина отклонения заявки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Annotation" type="ifxst:Desc1024_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание причины отклонения заявки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExStatus" type="ifxst:Ord_ExStatus_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус заявки на бирже: не определен;обработка;отправлена;ожидает;отправления;активная;исполнена;отменена;отклонена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Order" type="Order_Type">
+				<xsd:annotation>
+					<xsd:documentation>Заявка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExecRepDate" type="ifxst:Ord_ExecRepDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время формирования Execution report</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExecutionReportAllocation" type="ExecutionReportAllocation_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Параметры блочного отчета об исполнении  заявки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExecutionReportAllocation_Type">
+		<xsd:annotation>
+			<xsd:documentation>Аллокейшн для отчета об исполнении</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ClientAgreement" type="agr:ClientAgreement_Type">
+				<xsd:annotation>
+					<xsd:documentation>Клиентский договор</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Book" type="Book_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Портфель </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CumQuantity" type="ref:Quantity_Type">
+				<xsd:annotation>
+					<xsd:documentation>Кол-во бумаг (сумма) исполненная по заявке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LeavesQuantity" type="ref:Quantity_Type">
+				<xsd:annotation>
+					<xsd:documentation>Кол-во бумаг (сумма) не исполненных по заявке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="NewOrder_Type">
+		<xsd:annotation>
+			<xsd:documentation>Новая заявка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="NewOrderDate" type="ifxst:Ord_NewOrderDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время заведения новой заявки в системе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Order" type="Order_Type">
+				<xsd:annotation>
+					<xsd:documentation>Заявка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Order_Type">
+		<xsd:annotation>
+			<xsd:documentation>Заявка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OrderID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов заявок</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderDetails" type="OrderDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Детальная информация по заявке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderAllocation_Type">
+		<xsd:annotation>
+			<xsd:documentation>Аллокейшн для ордера</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Quantity" type="ref:Quantity_Type">
+				<xsd:annotation>
+					<xsd:documentation>Количество бумаг (сумма)  в «клиентской» заявке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClientAgreement" type="agr:ClientAgreement_Type">
+				<xsd:annotation>
+					<xsd:documentation>Клиентский договор</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Book" type="Book_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Портфель </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Accounts" type="acc:Account_Type" minOccurs="0" maxOccurs="2">
+				<xsd:annotation>
+					<xsd:documentation>Счета	</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderCancelReject_Type">
+		<xsd:annotation>
+			<xsd:documentation>Отчет об отказе в отмене заявки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Status" type="ifxst:Ord_OcStatus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус заявки:новая заявка;частично исполнена;полностью исполнена;отменена;отменяется;отклонена;просрочена;не обеспечена;</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RejectReason" type="ifxst:Ord_OcRejectReason_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Причина отклонения заявки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Annotation" type="ifxst:Desc1024_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание причины отклонения заявки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CancelOrder" type="CancelOrder_Type">
+				<xsd:annotation>
+					<xsd:documentation>Заявка на отмену</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderCancelRejectDateTime" type="ifxst:Ord_OrderCancelRejectDateTime_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время формирования</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация о заявке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Direction" type="ifxst:Ord_Direction_Type">
+				<xsd:annotation>
+					<xsd:documentation>Направление заявки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Quantity" type="ref:Quantity_Type">
+				<xsd:annotation>
+					<xsd:documentation>Объем заявки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="ifxst:Ord_OdStatus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус заявки:Исполнена;Не исполнена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CounterParty" type="pty:Party_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Контрагент</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClientAgreement" type="agr:ClientAgreement_Type">
+				<xsd:annotation>
+					<xsd:documentation>Клиентский договор</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Branch" type="ifxca:Branch_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тер. банк</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderType" type="ifxst:Ord_OrderType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип ордера:Лимитный;Рыночный</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeFloor" type="mar:TradeFloor_Type">
+				<xsd:annotation>
+					<xsd:documentation>Торговая площадка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Price" type="ref:Price_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Лимитная цена (для облигаций - в процентах, для акций - цена за штуку)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsSinglePrice" type="ifxst:Ord_IsSinglePrice_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак, разрешены ли сделки по различным ценам</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsAuction" type="ifxst:Ord_IsAuction_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Флаг аукциона</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Book" type="Book_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Портфель</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TimeInForce" type="ifxst:Ord_TimeInForce_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ определения окончания действия заявки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpireDate" type="ifxst:Ord_ExpireDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания действия заявки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderTime" type="ifxst:Ord_OrderTime_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время регистрации заявки в передающей системе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Dealer" type="pty:Party_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дилер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Accounts" type="acc:Account_Type" minOccurs="0" maxOccurs="2">
+				<xsd:annotation>
+					<xsd:documentation>Счета</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderAllocation" type="OrderAllocation_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Параметры распределения по клиентам</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExStatus" type="ifxst:Ord_OdExStatus_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус сделки на бирже:Не определен;Обработка;Отправка;Ожидание;Активна;Исполнена;Отменена;Отклонена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettleCode" type="ifxst:Ord_SettleCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Системная информация на биржу</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MatchRef" type="ifxst:Ord_MatchRef_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дополнительная справочная информация</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CancelTime" type="ifxst:Ord_CancelTime_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время, когда заявка была отменена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeMode" type="mar:TradeMode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Режим торгов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeSession" type="mar:TradeSession_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Торговая сессия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderStatusRequest_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос статуса заявки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OrderStatusRequestDate" type="ifxst:Ord_OrderStatusRequestDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Order" type="Order_Type">
+				<xsd:annotation>
+					<xsd:documentation>Заявка, статус по которой необходимо получить</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecurityOrderDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Парметры заявки на исполнение сделки купли-продажи ценных бумаг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Instrumеnt" type="ins:Instrument_Type">
+				<xsd:annotation>
+					<xsd:documentation>Финансовый инструмент</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Price" type="ref:Price_Type">
+				<xsd:annotation>
+					<xsd:documentation>Цена покупки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

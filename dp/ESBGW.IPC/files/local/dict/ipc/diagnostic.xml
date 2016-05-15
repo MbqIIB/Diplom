@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diag>
+	<status name="requestValidationError">
+		<StatusCode>-41</StatusCode>
+		<StatusDesc>Validation error on the internal Datapower(requests)</StatusDesc>
+		<Severity>Error</Severity>
+	</status>
+	<status name="responseValidationError">
+		<StatusCode>-42</StatusCode>
+		<StatusDesc>Validation error on the external Datapower(responses)</StatusDesc>
+		<Severity>Error</Severity>
+	</status>
+	<status name="generalValidationError">
+		<StatusCode>-43</StatusCode>
+		<StatusDesc>Validation error message</StatusDesc>
+		<Severity>Error</Severity>
+	</status>
+	<status name="generalMQError">
+		<StatusCode>-61</StatusCode>
+		<StatusDesc>System error when using the queue manager</StatusDesc>
+		<Severity>Error</Severity>
+	</status>
+	<status name="SQLInjectionError">
+		<StatusCode>-90</StatusCode>
+		<StatusDesc>Found SQL-Injection</StatusDesc>
+		<Severity>Error</Severity>
+	</status>
+	<status name="generalError">
+		<StatusCode>-100</StatusCode>
+		<StatusDesc>Unknown run-time error</StatusDesc>
+		<Severity>Error</Severity>
+	</status>
+	<status name="routeNotFound">
+		<StatusCode>-101</StatusCode>
+		<StatusDesc>The route not found</StatusDesc>
+		<Severity>Error</Severity>
+	</status>	
+	<status name="incorrectExternalResponseError">
+		<StatusCode>-151</StatusCode>
+		<StatusDesc>Incorrect external response from external service</StatusDesc>
+		<Severity>Error</Severity>
+	</status>
+	<status name="HTTPErrorBeforeTOError">
+		<StatusCode>-152</StatusCode>
+		<StatusDesc>Break HTTP session by external service before timeout</StatusDesc>
+		<Severity>Error</Severity>
+	</status>
+	<status name="externalServiceTimeout">
+		<StatusCode>-153</StatusCode>
+		<StatusDesc>External service is timeout</StatusDesc>
+		<Severity>Error</Severity>
+	</status>
+	<status name="HTTPErrorFromExternal">
+		<StatusCode>-154</StatusCode>
+		<StatusDesc>HTTP error from external service</StatusDesc>
+		<Severity>Error</Severity>
+	</status>
+	<status name="noURLProvidedError">
+		<StatusCode>-155</StatusCode>
+		<StatusDesc>Not specified url service</StatusDesc>
+		<Severity>Error</Severity>
+	</status>	
+	<status name="errorFromProvider">
+		<StatusCode>1000</StatusCode>
+		<StatusDesc>Error from external service</StatusDesc>
+		<Severity>Error</Severity>
+	</status>			
+</diag>

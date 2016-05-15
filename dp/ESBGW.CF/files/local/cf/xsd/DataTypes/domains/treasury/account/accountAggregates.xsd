@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by any (Ru-Board) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ins="http://sberbank.ru/dem/instrumentTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:ref="http://sberbank.ru/dem/referenceTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns="http://sberbank.ru/dem/accountTypes" xmlns:tns="http://sberbank.ru/dem/accountTypes" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:prt="http://sberbank.ru/dem/partyTypes" xmlns:mrktdt="http://sberbank.ru/dem/marketdataTypes" targetNamespace="http://sberbank.ru/dem/accountTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/partyTypes" schemaLocation="../party/partyAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/marketdataTypes" schemaLocation="../marketdata/marketdataAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/instrumentTypes" schemaLocation="../instrument/instrumentAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/referenceTypes" schemaLocation="../reference/referenceAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="../../../domains/currency/CurrencyAggregates.xsd"/>
+	<xsd:complexType name="Account_Type">
+		<xsd:annotation>
+			<xsd:documentation>Счет</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор счета в различных системах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccountNumber" type="ifxst:Acc_Number_Type">
+				<xsd:annotation>
+					<xsd:documentation>Номер/наименование счета</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="ifxst:Acc_Type_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип счета (ЦБ/денежные средства)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="AccountDepoDetails" type="AccountDepoDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Параметры счета</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="AccountCashDetails" type="AccountCashDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Параметры счета</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AccountBalance_Type">
+		<xsd:annotation>
+			<xsd:documentation>Баланс счета (остаток)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Account" type="Account_Type">
+				<xsd:annotation>
+					<xsd:documentation>Счет</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BalanceType" type="ifxst:Acc_BalanceType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип баланса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Date" type="ifxst:Acc_Date_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AccountCashDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Детальная информация по денежному счету</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="AccountDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="ClearingInstitution" type="prt:Party_Type">
+						<xsd:annotation>
+							<xsd:documentation>Банк, в котором открыт счет</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="SWIFT" type="ifxst:Acc_SWIFT_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>SWIFT банка, где открыт счет</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="BIC" type="ifxst:Acc_BIC_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>БИК банка, где открыт счет</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CorrAccount" type="Account_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Корреспондентский счет банка, где открыт счет</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="TradeFloor" type="mrktdt:TradeFloor_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Торговая площадк</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AccountCcy" type="cur:Currency_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Валюта счета</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="AccountDepoDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Счета Депо</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="AccountDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="AccountCustodian" type="prt:Party_Type">
+						<xsd:annotation>
+							<xsd:documentation>Депозитарий, в котором открыт счет</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="TradeFloor" type="mrktdt:TradeFloor_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Торговая площадка</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="AccountDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Детальная информация по счету</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OpenDate" type="ifxst:Acc_OpenDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата открытия счета</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CloseDate" type="ifxst:Acc_CloseDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата закрытия счета</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UpdateTime" type="ifxst:Acc_UpdateTime_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время последнего обновления</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsNostro" type="ifxst:Acc_IsNostro_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак счета ностро</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Description" type="ifxst:Acc_Description_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Комментарии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CashAccountBalance_Type">
+		<xsd:annotation>
+			<xsd:documentation>Остаток на счете учета денежных средств</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="AccountBalance_Type">
+				<xsd:sequence>
+					<xsd:element name="Balance" type="ifxst:Acc_Balance_Type">
+						<xsd:annotation>
+							<xsd:documentation>Остаток на счете ДС</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="BalanceCcy" type="cur:Currency_Type">
+						<xsd:annotation>
+							<xsd:documentation>Торговая площадка</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DepoAccountBalance_Type">
+		<xsd:annotation>
+			<xsd:documentation>Остаток на счете учета ценных бумаг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="AccountBalance_Type">
+				<xsd:sequence>
+					<xsd:element name="Instrument" type="ins:Instrument_Type">
+						<xsd:annotation>
+							<xsd:documentation>Финансовый инструмент</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Quantity" type="ref:Quantity_Type">
+						<xsd:annotation>
+							<xsd:documentation>Кол-во акций в штуках или сумма в номиналах для облигаций</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

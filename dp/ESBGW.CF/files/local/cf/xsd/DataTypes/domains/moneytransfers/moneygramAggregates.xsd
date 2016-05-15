@@ -1,0 +1,1452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ifxst="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ifxdt="http://sberbank.ru/dem/ifxDateTimeTypes" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:cust="http://sberbank.ru/dem/customerTypes" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:cards="http://sberbank.ru/dem/ifxCards" xmlns:iam="http://sberbank.ru/dem/identityAggregates" xmlns:mt="http://sberbank.ru/dem/moneytransfers/moneytransferAggregates" xmlns:mtmg="http://sberbank.ru/dem/moneytransfers/moneygramAggregates" targetNamespace="http://sberbank.ru/dem/moneytransfers/moneygramAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxDateTimeTypes" schemaLocation="../../innerTypes/ifxDateTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/customerTypes" schemaLocation="../../domains/customers/customerAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../../domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../../domains/organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxCards" schemaLocation="../../domains/card/cardAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/identityAggregates" schemaLocation="../../domains/identity/identityAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/moneytransfers/moneytransferAggregates" schemaLocation="../../domains/moneytransfers/moneytransferAggregates.xsd"/>
+	<xsd:simpleType name="AgencyNum_Type">
+		<xsd:annotation>
+			<xsd:documentation>Номер отделения банка, обслуживающего потребителя</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="FIXferId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Контрольный номер</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="8"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="FIXferMethod_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о способе доставки перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:C">
+			<xsd:maxLength value="15"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Rate_Type">
+		<xsd:annotation>
+			<xsd:documentation>Курс обмена</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:Decimal">
+			<xsd:totalDigits value="14"/>
+			<xsd:fractionDigits value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Rows_Type">
+		<xsd:annotation>
+			<xsd:documentation>Количество возвращаемых строк (по умолчанию – 200)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="ifxst:Long"/>
+	</xsd:simpleType>
+	<xsd:complexType name="Capability_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о способности отправлять\принимать транзакции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Send" type="ifxst:Boolean">
+				<xsd:annotation>
+					<xsd:documentation>Если True, Агент может отправлять транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Receive" type="ifxst:Boolean">
+				<xsd:annotation>
+					<xsd:documentation>Если True, Агент может принимать транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CountryCurCodeInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о локальной валюте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CountryCode" type="st:CountryCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код страны</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SendCurCode" type="st:CurCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Валюта для отправки транзакций в эту страну</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurCode" type="st:CurCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Валюта для выплаты транзакций в этой страну</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceiveCurCode" type="st:CurCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Валюта транзакции в стране получателя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvailRate" type="ifxst:Boolean">
+				<xsd:annotation>
+					<xsd:documentation>Если true, то ожидаемый курс доступен</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferMethod" type="mtmg:FIXferMethod_Type">
+				<xsd:annotation>
+					<xsd:documentation>Способ доставки перевода. По умолчанию – WILL_CALL (10 minute service). Определен в таблицах (для каждой страны возможны различные варианты)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CountryInfoExt_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о стране и возможноси осуществления переводов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CountryInfo_Type">
+				<xsd:sequence>
+					<xsd:element name="SendAgent" type="ifxst:Boolean">
+						<xsd:annotation>
+							<xsd:documentation>Если true, в стране есть агенты, отправляющие транзакции</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ReceiveAgent" type="ifxst:Boolean">
+						<xsd:annotation>
+							<xsd:documentation>Если true, в стране есть агенты, принимающие транзакции</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="EnumValues_Type">
+		<xsd:annotation>
+			<xsd:documentation>Содержит информацию о возможных значениях динамического поля</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="EnumVal" type="mtmg:EnumVal_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Возможные значения динамического поля</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EnumVal_Type">
+		<xsd:annotation>
+			<xsd:documentation>Возможные значения динамического поля</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Value" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Допустимое для ввода в поле значение</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Label" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Метка (наименование) допустимого для ввода в поле значения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FeeChargeAlloc_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о распределении комиссии</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Fee" type="mtmg:FeeExt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация о комиссии и ее сумма</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FeeExt_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип и сумма сбора</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ca:Fee_Type">
+				<xsd:sequence>
+					<xsd:element name="FeeRefund" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Если «Y», то необходимо по возможности вернуть комиссию. Допустимые значения: «Y» or «N»</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:length value="1"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о переводе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FIXferId" type="mtmg:FIXferId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Контрольный номер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EstDt" type="ifxst:Date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ожидаемая дата получения перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Определяет тип операции MoneyGram. Возможные значения:
+SEND – «отправка», RCV – «получение»
+</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="5"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="FIXferRevType" type="ifxst:C">
+				<xsd:annotation>
+					<xsd:documentation>Тип реверсала. Допустимые значения: «C» = Cancel, «R» = Refund</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferRevReason" type="ifxst:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Причина изменения статуса перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferMethod" type="mtmg:FIXferMethod_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ доставки перевода. По умолчанию – WILL_CALL (10 minute service). Определен в таблицах (для каждой страны возможны различные варианты)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferStatus" type="ifxst:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Purpose">
+				<xsd:annotation>
+					<xsd:documentation>Назначение перевода</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Dependents" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Отношение отправителя и получателя</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="30"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Message" type="mtmg:Message_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сообщение отправителя получателю</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SecretPrompt" type="mt:SecretPrompt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тестовый вопрос, заданный отправителем, для идентификации получателя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementInfo" type="mtmg:SettlementInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дополнительная информация для расчетов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FeeChargeAlloc" type="mtmg:FeeChargeAlloc_Type">
+				<xsd:annotation>
+					<xsd:documentation>Распределение комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferMethodID" type="ifxst:Long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Числовое ID</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIXferMethodName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование способа доставки перевода (например, 10 minute service)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="50"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferRec_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запись о переводе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FIXferInfo" type="mtmg:FIXferInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация о переводе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Message_Type">
+		<xsd:annotation>
+			<xsd:documentation>Сообщение отправителя получателю</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Field1" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Первая строка сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Field2" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Вторая строка сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PersonInfoExt_Type">
+		<xsd:annotation>
+			<xsd:documentation>Персональная информация</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ind:PersonInfo_Type">
+				<xsd:sequence>
+					<xsd:element name="BirthPlaceInfo" type="mt:BirthPlaceInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Информация о месте рождения</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Occupation" type="st:Occupation_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Род деятельности</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ProfItemInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о параметрах профиля</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Index" type="ifxst:Long">
+				<xsd:annotation>
+					<xsd:documentation>Индекс ключа (равен нулю, если нет одинаковых значений ключа)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Key">
+				<xsd:annotation>
+					<xsd:documentation>Ключ (название)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Value">
+				<xsd:annotation>
+					<xsd:documentation>Значение</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="400"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RegInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о регистрации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Text" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Текст, высвечиваемый во время регистрации, авторизации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SpeedText" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Текст, который отображается на экране, показывая скорость доставки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Receiver_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о получателе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ReceiveAgentInfo" type="mtmg:ReceiveAgentInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация об агенте, получающем транзакцию</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PersonInfo" type="mtmg:PersonInfoExt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация о клиенте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ReceiveAgentInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об агенте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PersonInfo" type="mtmg:PersonInfoExt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Персональные данные агента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StoreHours" type="mtmg:StoreHours_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Часы работы агента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Capability" type="mtmg:Capability_Type">
+				<xsd:annotation>
+					<xsd:documentation>Способность отправлять/принимать транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AgentID" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификационный номер агента, получающего транзакцию</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:length value="8"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ShortName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Краткое наименование принимающего агента</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="OkAgent" type="ifxst:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Если true, то агенту разрешено выплатить перевод</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Sender_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные об отправителе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PersonInfo" type="mtmg:PersonInfoExt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Информация о клиенте</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SettlementInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дополнительная информация для расчетов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CurAmt" type="ca:CurrencyAmount_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сумма транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SendAmt" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сумма перевода в валюте отправителя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SendCurCode" type="st:CurCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код валюты страны отправителя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SendCountryCode" type="st:CountryCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страна, из которой перевод был послан</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SendAmtIncFee" type="mt:Amt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Общая сумма, включающая сумму перевода и комиссию. Эта сумма определяется в валюте страны отправления</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SendAmtExcFee" type="mt:Amt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма без комиссии, комиссия добавляется к этой сумме</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DefMaxFee" type="ifxst:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Если true, то берется максимальная комиссия получателя платежа по счету (по умолчанию – false)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceiveAmt" type="mt:Amt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма, которая должна быть получена в валюте страны получателя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceiveCurCode" type="st:CurCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код валюты получения перевода</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceiveCountryCode" type="st:CountryCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код страны</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Rate" type="mtmg:Rate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Курс обмена, используемый для конвертации из валюты страны отправителя в валюту страны получателя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceiveAmtEst" type="mt:Amt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ожидаемая величина получаемой суммы в стране получателя в валюте страны получателя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceiveCurCodeEst" type="st:CurCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта, которая может быть использована для оплаты транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateEst" type="mtmg:Rate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ожидаемый курс обмена, используемый для расчета ожидаемой суммы выплаты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FaceAmt" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Показывает общую возвращаемую сумму (только для возврата перевода)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CheckAmt" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Показывает общую сумму, возвращаемую клиенту (только для возврата перевода)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmt" type="mt:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Итоговая сумма, состоящая из посылаемой суммы и суммы комиссии в валюте страны отправителя</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Indicator" type="ifxst:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Если true, то для расчета конечных сумм используются полученная сумма, валюта и курс обмена. Если false, то предполагаемая валюта выплаты, обменный курс и получаемая сумма</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SPDefField_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о полях</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Dynamic" type="ifxst:Boolean">
+				<xsd:annotation>
+					<xsd:documentation>Динамическое поле</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FieldName" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование поля</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="80"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="FieldLabel" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование поля в экранной форме</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="80"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="FieldVisibility" type="ifxst:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Возможные значение:  REQ - Всегда должно являться частью сообщения;
+OPT - Может отправляться по усмотрению Агента для своих целей;
+NOT_ALL - Не отправлять;
+SUP_OPT - По усмотрению Агента. Не требуется MG. (для MG не обязательное поле)
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FiledMaxLength" type="ifxst:Long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Максимальное значение (длина) поля в зависимости от типа данных</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FiledMinLength" type="ifxst:Long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Минимальное значение (длина) поля в зависимости от типа данных</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Scale" type="ifxst:Long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Количество знаков после запятой (только для десятичных)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FieldDataType" type="ifxst:C" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип данных: boolean, string, int, decimal, date, datetime, time, text, cntrycode</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Enumerated" type="ifxst:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Если true, то поле может содержать только определенные значения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FieldDefVal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Значение поля по умолчанию</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="RegExp" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Шаблон для валидации вводимой в поле информации</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="DispOrder" type="ifxst:Long" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Порядок отображения поля</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Example" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Пример заполнения поля. (для отображения рядом с полем)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:C">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="EnumValues" type="mtmg:EnumValues_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Содержит информацию о возможных значениях динамического поля</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="StoreHours_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о времени рабоы агента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Day" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>День недели. Доступные значения: MON, TUE, WED, THU, FRI, M-F (понедельник – пятница), SAT, SUN, S-S (7 дней в неделю)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:NC">
+						<xsd:length value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="OpenTm" type="ifxst:Time" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Время открытия (местное)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CloseTm" type="ifxst:Time" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Время закрытия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Closed" type="ifxst:Boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак закрытия в текущий день</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MoneyGramRequest_Type">
+		<xsd:annotation>
+			<xsd:documentation>Общая часть описания запросов для MoneyGram</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="AgencyNum" type="mtmg:AgencyNum_Type">
+						<xsd:annotation>
+							<xsd:documentation>Номер сберкассы</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="UserInfo" type="iam:UserInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о пользователе, ответственном за выполнение транзакции</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="MoneyGramResponse_Type">
+		<xsd:annotation>
+			<xsd:documentation>Общая часть описания ответов для MoneyGram</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mt:CommonResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="UserInfo" type="iam:UserInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о пользователе, ответственном за выполнение транзакции</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="AgencyListInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения информация о пунктах обслуживания</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="ContactInfo" type="ca:ContactInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Контактная информация (город для поиска списка агентов)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Rows" type="mtmg:Rows_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Количество возвращаемых строк (по умолчанию – 200)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="AgencyListInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о пунктах обслуживания</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="ReceiveAgentInfo" type="mtmg:ReceiveAgentInfo_Type" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferAddRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для оформления переводов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtmg:FIXferInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Sender" type="mtmg:Sender_Type">
+						<xsd:annotation>
+							<xsd:documentation>Данные об отправителе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Receiver" type="mtmg:Receiver_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о получателе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CustId" type="cust:CustId_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Уникальный RRN-номер получателя транзакции</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Signature" type="mt:Signature_Type">
+						<xsd:annotation>
+							<xsd:documentation>ЭЦП</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferAddRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация по оформлению переводов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtmg:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Signature" type="mt:Signature_Type">
+						<xsd:annotation>
+							<xsd:documentation>ЭЦП</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferAudRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для проверки наличия невыплаченного перевода по контрольному номеру</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtmg:FIXferInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferAudRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о наличии невыплаченного перевода по контрольному номеру</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtmg:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Sender" type="mtmg:Sender_Type">
+						<xsd:annotation>
+							<xsd:documentation>Данные об отправителе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Receiver" type="mtmg:Receiver_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о получателе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferFeeInfoRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения информации о комиссии, валютах и способах получения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtmg:FIXferInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Данные о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CustId" type="cust:CustId_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Уникальный RRN-номер получателя транзакции</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CardInfo" type="cards:CardInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Номер карты клиента используется для расчета скидок при расчете комиссии (скидки не применимы к оплате счетов)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ReturnOptions" type="ifxst:Boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Если true, то в ответе возвращается все способы доставки возможные для агента</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferFeeInfoRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о комиссии, валютах и способах получения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="ReceiveAgentInfo" type="mtmg:ReceiveAgentInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Информация об агенте, получающем транзакцию</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="FIXferRec" type="mtmg:FIXferRec_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferFormRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения реквизитов для формы перевода (для формы выплаты)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="ReceiveAgentInfo" type="mtmg:ReceiveAgentInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Информация об агенте, принимающем транзакцию</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="FIXferInfo" type="mtmg:FIXferInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferFormRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Реквизиты для формы переводов (для формы выплаты)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="ReceiveAgentInfo" type="mtmg:ReceiveAgentInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Информация об агенте, принимающем транзакцию</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="FIXferRec" type="mtmg:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RegInfo" type="mtmg:RegInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Регистрационная информация</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="SPDefField" type="mtmg:SPDefField_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Поля</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для проверки наличия невыплаченного перевода по контрольному номеру и для получения детальной информации по этому переводу</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtmg:FIXferInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="UseData" type="ifxst:Boolean">
+						<xsd:annotation>
+							<xsd:documentation>Если true, тег Agent Use Data включаются в ответ. Данные необходимы «Инфобанку»</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о наличии невыплаченного перевода по контрольному номеру и о детальной информации по этому переводу</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="UseSendData" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Данные, получаемые при отправке перевода</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="200"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="UseReceiveData" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Данные, получаемые при получении  перевода</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="200"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="FIXferRec" type="mtmg:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Sender" type="mtmg:Sender_Type">
+						<xsd:annotation>
+							<xsd:documentation>Данные об отправителе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Receiver" type="mtmg:Receiver_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Информация о получателе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CustId" type="cust:CustId_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Уникальный RRN-номер получателя транзакции</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferModRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для изменения реквизитов переводов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtmg:FIXferInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация   о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Receiver" type="mtmg:Receiver_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о получателе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Signature" type="mt:Signature_Type" minOccurs="0" maxOccurs="2">
+						<xsd:annotation>
+							<xsd:documentation>ЭЦП</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferModRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об изменении реквизитов перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="Signature" type="mt:Signature_Type">
+						<xsd:annotation>
+							<xsd:documentation>ЭЦП</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferRevRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для отмены оформления перевода (реверсал)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtmg:FIXferInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferRevRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация об отмене оформлении перевода (реверсал)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtmg:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferRcvRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferInfo" type="mtmg:FIXferInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Receiver" type="mtmg:Receiver_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о получателе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CardInfo" type="cards:CardInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Номер постоянного клиента, присвоенный MoneyGram</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Docs" type="ifxst:Boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>True, показывает, что собраны дополнительные документы, определяемые требованиями определенной страны</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="MarketOpt" type="ifxst:Boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>True, показывает, что получатель хочет получить рекламные материалы MoneyGram</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FIXferRcvRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о получении перевода</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="FIXferRec" type="mtmg:FIXferRec_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информационная запись о переводе</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="InfoCityInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения списка городов в заданном штате (регионе) заданной страны</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="Rows" type="mtmg:Rows_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Количество возвращаемых строк (по умолчанию – 200)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ContactInfo" type="ca:ContactInfo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Контактная информация</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="InfoCityInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список городо в заданном штате (регионе) заданной страны</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="City" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Город</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="24"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="InfoInqMGRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения справочной информации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type">
+				<xsd:sequence>
+					<xsd:element name="AgentAlowed" type="ifxst:Boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Если true, то в ответе будут содержаться только способы доставки возможные для данного агента. Если false, то ответ будет содержать все способы доставки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="InfoInqMGRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о получении справочной информации</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="Version" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Версия НСИ включаемая в сообщение. Приложение хранит это значение для включение в запрос Confirm Token</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="ifxst:C">
+								<xsd:maxLength value="20"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="StateInfo" type="mt:StateInfo_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Информация о штате</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CountryInfo" type="mtmg:CountryInfoExt_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Содержит поля, определяющие страну</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CurCodeInfo" type="mt:CurCodeInfo_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Поля для описания валюты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CountryCurCodeInfo" type="mtmg:CountryCurCodeInfo_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Поля для описания локальной валюты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="FIXferRec" type="mtmg:FIXferRec_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Содержит информацию о способах доставки перевода</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ProfInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Данные для получения справочной информации об агенте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramRequest_Type"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ProfInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Справочная информация об агенте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="mtmg:MoneyGramResponse_Type">
+				<xsd:sequence>
+					<xsd:element name="ProfItemInfo" type="mtmg:ProfItemInfo_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Параметр профиля</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="AgencyListInqRq" type="mtmg:AgencyListInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на получение информации о пунктах обслуживания</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AgencyListInqRs" type="mtmg:AgencyListInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на получение информации о пунктах обслуживания</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferAddRq" type="mtmg:FIXferAddRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на оформление перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferAddRs" type="mtmg:FIXferAddRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос по оформлению перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferAudRq" type="mtmg:FIXferAudRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос проверки наличия невыплаченного перевода по контрольному номеру</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferAudRs" type="mtmg:FIXferAudRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос проверки наличия невыплаченного перевода по контрольному номеру</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferFeeInfoRq" type="mtmg:FIXferFeeInfoRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения информации о комиссии, валютах и способах получения</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferFeeInfoRs" type="mtmg:FIXferFeeInfoRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения информации о комиссии, валютах и способах получения</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferFormRq" type="mtmg:FIXferFormRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос получения реквизитов для формы перевода (для формы выплаты)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferFormRs" type="mtmg:FIXferFormRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос получения реквизитов для формы перевода (для формы выплаты)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferInqRq" type="mtmg:FIXferInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос проверки наличия невыплаченного перевода по контрольному номеру и получения детальной информации по этому переводу</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferInqRs" type="mtmg:FIXferInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос проверки наличия невыплаченного перевода по контрольному номеру и получения детальной информации по этому переводу</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferModRq" type="mtmg:FIXferModRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на изменение реквизитов перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferModRs" type="mtmg:FIXferModRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос на изменение реквизитов перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferRevRq" type="mtmg:FIXferRevRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на отмену оформления (реверсал)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferRevRs" type="mtmg:FIXferRevRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос на отмену оформления (реверсал)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferRcvRq" type="mtmg:FIXferRcvRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на получение перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FIXferRcvRs" type="mtmg:FIXferRcvRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос на получение перевода</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InfoCityInqRq" type="mtmg:InfoCityInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на получение списка городов в заданном штате (регионе) заданной страны</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InfoCityInqRs" type="mtmg:InfoCityInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос на получение списка городов в заданном штате (регионе) заданной страны</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InfoInqMGRq" type="mtmg:InfoInqMGRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на получение справочной информации (справочник валют, справочник стран, справочник штатов и провинций, справочник способов доставки)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InfoInqMGRs" type="mtmg:InfoInqMGRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос на получение справочной информации (справочник валют, справочник стран, справочник штатов и провинций, справочник способов доставки)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProfInqRq" type="mtmg:ProfInqRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос на получение справочной информаци об агенте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProfInqRs" type="mtmg:ProfInqRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ на запрос на получение справочной информации об агенте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

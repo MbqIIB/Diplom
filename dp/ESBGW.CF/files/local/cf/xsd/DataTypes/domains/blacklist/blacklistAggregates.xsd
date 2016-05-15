@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/blacklist" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:common="http://sberbank.ru/dem/commonAggregates" xmlns:acc="http://sberbank.ru/dem/account" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:orgs="http://sberbank.ru/dem/organizations" targetNamespace="http://sberbank.ru/dem/blacklist" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/account" schemaLocation="../account/accountAggregates.xsd"/>
+	<xsd:complexType name="Blacklist_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о нахождении в стоп-листе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="isOnList" type="xsd:boolean"/>
+			<xsd:element name="nextActionApplicant" type="xsd:string"/>
+			<xsd:element name="nextActionEmployeer" type="xsd:string"/>
+			<xsd:element name="category" type="xsd:string"/>
+			<xsd:element name="validUntilDate" type="xsd:date"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BlacklistSK_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о нахождении в стоп-листе (Словакия)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="address" type="common:PostAddr_Type" minOccurs="0"/>
+			<xsd:element name="caseNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="externalId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="incidents" type="blacklistIncidentType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="requestNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="contact" type="blacklistContactType" minOccurs="0"/>
+			<xsd:element name="person" type="blacklistIndividualType" minOccurs="0"/>
+			<xsd:element name="account" type="acc:Account_Type" minOccurs="0"/>
+			<xsd:element name="addressFraud" type="common:PostAddr_Type" minOccurs="0"/>
+			<xsd:element name="corporate" type="orgs:OrgInfo_Type" minOccurs="0"/>
+			<xsd:element name="extClient" type="blacklistIndividualType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CustomerInfoResponse_Type">
+		<xsd:sequence>
+			<xsd:element name="ClientInfo" type="common:ClientInfo_Type" minOccurs="0"/>
+			<xsd:element name="Person" type="ind:PersonInfo_Type" minOccurs="0"/>
+			<xsd:element name="Company" type="orgs:OrgStateReg_Type" minOccurs="0"/>
+			<xsd:element name="Reason" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Pokus o podvod (falšování podkladů)"/>
+						<xsd:enumeration value="Uvedení nepravdivých údajů"/>
+						<xsd:enumeration value="Zamlčení údajů"/>
+						<xsd:enumeration value="Nedůvěryhodný zdroj příjmu"/>
+						<xsd:enumeration value="Klasifikace - sledovaný úvěr"/>
+						<xsd:enumeration value="Klasifikace - nestandardní, pochybný nebo ztrátový úvěr"/>
+						<xsd:enumeration value="Debet na BÚ částky přesahující > 500 Kč"/>
+						<xsd:enumeration value="Splátky po splatnosti do 30 dnů, přesahující dlužnou částku > 1000 Kč"/>
+						<xsd:enumeration value="Splátky po splatnosti nad 30 dnů"/>
+						<xsd:enumeration value="Exekuce, úpadci (konkurzy, likvidace,….)"/>
+						<xsd:enumeration value="Během posledních 6 měsíců neschválená žádost (statusy zrušeno, odvoláno)"/>
+						<xsd:enumeration value="Nepotvrzená autorizace zaměstnavatele"/>
+						<xsd:enumeration value="Nerozlišeno, jiné …"/>
+						<xsd:enumeration value="Záznam v insolvenčním rejstříku"/>
+						<xsd:enumeration value="TVRDÝ ZÁPIS: Klientem uvedeny (doloženy) falešné nebo nepravdivé informace (dokumenty)"/>
+						<xsd:enumeration value="TVRDÝ ZÁPIS: Podezření na úvěrový podvod"/>
+						<xsd:enumeration value="TVRDÝ ZÁPIS: Zamlčení relevantních informací"/>
+						<xsd:enumeration value="TVRDÝ ZÁPIS: Ohroženo splacení pohledávky resp. nesplacená pohledávka za VBCZ (pouze pro úvěrové případy, které jsou ve správě na Work Out)"/>
+						<xsd:enumeration value="JINÝ ZÁPIS: Nedůvěryhodný zdroj příjmů"/>
+						<xsd:enumeration value="JINÝ ZÁPIS: Podezřelé jednání klienta (do aplikace BL je nutné vždy uvést komentář)"/>
+						<xsd:enumeration value="JINÝ ZÁPIS: Zesplatněný úvěr (v naší nebo jiné bance)"/>
+						<xsd:enumeration value="JINÝ ZÁPIS: Ostatní (do aplikace BL je nutné vždy uvést komentář)"/>
+						<xsd:enumeration value="TVRDÝ ZÁPIS: Nesplacená/postoupená pohledávka SBERBANK CZ"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Notice" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="blacklistIncidentType">
+		<xsd:sequence>
+			<xsd:element name="approvedBy" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="approvedDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="beginDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="endDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="externalId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="mode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="ACTIVE"/>
+						<xsd:enumeration value="PASSIVE"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="note" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="reason" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="W1"/>
+						<xsd:enumeration value="W2"/>
+						<xsd:enumeration value="W3"/>
+						<xsd:enumeration value="W4"/>
+						<xsd:enumeration value="WF"/>
+						<xsd:enumeration value="S1"/>
+						<xsd:enumeration value="S2"/>
+						<xsd:enumeration value="S3"/>
+						<xsd:enumeration value="S4"/>
+						<xsd:enumeration value="SF"/>
+						<xsd:enumeration value="R1"/>
+						<xsd:enumeration value="R2"/>
+						<xsd:enumeration value="R3"/>
+						<xsd:enumeration value="R4"/>
+						<xsd:enumeration value="R5"/>
+						<xsd:enumeration value="R6"/>
+						<xsd:enumeration value="R7"/>
+						<xsd:enumeration value="RF"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="system" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="EXECUTION"/>
+						<xsd:enumeration value="RATING"/>
+						<xsd:enumeration value="DAYS_IN_OVERDUE"/>
+						<xsd:enumeration value="MANUAL"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="blacklistContactType">
+		<xsd:sequence>
+			<xsd:element name="alternativePhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="identityCard" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="mail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="mobile" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="passport" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="phone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="type" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="PHONE"/>
+						<xsd:enumeration value="MOBILE"/>
+						<xsd:enumeration value="ALTERNATIVE_PHONE"/>
+						<xsd:enumeration value="MAIL"/>
+						<xsd:enumeration value="IDENTITY_CARD"/>
+						<xsd:enumeration value="PASSPORT"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="blacklistIndividualType">
+		<xsd:sequence>
+			<xsd:element name="titleBefore" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="firstName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="lastName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="titleAfter" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="individualType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="INDIVIDUAL"/>
+						<xsd:enumeration value="SALARY_CONFIRMATION_ACCOUNTANT"/>
+						<xsd:enumeration value="NAME_SURNAME"/>
+						<xsd:enumeration value="SPECIALIST_PROPERTY"/>
+						<xsd:enumeration value="EXTERNAL_SELLER"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="personalNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="birthDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="sellerNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="specialistPropertyNumber" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

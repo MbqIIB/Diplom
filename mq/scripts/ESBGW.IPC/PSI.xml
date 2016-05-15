@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files>
+	<file path="create\IRUS.SBI.GW1\update_IRUS.SBI.GW1.mqsc">
+		<param name="addressIRUSSBIINGW1" value="10.68.213.42(2414)"/>
+		<param name="portAdressIRUSSBIGW1" value="2414"/>
+	</file>
+	<file path="create\IRUS.SBI.IN.GW1\update_IRUS.SBI.IN.GW1.mqsc">
+		<param name="addressIRUSSBIGW1" value="10.130.128.67(2414)"/>
+		<param name="portAdressIRUSSBIINGW1" value="2414"/>
+	</file>
+	<file path="create\IRUS.SBI.OUT.GW1\update_IRUS.SBI.OUT.GW1.mqsc">
+		<param name="portAdressIRUSSBIOUTGW1" value="2414"/>
+	</file>
+	<!-- MPC -->
+	<file path="update\IRUS.SBI.IN.GW1\update_IRUS.SBI.IN.GW1.mqsc">
+		<param name="addressM99SBIGATEWAYCLS1" value="10.117.2.166(1417)"/>
+	</file>
+	<file path="update\IRUS.SBI.OUT.GW1\update_IRUS.SBI.OUT.GW1.mqsc">
+		<param name="addressIBLRDBESBOUTGW1" value="10.244.105.20(1414)"/>
+	</file>
+	<file path="CI.xml" skipFile="true"/>
+	<file path="IFT.xml" skipFile="true"/>
+	<file path="PSI.xml" skipFile="true"/>
+	<file path="PROM.xml" skipFile="true"/>
+</files>

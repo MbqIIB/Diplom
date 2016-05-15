@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cribis="http://sberbank.ru/dem/cribisAggregates" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:app="http://sberbank.ru/dem/application" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/getfinalownerlist" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/application" schemaLocation="../DataTypes/domains/application/applicationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/cribisAggregates" schemaLocation="../DataTypes/domains/cribis/cribisAggregates.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRq_Type"/>
+			<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+			<xsd:element name="IdenInfo" type="app:Identification_Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRs_Type"/>
+			<xsd:element name="RelatedList" type="cribis:GetRelatedList_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

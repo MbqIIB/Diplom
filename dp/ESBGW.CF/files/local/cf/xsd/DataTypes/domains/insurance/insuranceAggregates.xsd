@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/insurance" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ns1="http://sberbank.ru/dem/individual" targetNamespace="http://sberbank.ru/dem/insurance" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:complexType name="PolicyDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Описание реквизитов договора страхования: Серия, номер и дата выдачи полиса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Series" type="ifxst:Insur_PolicySeries_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Серия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Num" type="ifxst:Insur_PolicyNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssueDt" type="ifxst:Insur_PolicyIssueDt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InsuranceApp_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о страховом/НПФ продукте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Reference" type="ifxst:Insur_Reference_Type">
+				<xsd:annotation>
+					<xsd:documentation>ID (референс) страховки, по которой запрашиваются данные</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BusinessProcess" type="ifxst:Insur_BP_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование бизнес-процесса, в рамках которого оформлена страховка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProductType" type="ifxst:Insur_ProductType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование типа продукта, в рамках которого оформлена страховка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="ifxst:Insur_Status_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус страховки для отображения. Для страховых продуктов (Действует, Срок действия истекает, Срок действия истек, Аннулирован). Для НПФ продуктов (Договор заключен, Действующий клиент НПФ Сбербанка, Договор расторгнут).</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Company" type="ifxst:Insur_Company_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страховая компания для отображения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Program" type="ifxst:Insur_Program_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страховая программа для отображения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartDate" type="ifxst:Insur_StartDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала действия страховки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EndDate" type="ifxst:Insur_EndDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания действия страховки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SNILS" type="ifxst:SNILS_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер СНИЛС для пенсионного страхования</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ifxca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страховая сумма</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PolicyDetails" type="PolicyDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание реквизитов договора страхования: Серия, номер и дата выдачи полиса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Risks" type="ifxst:Insur_Risks_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание страховых рисков</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AdditionalInfo" type="ifxst:Insur_AdditionalInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дополнительная информация (№ и дата кредитного договора (при условии оформления страховки в рамках кредитной сделки)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Pension_Type">
+		<xsd:complexContent>
+			<xsd:extension base="ifxca:Income_Type">
+				<xsd:sequence>
+					<xsd:element name="Type" type="ifxst:Pension_Type">
+						<xsd:annotation>
+							<xsd:documentation>Тип пенсии / Pension type</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Temporary" type="ifx:Boolean" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Флаг временной пенсии / Temporary pension flag</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

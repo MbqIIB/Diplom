@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:gc="http://sbrf/ru/sbt/mdo/rqrs/getclient"  targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/getclient" schemaLocation="./GetClient/GetClientType.xsd"/>
+	<xsd:element name="SrvGetClientRq" type="gc:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Get customer request</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvGetClientRs" type="gc:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Get customer response</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

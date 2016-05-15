@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/ifxSimpleTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- Строковые типы данных -->
+	<xsd:simpleType name="C">
+		<xsd:annotation>
+			<xsd:documentation>Строковый тип с поддержкой русского языка в кодировке UTF-8.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="NC">
+		<xsd:annotation>
+			<xsd:documentation>Строковый тип в кодировке ISO Latin-1.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="Identifier">
+		<xsd:annotation>
+			<xsd:documentation>Идентификатор.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="tns:NC">
+			<xsd:maxLength value="36"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="UUID">
+		<xsd:annotation>
+			<xsd:documentation>Уникальный 16 байтовый идентификатор. Для обмена в рамках интеграционных проектов Сбербанка представляется набором из 32 символов без разделителей в шестнадцатиричной системе. Размерность 36 оставлена для совместимости со стандартом IFX/</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="tns:NC">
+			<xsd:maxLength value="36"/>
+			<xsd:pattern value="([0-9]|[a-f]|[A-F]){32}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="URL">
+		<xsd:annotation>
+			<xsd:documentation>Локатор ресурса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="tns:NC">
+			<xsd:maxLength value="1024"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Конец строковых типов данных -->
+	<!-- Логические типы данных -->
+	<xsd:simpleType name="Boolean">
+		<xsd:annotation>
+			<xsd:documentation>Логический тип.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:boolean"/>
+	</xsd:simpleType>
+	<!-- Конец логических типов данных -->
+	<!-- Числовые типы данных -->
+	<xsd:simpleType name="Decimal">
+		<xsd:annotation>
+			<xsd:documentation>Десятичный тип.	</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:pattern value="(\+|\-)?[0-9]*\.?[0-9]*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Long">
+		<xsd:annotation>
+			<xsd:documentation>Длинное число.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:long"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="Int">
+		<xsd:restriction base="xsd:int"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="unsignedInt">
+		<xsd:restriction base="xsd:unsignedInt"/>
+	</xsd:simpleType>
+	<!-- Конец числовых типов данных -->
+	<!-- Дата и время -->
+	<xsd:simpleType name="Date">
+		<xsd:annotation>
+			<xsd:documentation>Дата</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:date"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateTime">
+		<xsd:annotation>
+			<xsd:documentation>Дата и время</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="Timestamp">
+		<xsd:annotation>
+			<xsd:documentation>Отметка времени</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="Time">
+		<xsd:annotation>
+			<xsd:documentation>Время</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:time"/>
+	</xsd:simpleType>
+	<!-- Конец даты и времени -->
+	<!-- Перечислимые типы -->
+	<xsd:simpleType name="ClosedEnum">
+		<xsd:annotation>
+			<xsd:documentation>Закрытое перечисление. Перечисление содержит	конечный набор допустимых значений. Другие значения не допустимы. Обнаружении значения,	не входящего	в набор допустимых значений,	трактуется как ошибка в любом узле				системы на любом этапе обработки
+				сообщения.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="tns:NC">
+			<xsd:maxLength value="80"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpenEnum">
+		<xsd:annotation>
+			<xsd:documentation>Открытое перечисление. Перечисление содержит конечный набор рекомендуемых значений. Допустимы значения, не входящие в рекомендуемый набор. Интепретация корректности значения осуществляется автором и конечным получателем. Промежуточные узлы не осуществляют проверку и считают значение всегда корректным.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="tns:NC">
+			<xsd:maxLength value="80"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Конец перечислимых данных -->
+	<!-- Бинарные типы данных -->
+	<xsd:complexType name="Binary">
+		<xsd:annotation>
+			<xsd:documentation>Агрегат для хранения бинарных данных.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ContentType" type="tns:ContentType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип данных.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BinLength" type="tns:BinLength">
+				<xsd:annotation>
+					<xsd:documentation>Длина данных.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BinData" type="tns:BinData">
+				<xsd:annotation>
+					<xsd:documentation>Бинарные данные.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="ContentType">
+		<xsd:annotation>
+			<xsd:documentation>Открытое перечисление. Соответствует стандарту IETF RFC 2046.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="tns:OpenEnum"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="BinData">
+		<xsd:annotation>
+			<xsd:documentation>Бинарные данные.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:base64Binary"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="BinLength">
+		<xsd:annotation>
+			<xsd:documentation>Длина бинарных данных.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="tns:Long"/>
+	</xsd:simpleType>
+</xsd:schema>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/sendRatingAggregates" xmlns:par="http://sberbank.ru/dem/organizations/partners" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ifx="http://sberbank.ru/dem/simpleTypes" targetNamespace="http://sberbank.ru/dem/sendRatingAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../../headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/partners" schemaLocation="../organization/partners/partners.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:complexType name="CheckRegisterList_Type">
+		<xsd:sequence>
+			<xsd:element name="OrgInfo" type="orgs:OrgInfo_Type"/>
+			<xsd:element name="Status" type="ifxca:Status_Type" minOccurs="0"/>
+			<xsd:element name="Register" type="orgs:register_Type"/>
+			<xsd:element name="Court" type="ifx:Court_Type" minOccurs="0"/>
+			<xsd:element name="Ownership" type="ifx:AccmdOwnType_Type"/>
+			<xsd:element name="Partners" type="par:Partner_Type" maxOccurs="unbounded"/>
+			<xsd:element name="Statutory" type="par:Partner_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RatingResult_Type">
+		<xsd:sequence>
+
+			<xsd:element name="MidasCustomerNo" type="xsd:string"/>
+			<xsd:element name="Rating" type="xsd:string"/>
+			<xsd:element name="RatingDate" type="xsd:date"/>
+
+		</xsd:sequence>
+	</xsd:complexType></xsd:schema>

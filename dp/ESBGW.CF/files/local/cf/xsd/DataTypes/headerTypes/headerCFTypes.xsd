@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../simpleTypes/simpleTypes.xsd"/>
+	<xs:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../innerTypes/ifxSimpleTypes.xsd"/>
+	<xs:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../domains/common/commonAggregates.xsd"/>
+	<!--Описание системных полей сообщений  КСШ-->
+	<xs:complexType name="BasicRs_Type">
+		<xs:annotation>
+			<xs:documentation>Тип используемый как формат сообщения  - Ответ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RqUID" type="ifxst:RqUID_Type">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RqTm" type="ifx:DateTime">
+				<xs:annotation>
+					<xs:documentation>Дата и время передачи сообщения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperUID" type="ifxst:OperUID_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SPName" type="ifxst:SPName_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор системы, предоставляющей услуги (провайдер сервиса)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SystemId" type="ifxst:SPName_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор системы, инициировавший запрос</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ApplicationDt" type="ifx:Date" minOccurs="0"/>
+			<xs:element name="ApplicationDateTime" type="ifx:Timestamp" minOccurs="0"/>
+			<xs:element name="Status" type="ifxca:Status_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статусное сообщение (результат выполнения операции)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BasicRq_Type">
+		<xs:annotation>
+			<xs:documentation>Тип используемый как формат сообщения  - Запрос</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RqUID" type="ifxst:RqUID_Type">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RqTm" type="ifx:DateTime">
+				<xs:annotation>
+					<xs:documentation>Дата и время передачи сообщения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperUID" type="ifxst:OperUID_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SPName" type="ifxst:SPName_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор системы, предоставляющей услуги (провайдер сервиса)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SystemId" type="ifxst:SPName_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор системы, инициировавший запрос </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Priority" type="xs:nonNegativeInteger" minOccurs="0"/>
+			<xs:element name="ApplicationDt" type="ifx:Date" minOccurs="0"/>
+			<xs:element name="ApplicationDateTime" type="ifx:Timestamp" minOccurs="0"/>
+			<xs:element name="LoginName" type="ifxst:LoginName_Type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>
+			Тип BasicRq_Type следует использовать в качестве заголовка для сообщений, передаваемых из адаптеров системы в КСШ. При этом поля SPName, OperUID заполняются в случае заполнения маршрутных полей rfh2usr-заголовка значениями этих полей. Т.е., если для маршрутизации будет использоваться поле OperationId, тогда то же значение, что и в OperationId заголовка rfh2, дожно быть в поле OperUID.
+			Тип BasicRs_Type следует  использовать в качестве заголовка для сообщений-ответов, передаваемых из адаптеров системы в КСШ. При этом поля SPName, OperUID заполняются в случае заполнения маршрутных полей rfh2usr-заголовка значениями этих полей. Т.е., если для маршрутизации будет использоваться поле OperationId, тогда то же значение, что и в OperationId заголовка rfh2, дожно быть в поле OperUID. Если маршрутизация будет по CorrelationId, то эти поля не обязательны.
+			Поля RqUID RqTm обязательны для всех сообщений.
+			Для ответов обязательное поле Status.
+		</xs:documentation>
+	</xs:annotation>
+</xs:schema>

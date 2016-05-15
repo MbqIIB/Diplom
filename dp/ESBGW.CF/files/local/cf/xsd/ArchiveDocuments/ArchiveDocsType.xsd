@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ardocs="http://sbrf/ru/sbt/mdo/rqrs/archiveDocuments" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:doc="http://sberbank.ru/dem/individual" xmlns:tns="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:docT="http://sberbank.ru/dem/loan" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/archiveDocuments" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../DataTypes/domains/organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/loan" schemaLocation="../DataTypes/domains/loan/loanAggregates.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:complexContent>
+			<xsd:extension base="BasicRq_Type">
+				<xsd:sequence>
+					<xsd:element name="BankInfo" type="bank:BankInfo_Type" minOccurs="0"/>
+					<xsd:element name="IdentificationItems" minOccurs="0">
+						<xsd:complexType>
+							<xsd:complexContent>
+								<xsd:extension base="ca:ClientInfo_Type">
+									<xsd:sequence>
+										<xsd:element name="PersonalItems" type="doc:PersonInfo_Type" minOccurs="0"/>
+										<xsd:element name="LegalItems" type="orgs:OrgRec_Type" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:extension>
+							</xsd:complexContent>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="LoanType" type="tns:NC" minOccurs="0"/>
+					<xsd:element name="ArchiveDocument" type="docT:Doc_Type" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element name="SegmentId" type="tns:NC" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:complexContent>
+			<xsd:extension base="BasicRs_Type"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

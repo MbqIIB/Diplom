@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/getClientFes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:acc="http://sberbank.ru/dem/account" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:orgs="http://sberbank.ru/dem/organizations" targetNamespace="http://sberbank.ru/dem/getClientFes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/account" schemaLocation="../account/accountAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:complexType name="TaxPayerStatus_Type">
+		<xsd:sequence>
+			<xsd:element name="CustomerType" type="ifxst:CustType_Type" minOccurs="0"/>
+			<xsd:element name="Person" type="ind:PersonInfoExt_Type" minOccurs="0"/>
+			<xsd:element name="Company" type="orgs:OrgRec_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AccountList_Type">
+		<xsd:sequence>
+			<xsd:element name="BankAccount" type="acc:Account_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Can be in czech national form (e.g. 19-2000145399/0800) or in IBAN form (AT6508000000192000145399 )</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

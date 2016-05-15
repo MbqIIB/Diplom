@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by any (Ru-Board) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:prt="http://sberbank.ru/dem/partyTypes" xmlns:agr="http://sberbank.ru/dem/treasury/agreement" xmlns:ref="http://sberbank.ru/dem/referenceTypes" xmlns:inst="http://sberbank.ru/dem/instrumentTypes" xmlns:acc="http://sberbank.ru/dem/accountTypes" xmlns:set="http://sberbank.ru/dem/settlementTypes" xmlns:ord="http://sberbank.ru/dem/orderTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns="http://sberbank.ru/dem/dealTypes" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" xmlns:tns="http://sberbank.ru/dem/dealTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:mrktdt="http://sberbank.ru/dem/marketdataTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/dealTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/referenceTypes" schemaLocation="../reference/referenceAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/marketdataTypes" schemaLocation="../marketdata/marketdataAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/orderTypes" schemaLocation="../order/orderAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/settlementTypes" schemaLocation="../settlement/settlementAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/instrumentTypes" schemaLocation="../instrument/instrumentAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/accountTypes" schemaLocation="../account/accountAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/treasury/agreement" schemaLocation="../agreement/treasuryAgreementAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/partyTypes" schemaLocation="../party/partyAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="../../../domains/currency/CurrencyAggregates.xsd"/>
+	<xsd:complexType name="Deal_Type">
+		<xsd:annotation>
+			<xsd:documentation>Сделка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DealID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов сделок</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="SecurityDealDetails" type="SecurityDealDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация о сделке</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="FxDealDetails" type="FxDealDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация о сделке</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="RepoDealDetails" type="RepoDealDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация о сделке</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DealAllocation_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о распределении объемов сделки между клиентами</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ClientAgreement" type="agr:ClientAgreement_Type">
+				<xsd:annotation>
+					<xsd:documentation>Договор обслуживания</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Book" type="ord:Book_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Портфель</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="SecurityDealAllocationDetails" type="SecurityDealAllocationDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация о блочной сделке</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="FxDealAllocationDetails" type="DealAllocationDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация о блочной сделке</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DealAllocationDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры блочной сделки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence/>
+	</xsd:complexType>
+	<xsd:complexType name="DealDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация о сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TradeFloor" type="mrktdt:TradeFloor_Type">
+				<xsd:annotation>
+					<xsd:documentation>Торговая площадка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Branch" type="ifxca:Branch_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Обслуживающее подразделение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Order" type="ord:Order_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Заявка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeType" type="ifxst:Deal_TradeType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип сделки: ЦБ, Фьючерс,Опцион, Депо, Межвалютный своп, Процентный своп, ФРА, Валютная спот сделка, Валютная форвардная сделка,  Беспоставочный валютный форвард, Валютный своп</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsBlock" type="ifxst:Deal_IsBlock_Type">
+				<xsd:annotation>
+					<xsd:documentation>Признак, является ли сделка совершенной в пользу нескольких клиентов в соответствии с распределением (Allocation) - обязательный параметр для клиентской сделки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeSubType" type="ifxst:Deal_TradeSubType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Подтип сделки: с собственным портфелем/клиентская </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeDate" type="ifxst:Deal_TradeDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата заключения сделки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeTime" type="ifxst:Deal_TradeTime_Type">
+				<xsd:annotation>
+					<xsd:documentation>Время заключения сделки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AgreementDate" type="ifxst:Deal_AgreementDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата заключения договора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Comment" type="ifxst:Deal_Comment_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Комментарий в свободной форме"</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SpecialTerms" type="ifxst:Deal_SpecialTerms_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Особые условия сделки в свободной форме</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="ifxst:Deal_Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус сделки: не определен, ожидает подтверждения, подтверждена, одобрена, отменена, разделена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AuthStatus" type="ifxst:Deal_AuthStatus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус авторизации: не определен, ожидает авторизации, авторизована, не авторизована</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="STPStatus" type="ifxst:Deal_STPStatus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус обработки сделки: не определен, обработана, не обработана</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettleStatus" type="ifxst:Deal_SettleStatus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус исполнения обязательств по сделке: не определен, рассчитана, не рассчитана</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UpdateTime" type="ifxst:Deal_UpdateTime_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время последнего изменения информации по сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Digest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация об ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClientAgreement" type="agr:ClientAgreement_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Клиентский договор</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Book" type="ord:Book_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Портфель</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DealAllocation" type="DealAllocation_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Распределение по клиентам ДУ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReferenceDeal" type="Deal_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Родительская сделка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SplitApprove" type="ifxst:Deal_SplitApprove_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак разрешения на «разделенную» сделку</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Dealer" type="prt:Party_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дилер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeSession" type="mrktdt:TradeSession_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Торговая сессия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeFloor" type="mrktdt:TradeFloor_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Торговая площадка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeMode" type="mrktdt:TradeMode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Режим торгов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CounterParty" type="prt:Party_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Контрагент по сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FxDealAllocationDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Инфорция о денежных средствах по блочной сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AmountBaseCcy" type="ifxst:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сумма в базовой валюте по клиенту (портфелю) в блочной сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AmountCounterCcy" type="ifxst:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сумма в контрвалюте по клиенту (портфелю) в блочной сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccountBaseCcy" type="acc:Account_Type">
+				<xsd:annotation>
+					<xsd:documentation>Счет базовой валюты по клиенту (портфелю) в блочной сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccountCounterCcy" type="acc:Account_Type">
+				<xsd:annotation>
+					<xsd:documentation>Счет контрвалюты по клиенту (портфелю) в блочной сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CommissionData" type="ref:CommissionData_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Комиссии по клиенту (портфелю) в блочной сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FxDealDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>конверсионные сделки спот и форвард (включая расчетные)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="DealDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Direction" type="ifxst:Deal_Direction_Type">
+						<xsd:annotation>
+							<xsd:documentation>Направление:покупка, продажа</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Broker" type="prt:Party_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Брокер по сделке</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IsNetting" type="ifxst:Deal_IsNetting_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Признак неттинга</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RateInverted" type="ifxst:Deal_RateInverted_Type">
+						<xsd:annotation>
+							<xsd:documentation>Признак обратной котировки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="BaseCcy" type="cur:Currency_Type">
+						<xsd:annotation>
+							<xsd:documentation>Код базовой валюты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CounterCcy" type="cur:Currency_Type">
+						<xsd:annotation>
+							<xsd:documentation>Код валюты котировки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Rate" type="ifxst:Deal_Rate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Курс сделки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AmountBaseCcy" type="ifxst:Amt_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сумма в базовой валюте</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AmountCounterCcy" type="ifxst:Amt_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сумма в валюте котировки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ValueDateBaseCcy" type="ifxst:Deal_ValueDateBaseCcy_Type">
+						<xsd:annotation>
+							<xsd:documentation>Дата валютирования базовой валюты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ValueDateCounterCcy" type="ifxst:Deal_ValueDateCounterCcy_Type">
+						<xsd:annotation>
+							<xsd:documentation>Дата валютирования валюты котировки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IsValueDateSplit" type="ifxst:Deal_IsValueDateSplit_Type">
+						<xsd:annotation>
+							<xsd:documentation>Признак: даты валютирования различаются.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AccountBaseCcy" type="acc:Account_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Счет базовой валюты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AccountCounterCcy" type="acc:Account_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Счет валюты котировки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CommissionData" type="ref:CommissionData_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Комиссии</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="SettlementTerms" type="SettlementTerms_Type">
+						<xsd:annotation>
+							<xsd:documentation>Условия расчетов по сделке</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="NDFTerms" type="NDFTerms_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Параметры беспоставочных форвардов</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Haircut_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дисконт</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifxst:Deal_HaircutType_Type">
+				<xsd:annotation>
+					<xsd:documentation>База для дисконта: цена с НКД / цена без НКД</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Haircut">
+				<xsd:annotation>
+					<xsd:documentation>Начальное значение дисконта</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="ifxst:Deal_Haircut_Type"/>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="NDFTerms_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры баспоставочного форварда</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FixingDate" type="ifxst:Deal_FixingDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата определения курса Фиксинга</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FixingSource" type="ifxst:Deal_FixingSource_Type">
+				<xsd:annotation>
+					<xsd:documentation>Источник курсов фиксинга:Страницы Reuters (ECB37, EMTA и пр.), Блумберг, Кросс курс, определенный через рубль, Кросс курс, определенный через евро, Договорной курс фиксинга (в этом случае, значение курса или метод его расчета указывается в SpecialTerms)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PaymentCcy" type="cur:Currency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта платежа (используется для расчетных форвардов в случае, если валюта платежа отличается от Контрвалюты)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PaymentRateSource" type="ifxst:Deal_PaymentRateSource_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Источник курса конвертации контрвалюты в валюту платежа (совпадает с FixingSource)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RepoDealDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры сделки РЕПО</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="DealDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="RepoSide" type="ifxst:Deal_RepoSide_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сторона по сделке РЕПО: прямое, обратное</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Prepayment" type="ifxst:Amt_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сумма сделки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="MarketPrice" type="ref:Price_Type">
+						<xsd:annotation>
+							<xsd:documentation>Рыночная цена ценной бумаги</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="InterestBase" type="ifxst:Deal_InterestBase_Type">
+						<xsd:annotation>
+							<xsd:documentation>Базис начисления процентов</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Rate" type="ifxst:Deal_Rate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Ставка начисления процентов</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="FundingRate" type="ifxst:Deal_FundingRate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Ставка фондирования</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PenaltyRate" type="ifxst:Deal_PenaltyRate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Штрафная ставка за просрочку</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IsAuction" type="ifxst:Deal_IsAuction_Type">
+						<xsd:annotation>
+							<xsd:documentation>Признак, заключена ли сделка в ходе аукциона</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PaymentDate" type="ifxst:Deal_PaymentDate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Дата платежа</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ExRate" type="ifxst:CurRate_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Обменный курс между валютами цены акций и платежа или обменный курс между валютами облигаций и платежа (если валюты различны)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PaymentCcy" type="cur:Currency_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>3-символьный ISO код валюты платежа</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ReinvestCoupons" type="ifxst:Deal_ReinvestCoupons_Type">
+						<xsd:annotation>
+							<xsd:documentation>Признак, учитываются ли промежуточные платежи эмитента в уменьшение суммы РЕПО (AfterPayment - случай ММВБ: изначально - купонные платежи не учитываются, начинают учитываться по факту платежа)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RoundingDigits" type="ifxst:Deal_RoundingDigits_Type">
+						<xsd:annotation>
+							<xsd:documentation>Число знаков после запятой при округлении</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Haircut" type="ifxst:Deal_Haircut_Type">
+						<xsd:annotation>
+							<xsd:documentation>Начальное значение дисконта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Threshold" type="Threshold_Type">
+						<xsd:annotation>
+							<xsd:documentation>Предельное значение дисконта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Tenor" type="ifxst:Deal_Tenor_Type">
+						<xsd:annotation>
+							<xsd:documentation>Срок РЕПО (равен сроку между плановыми датами оплаты по первой и второй «ноге»)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RepoDealLeg" type="RepoDealLeg_Type" minOccurs="2" maxOccurs="2">
+						<xsd:annotation>
+							<xsd:documentation>«Ноги» РЕПО. Первая и вторая определяются своей последовательностью XML</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IsSpecRepo" type="ifxst:Deal_IsSpecRepo_Type">
+						<xsd:annotation>
+							<xsd:documentation>Признак сделок СпецРепо</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Instrument" type="inst:Instrument_Type">
+						<xsd:annotation>
+							<xsd:documentation>Ценная бумага</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="RepoDealLeg_Type">
+		<xsd:annotation>
+			<xsd:documentation>Нога сделки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Date" type="ifxst:Deal_Date_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата фиксации параметров</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DeliveryDate" type="ifxst:Deal_DeliveryDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Плановая дата поставки ценных бумаг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccruedInterest" type="ifxst:Deal_AccruedInterest_Type">
+				<xsd:annotation>
+					<xsd:documentation>Накопленный купонный доход в валюте номинала облигации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NetPrice" type="ref:Price_Type">
+				<xsd:annotation>
+					<xsd:documentation>Чистая цена по «ноге» (без учета НКД)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NetAmount" type="ifxst:Amt_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сумма по «ноге» без учета НКД в валюте цены (для акций) / в валюте номинала для облигации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PaymentDate" type="ifxst:Deal_PaymentDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Плановая дата оплаты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementTerms" type="SettlementTerms_Type">
+				<xsd:annotation>
+					<xsd:documentation>Условия расчетов по сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ifxst:Amt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма платежа по «ноге» в валюте расчетов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CommissionData" type="ref:CommissionData_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Quantity" type="ref:Quantity_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Количество ЦБ по сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Accounts" type="acc:Account_Type" maxOccurs="2">
+				<xsd:annotation>
+					<xsd:documentation>Счета по сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecurityDealAllocationDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация по ценным бумагам по блочной сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Quantity" type="ref:Quantity_Type">
+				<xsd:annotation>
+					<xsd:documentation>Кол-во бумаг (сумма) по клиенту (портфелю) в блочной сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccruedInterest" type="ifxst:Deal_AccruedInterest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>НКД по клиенту (портфелю) в блочной сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NetAmount" type="ifxst:Amt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма без НКД  по клиенту (портфелю) в блочной сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Accounts" type="acc:Account_Type" minOccurs="0" maxOccurs="2">
+				<xsd:annotation>
+					<xsd:documentation>Счета для учета сделки (ЦБ, денежный)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ifxst:Amt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма по клиенту (портфелю) в блочной сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CommissionData" type="ref:CommissionData_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Комиссии по клиенту (портфелю) в блочной сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecurityDealDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры сделки купли-продажи ценных бумаг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="DealDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Side" type="ifxst:Deal_Side_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сторона по сделке</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Price" type="ref:Price_Type">
+						<xsd:annotation>
+							<xsd:documentation>Цена сделки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="SettlementTerms" type="SettlementTerms_Type">
+						<xsd:annotation>
+							<xsd:documentation>Условия расчетов по сделке</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="DeliveryDate" type="ifxst:Deal_DeliveryDate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Плановая дата поставки ценных бумаг</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="NetAmount" type="ifxst:Amt_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сумма по сделке без учета НКД в валюте цены (для акций) / в валюте облигации (для облигаций)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AccruedInterest" type="ifxst:Deal_AccruedInterest_Type">
+						<xsd:annotation>
+							<xsd:documentation>Накопленный купонный доход в валюте облигации</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IsAuction" type="ifxst:Deal_IsAuction_Type">
+						<xsd:annotation>
+							<xsd:documentation>Признак, заключена ли сделка в ходе аукциона</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PaymentDate" type="ifxst:Deal_PaymentDate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Плановая дата оплаты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PaymentCcy" type="cur:Currency_Type">
+						<xsd:annotation>
+							<xsd:documentation>3-символьный ISO код валюты платежа</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ExRate" type="ifxst:CurRate_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Обменный курс между валютами цены и платежа</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Amount" type="ifxst:Amt_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Сумма платежа по сделке в валюте расчетов</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CommissionData" type="ref:CommissionData_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Информация по комиссиям</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Quantity" type="ref:Quantity_Type">
+						<xsd:annotation>
+							<xsd:documentation>Кол-во ценных бумаг по сделке</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Instrument" type="inst:Instrument_Type">
+						<xsd:annotation>
+							<xsd:documentation>Финансовый инструмент</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Accounts" type="acc:Account_Type" maxOccurs="2">
+						<xsd:annotation>
+							<xsd:documentation>Счета по сделке</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SettlementTerms_Type">
+		<xsd:annotation>
+			<xsd:documentation>Условия расчетов по сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SettlementCode" type="ifxst:Deal_SettlementCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код расчетов (для сделок на ММВБ)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TermsType" type="ifxst:Deal_TermsType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип условий расчетов: </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TermsDesc" type="ifxst:Desc1024_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание условия исполнения в свободной форме</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Threshold_Type">
+		<xsd:annotation>
+			<xsd:documentation>Пороговые значения дисконта</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="LowerPercent" type="ifxst:Deal_LowerPercent_Type">
+				<xsd:annotation>
+					<xsd:documentation>Нижнее предельное значение дисконта в процентах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UpperPercen" type="ifxst:Deal_UpperPercen_Type">
+				<xsd:annotation>
+					<xsd:documentation>Верхнее предельное значение дисконта в процентах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

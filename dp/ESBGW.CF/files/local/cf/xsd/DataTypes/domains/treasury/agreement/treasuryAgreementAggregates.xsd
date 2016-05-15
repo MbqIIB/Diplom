@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Mike (None) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/agreement" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:mrktdt="http://sberbank.ru/dem/marketdataTypes" xmlns:inst="http://sberbank.ru/dem/instrumentTypes" xmlns:party="http://sberbank.ru/dem/partyTypes" xmlns:acc="http://sberbank.ru/dem/accountTypes" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ref="http://sberbank.ru/dem/referenceTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:ns1="http://sberbank.ru/dem/treasury/agreement" targetNamespace="http://sberbank.ru/dem/treasury/agreement" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/marketdataTypes" schemaLocation="../marketdata/marketdataAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/accountTypes" schemaLocation="../account/accountAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/partyTypes" schemaLocation="../party/partyAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/instrumentTypes" schemaLocation="../instrument/instrumentAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/referenceTypes" schemaLocation="../reference/referenceAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="../../../domains/currency/CurrencyAggregates.xsd"/>
+	<xsd:complexType name="RateScale_Type">
+		<xsd:annotation>
+			<xsd:documentation>Шкала комиссий</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RateScaleID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор шкал комиссий в разных системах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ShortName" type="ifxst:Agr_ShortName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Краткое наименование шкалы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ComissionType" type="ifxst:Agr_ComissionType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип взимаемой комиссии: Брокерская, Клиринговая (для Volume Based и Maturity Based)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Details" type="ns1:RateScaleDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Параметры комиссионной шкалы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RateScaleDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры комиссионной шкалы</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name" type="ifxst:Agr_Name_Type">
+				<xsd:annotation>
+					<xsd:documentation>Наименование шкалы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ScaleType" type="ifxst:Agr_ScaleType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип комиссионной шкалы: Фиксированная, По объему торгов, По оставшемуся времени до погашения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeType" type="ifxst:Agr_TradeType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Типы сделок, к которым относится комиссия: Сделки с ЦБ, Сделки РЕПО</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartDate" type="ifxst:Agr_StartDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала действия комиссионной шкалы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpireDate" type="ifxst:Agr_ExpireDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания действия комиссионной шкалы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateValues" type="ns1:RateScaleValue_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Значения шкалы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="VolumeUnit" type="ifxst:Agr_VolumeUnit_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Единица измерения объема торгов клиента: В лотах сделок, В объеме сделок (используется только для шкал типа Volume based).</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CalcPeriod" type="ifxst:Agr_CalcPeriod_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Кол-во дней, по которым вычисляется суммарный объем для определения ставки комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RateCalcMethod" type="ifxst:Agr_RateCalcMethod_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ расчета ставки (обязателен для ScaleType=Volume Based и Maturity Based): сумма в валюте за каждый контракт, процент от суммы каждой сделки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FixedCalcMethod" type="ifxst:Agr_FixedCalcMethod_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ взимания фиксированной комиссии (обязательна для ScaleType=Fixed): За каждую сделку, За период </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FixedPeriod" type="ifxst:Agr_FixedPeriod_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Период, за который взимается фиксированная ставка (обязателен для ScaleType=Fixed)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RoundMethod" type="ifxst:Agr_RoundMethod_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Метод округления: обычное округление,  округление вниз, округление вверх</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UseAccrued" type="ifxst:Agr_UseAccrued_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Рассчитывает комиссию с учетом НКД</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FixAmount" type="ifxst:Agr_FixAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Фиксированная сумма комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MinAmount" type="ifxst:Agr_MinAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Минимальная сумма комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaxAmount" type="ifxst:Agr_MaxAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Максимальная сумма комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RateScaleValue_Type">
+		<xsd:annotation>
+			<xsd:documentation>Значения шкалы</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="MinLimit" type="ifxst:Agr_MinLimit_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Нижнее значение границы ступени шкалы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaxLimit" type="ifxst:Agr_MaxLimit_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Верхнее значение границы ступени шкалы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LimitUnit" type="ifxst:Agr_LimitUnit_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Единицы измерения границ ступеней шкалы: Объем ДС, Дни</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="REPOTerm" type="ifxst:Agr_REPOTerm_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дополнительный признак по сделкам типа РЕПО: ставка за день, ставка на весь срок</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Rate" type="ifxst:Agr_Rate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Значение процентной ставки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Fix" type="ifxst:Agr_Fix_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Фиксированная часть комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AssetMngmtFeeDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры тарифа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Type" type="ifxst:Agr_Type_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип вознаграждения: За успех, За управление</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Period" type="ifxst:Agr_Period_Type">
+				<xsd:annotation>
+					<xsd:documentation>Период, за который взимается вознаграждение: За квартал, За год, По результатам нахождения активов в управлении и/или окончании  договора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Highwatermark" type="ifxst:Agr_Highwatermark_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Минимальный размер прибыли , ниже которого вознаграждение за управление взимается (в процентах)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FeeValue" type="ns1:RateScaleValue_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Вознаграждения управляющего</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AgreementTradeFloor_Type">
+		<xsd:annotation>
+			<xsd:documentation>Торговые площадки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TradeFloor" type="mrktdt:TradeFloor_Type">
+				<xsd:annotation>
+					<xsd:documentation>Торговая площадка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="ifxst:Agr_Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус торговой площадки по договору: Заявляемая, Подтверждаемая, Отказ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartDate" type="ifxst:Agr_StartDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Датa начала работы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpireDate" type="ifxst:Agr_ExpireDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания работы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeAccounts" type="acc:Account_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Торговые счета</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ClientAgreement_Type">
+		<xsd:annotation>
+			<xsd:documentation>Клиентский договор</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ClientAgreementID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов клиентских договоров</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="ifxst:Agr_Type_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип клиентского договора: Брокерского обслуживания, Доверительного управления, Андеррайт, Контрагент по расчетам</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="BrokerageAgreementDetails" type="ns1:BrokerageAgreementDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="AssetMngmtAgreementDetails" type="ns1:AssetMngmtAgreementDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="ClientCode" type="ifxst:Agr_ClientCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код клиента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BrokerageAgreementDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Договор брокерского обслуживания</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ns1:ClientAgreementDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="RateScale" type="ns1:RateScale_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Ссылка на комиссионные шкалы</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AgreementTradeFloors" type="ns1:AgreementTradeFloor_Type" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Торговые площадки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="InvestorOrderMethods" type="ifxst:Agr_InvestorOrderMethods_Type" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Способ приема заявок и поручений Инвестора: лично, через уполномоченных представителей, заказным письмом с  уведомлением, по телефону, посредством АС Фокус с исп. ЭЦП, посредством Ас Фокус с исп КА, посредством АС QUIK </xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IncomeGettingMethods" type="ifxst:Agr_IncomeGettingMethods_Type">
+						<xsd:annotation>
+							<xsd:documentation>Способ получения доходов: Переводом на денежный счет/счета</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="BrokerReportingMethods" type="ifxst:Agr_BrokerReportingMethods_Type" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Способ направления отчетов брокера: Лично, Через уполномоченных представителей, заказным письмом с уведомлением, по факсу, по e-mail</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="DepoNTOrderMethods" type="ifxst:Agr_DepoNTOrderMethods_Type" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Способ передачи Депонентом поручений и иных документов Депозитарию для проведения операций по счету депо: Лично,  Через уполномоченных представителей, Заказным письмом</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="DepoReportingMethods" type="ifxst:Agr_DepoReportingMethods_Type" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Способ передачи Депозитарием Депоненту отчетов о выполненных депозитарных операциях, выписок  и других документов, связанных со счетом депо и с ценными бумагами, учитываемыми на счете:Лично, Через уполномоченных представителей, Заказным письмом</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="DepoPaymentMethods" type="ifxst:Agr_DepoPaymentMethods_Type">
+						<xsd:annotation>
+							<xsd:documentation>Тип оплаты депозитарных услуг: безакцептное списание с лицевых счетов, оплата выставленных счетов</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IsAllowedMarginTrades" type="ifxst:Agr_IsAllowedMarginTrades_Type">
+						<xsd:annotation>
+							<xsd:documentation>Возможность совершения необеспеченных сделок</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IsRefusedMarginTrades" type="ifxst:Agr_IsRefusedMarginTrades_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Отказ клиента от совершения необеспеченных сделок</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RefuseMarginTradesDate" type="ifxst:Agr_RefuseMarginTradesDate_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата отказа от совершения необеспеченных сделок</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="SpecialTerms" type="ns1:SpecialTerm_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Дополнительные условия</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ChangeData" type="ifxst:Agr_ChangeData_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Измененные данные: Способ приема заявок и поручений инвестора, Изменение торговых площадок договора, Изменение способа оплаты депозитарных </xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IsRusKPUR" type="ifxst:Agr_IsRusKPUR_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Признак КПУР (Клиент с повышенным уровнем риска)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RusKPURDate" type="ifxst:Agr_RusKPURDate_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата присвоения клиенту признака КПУР</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AddressForLetters" type="ifxca:ContactInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес доставки оригиналов документов заказным письмом</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RusIZKNumber" type="ifxst:Agr_RusIZKNumber_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Серийный номер ИЗК</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RusIZKSystemCode" type="ifxst:Agr_RusIZKSystemCode_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Системныей номер ИЗК</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="FlQuotate" type="ifxst:Agr_FlQuotate_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Допуск к торгам ценными бумагами по котировальному списку «И»</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="RusKUC" type="ifxst:Agr_RusKUC_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>КодКУЦ</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SpecialTerm_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дополнительные условия</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name" type="ifxst:Agr_SpecialTermName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Название дополнительного условия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Term" type="ifxst:Agr_SpecialTerm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Описание дополнительного условия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="StrategyAsset_Type">
+		<xsd:annotation>
+			<xsd:documentation>Наименование класса ЦБ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StrategyAssetType" type="ifxst:Agr_StrategyAssetType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип актива: Валюты, Ценные бумаги, Производные ФИ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Ccy" type="cur:Currency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта денежных средств или ценных бумаг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SecurityIssuerSector" type="ifxst:Agr_SecurityIssuerSector_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сектор эмитента: Государственные, Субфедеральные, Муниципальные, Корпоративные, Банки и кредитные небанковские организации, прочие финансовые учреждения </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InstrumentType" type="ifxst:Agr_InstrumentType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип финансового инструмента: Акции, Облигации, Форварды, Фьючерсы, Опционы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CapitalLevel" type="ifxst:Agr_CapitalLevel_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Уровень капитализации: Высокая капитализации, Низкая капитализации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssuerCountry" type="ref:Country_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страна эмитента ценной бумаги</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AssetMngmtFee_Type">
+		<xsd:annotation>
+			<xsd:documentation>Вознаграждение управляющего</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AssetMngmtFeeID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Идентификаторы вознаграждений управляющих в различных системах</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AssetMngmtFee" type="ifxst:Agr_AssetMngmtFeeName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Наименование тарифа вознаграждения управляющего</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Datails" type="ns1:AssetMngmtFeeDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Страна эмитента ценной бумаги</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AssetMngmtUnit_Type">
+		<xsd:annotation>
+			<xsd:documentation>Активы, передаваемые в управление</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AssetDeliveryDate" type="ifxst:Agr_AssetDeliveryDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата передачи активов в управление/дата передачи активов Учредителю</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AssetType" type="ifxst:Agr_AssetType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип актива: Валюта, Ценные бумаги</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Ccy" type="cur:Currency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Asset" type="inst:Instrument_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Инструмент</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Quantity" type="ref:Quantity_Type">
+				<xsd:annotation>
+					<xsd:documentation>Количество денежных средств или ценных бумаг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ClientAgreementDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name" type="ifxst:Agr_ClientAgreementDetailsName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Наименование договора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Number" type="ifxst:Agr_Number_Type">
+				<xsd:annotation>
+					<xsd:documentation>Номер договора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClientStatus" type="ifxst:Agr_ClientStatus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус анкеты клиента: Новая, Не изменена, Изменена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AgreementStatus" type="ifxst:Agr_AgreementStatus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус договора: Изменения, Новый,  Без изменений, Закрытие договора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpenDate" type="ifxst:Agr_OpenDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата открытия договора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CloseDate" type="ifxst:Agr_CloseDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата закрытия договора</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DepoBranch" type="ifxca:Branch_Type">
+				<xsd:annotation>
+					<xsd:documentation>Подразделение депозитарного обслуживания</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ServiceBranch" type="ifxca:Branch_Type">
+				<xsd:annotation>
+					<xsd:documentation>Обслуживающее подразделение (где оформляется договор)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AgreementBranch" type="ifxca:Branch_Type">
+				<xsd:annotation>
+					<xsd:documentation>Подразделение, где был оформлен договор</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Accounts" type="acc:Account_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Расчетные счета клиента (рублевый и валютные счета, счет депо) используемые для зачисления доходов от операций в рамках договора, зачисления выводимых активов, зачисления процентов и дивидендов по ценным бумагам и пр.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UpdateTime" type="ifxst:Agr_UpdateTime_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время последнего изменения информации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Client" type="party:Party_Type">
+				<xsd:annotation>
+					<xsd:documentation>Клиент</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AssetMngmtAgreementDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Договор доверительного управления</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ns1:ClientAgreementDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Ccy" type="cur:Currency_Type">
+						<xsd:annotation>
+							<xsd:documentation>Валюта осуществления операций (и отчетности)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="StartInvestingDate" type="ifxst:Agr_StartInvestingDate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Дата начала инвестирования</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="EndInvestingDate" type="ifxst:Agr_EndInvestingDate_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата окончания инвестирования</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AssetMngmtStrategy" type="ifxst:Agr_AssetMngmtStrategy_Type">
+						<xsd:annotation>
+							<xsd:documentation>Наименование стратегии инвестирования</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AssetMngmtFee" type="ns1:AssetMngmtFee_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Вознаграждение управляющего</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="InvestDeclaration" type="ns1:StrategyAssetLimit_Type" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Ограничения по активам в рамках стратегии</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ReceivingMethods" type="ifxst:Agr_ReceivingMethods_Type">
+						<xsd:annotation>
+							<xsd:documentation>Способ получения оригиналов документов: В обслуживающем подразделении, Заказным письмом</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AddressForLetters" type="ifxca:ContactInfo_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес доставки оригиналов документов</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AdditionalAgreements" type="ns1:AssetMngmtAdditionalAgreement_Type" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Дополнительные соглашения</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="StrategyAssetLimit_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ограничения по активам в рамках стратегии</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StrategyAsset" type="ns1:StrategyAsset_Type">
+				<xsd:annotation>
+					<xsd:documentation>Наименование класса ЦБ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaxShare" type="ifxst:MaxShare_Type">
+				<xsd:annotation>
+					<xsd:documentation>Максимальная доля актива</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Comment" type="ifxst:Comment_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Комментарий</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AssetMngmtAdditionalAgreement_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дополнительные соглашения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AssetMngmtAdditionalAgreementID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор дополнительного соглашения в различных системах.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AgreementDate" type="ifxst:Agr_AgreementDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата заключения дополнительного соглашения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ChangeData" type="ifxst:Agr_AssetMngmtAdditionalAgreementChangeData_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Изменяемые параметры договора: Валюта, Дата окончания инвестирования, Стратегия инвестирования, Вознаграждение управляющего, Инвестиционная декларация, Способ получения оригиналов документов, Адрес для отправки оригиналов документов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartInvestingDateOld" type="ifxst:Agr_StartInvestingDateOld_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала инвестирования (Старая)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartInvestingDateNew" type="ifxst:Agr_StartInvestingDateNew_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата начала инвестирования (Новая)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EndInvestingDateOld" type="ifxst:Agr_EndInvestingDateOld_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания инвестирования (Старая)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EndInvestingDateNew" type="ifxst:Agr_EndInvestingDateNew_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания инвестирования (Новая)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AssetMngmtStrategyOld" type="ifxst:Agr_AssetMngmtStrategyOld_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование стратегии инвестирования (Старая)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AssetMngmtStrategyNew" type="ifxst:Agr_AssetMngmtStrategyNew_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование стратегии инвестирования (Новая)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AssetMngmntFeesOld" type="ns1:AssetMngmtFee_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Вознаграждение управляющего (Старое)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AssetMngmngFeesNew" type="ns1:AssetMngmtFee_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Вознаграждение управляющего (Новое)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InvestDeclarationOld" type="ns1:StrategyAssetLimit_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ограничения по активам в рамках стратегии (Старые)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InvestDeclarationNew" type="ns1:StrategyAssetLimit_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ограничения по активам в рамках стратегии (Новые)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceivingDocumentsOld" type="ifxst:Agr_ReceivingDocumentsOld_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ получения оригиналов документов (Старый)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceivingDocumentsNew" type="ifxst:Agr_ReceivingDocumentsNew_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Способ получения оригиналов документов (Новый)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AddressForLettersOld" type="ifxca:ContactInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Адрес доставки оригиналов документов заказным письмом (старый)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AddressForLettersNew" type="ifxca:ContactInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Адрес доставки оригиналов документов заказным письмом (Новый)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InFlowAssets" type="ns1:AssetMngmtUnit_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Активы, передаваемые в управление</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OutFlowAssets" type="ns1:AssetMngmtUnit_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Активы, выводимые из управления</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

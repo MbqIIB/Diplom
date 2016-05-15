@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:sms="http://sbrf/ru/sbt/mdo/rqrs/sendSMS" xmlns:se="http://sbrf/ru/sbt/mdo/rqrs/sendEmail" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/sendEmail" schemaLocation="SendEmail/SendEmailType.xsd"/>
+	<xsd:element name="SrvEmailRq" type="se:Request_Type">
+		<xsd:annotation>
+			<xsd:documentation>Send email request</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SrvEmailRs" type="se:Response_Type">
+		<xsd:annotation>
+			<xsd:documentation>Email status</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

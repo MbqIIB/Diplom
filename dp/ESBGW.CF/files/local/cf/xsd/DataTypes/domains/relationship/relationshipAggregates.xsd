@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/relationship" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" targetNamespace="http://sberbank.ru/dem/relationship" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:complexType name="SpecRelationship_Type">
+		<xsd:sequence>
+			<xsd:element name="specialRelationship" type="ifxst:SpecRelation_Type" minOccurs="0"/>
+			<xsd:element name="specialRelationshipType" type="ifxst:SpecRelationType_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

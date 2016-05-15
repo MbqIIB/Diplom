@@ -1,0 +1,3276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by ﻿WROOM (WROOMWROOM INC) -->
+<!-- Агрегация XML-схем 01.10.2015 09:46:49 с правкой от 19.10.2015-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:simpleType name="AgencyId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Номер отделения, в котором открыт или ведется продукт. С лидирующими нулями.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="5"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="AuthCode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код авторизации </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BranchId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Номер филиала, в котором открыт или ведется продукт. Без лидирующих нулей. Используется для обозначения кода подразделения ДБ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CardId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Id карты</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CardNumMasked_Type">
+		<xsd:annotation>
+			<xsd:documentation>Номер карты маскированный</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="24"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CardStatus_Type">
+		<xsd:annotation>
+			<xsd:documentation>Новый статус карты</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="8"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CurExp_Type">
+		<xsd:annotation>
+			<xsd:documentation>Валютная экспонента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Date">
+		<xsd:annotation>
+			<xsd:documentation>Время</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:date"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateTime">
+		<xsd:annotation>
+			<xsd:documentation>Тип данных для представления дат</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="EndDt_Type">
+		<xsd:annotation>
+			<xsd:documentation>Срок действия карты</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Long">
+		<xsd:annotation>
+			<xsd:documentation>Тип данных Long</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:long"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="MobileOperatorId_Type">
+		<xsd:annotation>
+			<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MobilePhoneNumber_Type">
+		<xsd:annotation>
+			<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="15"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MobileServiceId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Мобильный сервис (Код типа SMS)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpAmount_Type">
+		<xsd:annotation>
+			<xsd:documentation>Сумма в валюте операции </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpBankNum_Type">
+		<xsd:annotation>
+			<xsd:documentation>Номер операции в банковской системе</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="36"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpCity_Type">
+		<xsd:annotation>
+			<xsd:documentation>Город проведения операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="50"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpCode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpCurrency_Type">
+		<xsd:annotation>
+			<xsd:documentation>Валюта операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpDt_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дата и время операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="DateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpMerchantId_Type">
+		<xsd:annotation>
+			<xsd:documentation>ID торговца</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpPlaceOfTransaction_Type">
+		<xsd:annotation>
+			<xsd:documentation>Место проведения операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="128"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpTerminalId_Type">
+		<xsd:annotation>
+			<xsd:documentation>ID терминала</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="8"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OpTypeCode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код типа операции </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OperUID_Type">
+		<xsd:annotation>
+			<xsd:documentation>Уникальный идентификатор операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="UUID"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="RRN_Type">
+		<xsd:annotation>
+			<xsd:documentation>Уникальный номер транзакции </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RbBrchType">
+		<xsd:annotation>
+			<xsd:documentation>Тип данных для 6-значного кода территориального банка. Используется для передачи кода ТБ, в котором обслуживается продукт клиента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="6"/>
+			<xsd:pattern value="[0-9]{6}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RbTbBrchType">
+		<xsd:annotation>
+			<xsd:documentation>Тип данных для 8-значного кода территориального банка. Используется для передачи кода ТБ, в котором открыт счет МБК, по которой клиент произвел идентификацию на УС</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="8"/>
+			<xsd:pattern value="[0-9]{8}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RegionId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код региона банка. Используется для обозначения кода ДБ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RqTm_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="DateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="RqUID_Type">
+		<xsd:annotation>
+			<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="UUID"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="SMSMessageId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Идентификатор SMS сообщения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="12"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SMSPriority_Type">
+		<xsd:annotation>
+			<xsd:documentation>Приоритет отправки СМС</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SMSText_Type">
+		<xsd:annotation>
+			<xsd:documentation>Текст сообщения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SPName_Type">
+		<xsd:annotation>
+			<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ServerStatusDesc_Type">
+		<xsd:annotation>
+			<xsd:documentation>Исходное описание ошибки из внешней системы (заполняется только при значении StatusCode, отличном от 0.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="StatusCode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код ответа. Если все хорошо, то значение равно 0</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="Long"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="StatusDesc_Type">
+		<xsd:annotation>
+			<xsd:documentation>Описание ответа - причина ошибки (заполняется только при значении StatusCode, отличном от 0.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="StatusType_Type">
+		<xsd:annotation>
+			<xsd:documentation>Описание ответа - тип ошибки (заполняется только при значении StatusCode, отличном от 0.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="22"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String">
+		<xsd:annotation>
+			<xsd:documentation>Тип данных строка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="SystemId_Type">
+		<xsd:annotation>
+			<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Time">
+		<xsd:annotation>
+			<xsd:documentation>Тип данных время</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:time"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="TrDtTm_Type">
+		<xsd:annotation>
+			<xsd:documentation>Время проведения транзакции (прямая или отмена) в SVFE </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="DateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="TrDt_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дата проведения транзакции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="Date"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="TrTm_Type">
+		<xsd:annotation>
+			<xsd:documentation>Время проведения транзакции </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="Time"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="TrTypeCode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Код типа транзакции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:length value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="UUID">
+		<xsd:annotation>
+			<xsd:documentation>Уникальный идентификатор</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String">
+			<xsd:pattern value="[0-9a-zA-Z]{32}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="AdditionalStatus_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дополнительные статусы.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StatusCode" type="StatusCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусный код возврата.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StatusDesc" type="StatusDesc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание статуса.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StatusType" type="StatusType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип ошибки.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ServerStatusDesc" type="ServerStatusDesc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание статуса системы источника</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BankInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о банке </xsd:documentation>
+			<xsd:documentation>Этот агрегат содержит дополнительную информацию для идентификации банка.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер филиала.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AgencyId" type="AgencyId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер отделения.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер террбанка.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RbTbBrchId" type="RbTbBrchType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>8-ный код территориального банка, в котором открыт счет МБК, по которой клиент произвел идентификацию на УС</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RbBrchId" type="RbBrchType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>6-ный код территориального банка, в котором ведется продукт клиента (кредит, вклад, ОМС, карты)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CardInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Идентификатор карточного счета </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CardId" type="CardId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ID карты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Срок действия карты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CardStatus" type="CardStatus_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Новый статус карты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CardNumMasked" type="CardNumMasked_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер карты маскированный</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangeCardStatusRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса: Изменение статуса карты</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="SPName_Type">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срокдействия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CardStatus" type="CardStatus_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Новый статус карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangeCardStatusRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип ответа: Изменение статуса карты</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение (результат выполнения операции)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CreateCardECommerceServiceRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса: Подключение сервиса e-commerce операций по карте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="SPName_Type">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срок действия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="PhoneInfo" type="PhoneInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Контактная информация</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CreateCardECommerceServiceRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип ответа: Подключение сервиса e-commerce операций по карте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение (результат выполнения операции)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срок действия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CardNumMasked" type="CardNumMasked_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер карты маскированный</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ThreeDSServiceStatus" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Текущий статус сервиса 3DS</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CreateCardNotifySubscriptionRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса: Подключение подписки на уведомления по карте (Управление СМС-уведомлениями) </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="SPName_Type">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срок действия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MobileInfoList">
+				<xsd:annotation>
+					<xsd:documentation>Список с информацией по мобильным номерам и мобильным сервисам</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="MobileInfoList_Type">
+							<xsd:sequence>
+								<xsd:element name="MobileInfo">
+									<xsd:annotation>
+										<xsd:documentation>Информация по мобильным номерам и мобильным сервисам</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:restriction base="MobileInfo_Type">
+												<xsd:sequence>
+													<xsd:element name="PhoneInfoList">
+														<xsd:annotation>
+															<xsd:documentation>Список с информацией по мобильным номерам</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="PhoneInfoList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="PhoneInfo">
+																			<xsd:annotation>
+																				<xsd:documentation>Информация по мобильному номеру</xsd:documentation>
+																			</xsd:annotation>
+																			<xsd:complexType>
+																				<xsd:complexContent>
+																					<xsd:restriction base="PhoneInfo_Type">
+																						<xsd:sequence>
+																							<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+																								<xsd:annotation>
+																									<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																							<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type">
+																								<xsd:annotation>
+																									<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:restriction>
+																				</xsd:complexContent>
+																			</xsd:complexType>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="MobileServiceIdList">
+														<xsd:annotation>
+															<xsd:documentation>Список кодов мобильных сервисов</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="MobileServiceIdList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="MobileServiceId" type="MobileServiceId_Type" maxOccurs="unbounded">
+																			<xsd:annotation>
+																				<xsd:documentation>Мобильный сервис (Код типа SMS)</xsd:documentation>
+																			</xsd:annotation>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:restriction>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CreateCardNotifySubscriptionRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип ответа: Подключение подписки на уведомления по карте (Управление СМС-уведомлениями) </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение (результат выполнения операции)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срок действия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CardNumMasked" type="CardNumMasked_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер карты маскированный</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MobileInfoList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список с информацией по мобильным номерам и мобильным сервисам</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="MobileInfoList_Type">
+							<xsd:sequence>
+								<xsd:element name="MobileInfo">
+									<xsd:annotation>
+										<xsd:documentation>Информация по мобильным номерам и мобильным сервисам</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:restriction base="MobileInfo_Type">
+												<xsd:sequence>
+													<xsd:element name="PhoneInfoList">
+														<xsd:annotation>
+															<xsd:documentation>Список с информацией по мобильным номерам</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="PhoneInfoList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="PhoneInfo">
+																			<xsd:annotation>
+																				<xsd:documentation>Информация по мобильному номеру</xsd:documentation>
+																			</xsd:annotation>
+																			<xsd:complexType>
+																				<xsd:complexContent>
+																					<xsd:restriction base="PhoneInfo_Type">
+																						<xsd:sequence>
+																							<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+																								<xsd:annotation>
+																									<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																							<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type">
+																								<xsd:annotation>
+																									<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:restriction>
+																				</xsd:complexContent>
+																			</xsd:complexType>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="MobileServiceIdList">
+														<xsd:annotation>
+															<xsd:documentation>Список кодов мобильных сервисов</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="MobileServiceIdList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="MobileServiceId" type="MobileServiceId_Type" maxOccurs="unbounded">
+																			<xsd:annotation>
+																				<xsd:documentation>Мобильный сервис (Код типа SMS)</xsd:documentation>
+																			</xsd:annotation>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:restriction>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DeleteCardECommerceServiceRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса: Отключение сервиса e-commerce операций по карте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="SPName_Type">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срокдействия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="PhoneInfo" type="PhoneInfo_Type">
+				<xsd:annotation>
+					<xsd:documentation>Контактная информация</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DeleteCardECommerceServiceRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип ответа: Отключение сервиса e-commerce операций по карте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение (результат выполнения операции)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срок действия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CardNumMasked" type="CardNumMasked_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер карты маскированный</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ThreeDSServiceStatus" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Текущий статус сервиса 3DS</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DeleteCardNotifySubscriptionRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса: Отключение подписки на уведомления по карте (Отключение СМС-уведомлений) </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="SPName_Type">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срокдействия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MobileInfoList">
+				<xsd:annotation>
+					<xsd:documentation>Список с информацией по мобильным номерам и мобильным сервисам</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="MobileInfoList_Type">
+							<xsd:sequence>
+								<xsd:element name="MobileInfo">
+									<xsd:annotation>
+										<xsd:documentation>Информация по мобильным номерам и мобильным сервисам</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:restriction base="MobileInfo_Type">
+												<xsd:sequence>
+													<xsd:element name="PhoneInfoList">
+														<xsd:annotation>
+															<xsd:documentation>Список с информацией по мобильным номерам</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="PhoneInfoList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="PhoneInfo">
+																			<xsd:annotation>
+																				<xsd:documentation>Информация по мобильному номеру</xsd:documentation>
+																			</xsd:annotation>
+																			<xsd:complexType>
+																				<xsd:complexContent>
+																					<xsd:restriction base="PhoneInfo_Type">
+																						<xsd:sequence>
+																							<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+																								<xsd:annotation>
+																									<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																							<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type">
+																								<xsd:annotation>
+																									<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:restriction>
+																				</xsd:complexContent>
+																			</xsd:complexType>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:restriction>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DeleteCardNotifySubscriptionRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип ответа: Отключение подписки на уведомления по карте (Отключение СМС-уведомлений) </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение (результат выполнения операции)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срок действия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CardNumMasked" type="CardNumMasked_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер карты маскированный</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MobileInfoList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список с информацией по мобильным номерам и мобильным сервисам</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="MobileInfoList_Type">
+							<xsd:sequence>
+								<xsd:element name="MobileInfo">
+									<xsd:annotation>
+										<xsd:documentation>Информация по мобильным номерам и мобильным сервисам</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:restriction base="MobileInfo_Type">
+												<xsd:sequence>
+													<xsd:element name="PhoneInfoList">
+														<xsd:annotation>
+															<xsd:documentation>Список с информацией по мобильным номерам</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="PhoneInfoList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="PhoneInfo">
+																			<xsd:annotation>
+																				<xsd:documentation>Информация по мобильному номеру</xsd:documentation>
+																			</xsd:annotation>
+																			<xsd:complexType>
+																				<xsd:complexContent>
+																					<xsd:restriction base="PhoneInfo_Type">
+																						<xsd:sequence>
+																							<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+																								<xsd:annotation>
+																									<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																							<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type">
+																								<xsd:annotation>
+																									<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:restriction>
+																				</xsd:complexContent>
+																			</xsd:complexType>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:restriction>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetAuthTransactionListRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса: Получение списка активных авторизаций  по карте (список блокированных средств по карте)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="SPName_Type">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срокдействия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetAuthTransactionListRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип ответа: Получение списка активных авторизаций  по карте (список блокированных средств по карте)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение (результат выполнения операции)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срок действия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CardNumMasked" type="CardNumMasked_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер карты маскированный</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OperationInfoList" type="OperationInfoList_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список с информацией по операциям</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetCardECommerceServiceRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса: Запрос статуса сервиса по осуществлению e-commerce платежей по карте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="SPName_Type">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срокдействия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetCardECommerceServiceRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип ответа: Запрос статуса сервиса по осуществлению e-commerce платежей по карте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение (результат выполнения операции)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срок действия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CardNumMasked" type="CardNumMasked_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер карты маскированный</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="PhoneInfo" type="PhoneInfo_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Контактная информация</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ThreeDSServiceStatus" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Текущий статус сервиса 3DS</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetCardNotifySubscriptionRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса: Получение списка подписок на уведомления по карте (действующие СМС-уведомления)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="SPName_Type">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срокдействия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetCardNotifySubscriptionRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип ответа: Получение списка подписок на уведомления по карте (действующие СМС-уведомления)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение (результат выполнения операции)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срок действия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CardNumMasked" type="CardNumMasked_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер карты маскированный</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MobileInfoList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список с информацией по мобильным номерам и мобильным сервисам</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="MobileInfoList_Type">
+							<xsd:sequence>
+								<xsd:element name="MobileInfo" minOccurs="0" maxOccurs="unbounded">
+									<xsd:annotation>
+										<xsd:documentation>Информация по мобильным номерам и мобильным сервисам</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:restriction base="MobileInfo_Type">
+												<xsd:sequence>
+													<xsd:element name="PhoneInfoList">
+														<xsd:annotation>
+															<xsd:documentation>Список с информацией по мобильным номерам</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="PhoneInfoList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="PhoneInfo" minOccurs="0" maxOccurs="unbounded">
+																			<xsd:annotation>
+																				<xsd:documentation>Информация по мобильному номеру</xsd:documentation>
+																			</xsd:annotation>
+																			<xsd:complexType>
+																				<xsd:complexContent>
+																					<xsd:restriction base="PhoneInfo_Type">
+																						<xsd:sequence>
+																							<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+																								<xsd:annotation>
+																									<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																							<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type">
+																								<xsd:annotation>
+																									<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:restriction>
+																				</xsd:complexContent>
+																			</xsd:complexType>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="MobileServiceIdList">
+														<xsd:annotation>
+															<xsd:documentation>Список кодов мобильных сервисов</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="MobileServiceIdList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="MobileServiceId" type="MobileServiceId_Type" minOccurs="0" maxOccurs="unbounded">
+																			<xsd:annotation>
+																				<xsd:documentation>Мобильный сервис (Код типа SMS)</xsd:documentation>
+																			</xsd:annotation>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:restriction>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MobileInfoList_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список с информацией по мобильным номерам и мобильным сервисам</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="MobileInfo" type="MobileInfo_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Информация по мобильным номерам и мобильным сервисам</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MobileInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация по мобильным номерам и мобильным сервисам</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PhoneInfoList" type="PhoneInfoList_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список с информацией по мобильным номерам</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MobileServiceIdList" type="MobileServiceIdList_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список кодов мобильных сервисов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MobileServiceIdList_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список кодов мобильных сервисов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="MobileServiceId" type="MobileServiceId_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Мобильный сервис (Код типа SMS)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OperationInfoList_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список с информацией по операциям</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OperationInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Информация по операции</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="OperationInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="AuthCode" type="AuthCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код авторизации</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpAmount" type="OpAmount_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Сумма в валюте операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpBankNum" type="OpBankNum_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер операции в банковской системе</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpCode" type="OpCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpCurrency" type="OpCurrency_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Валюта операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpDt" type="OpDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Дата и время операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpMerchantId" type="OpMerchantId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID торговца</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpCity" type="OpCity_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Город проведения операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpPlaceOfTransaction" type="OpPlaceOfTransaction_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Место проведения операции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpTypeCode" type="OpTypeCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код типа операции </xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="OpTerminalId" type="OpTerminalId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID терминала</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CurExp" type="CurExp_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Валютная экспонента</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RRN" type="RRN_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Уникальный номер транзакции </xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="TrTypeCode" type="TrTypeCode_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код типа транзакции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="TrDt" type="TrDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Дата проведения транзакции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="TrTm" type="TrTm_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Время проведение транзакции</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="TrDtTm" type="TrDtTm_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Время проведения транзакции (прямая или отмена) в SVFE </xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OperationInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация по операции</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AuthCode" type="AuthCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код авторизации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpAmount" type="OpAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Сумма в валюте операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpBankNum" type="OpBankNum_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер операции в банковской системе</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpCode" type="OpCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpCurrency" type="OpCurrency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpDt" type="OpDt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpMerchantId" type="OpMerchantId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ID торговца</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpCity" type="OpCity_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Город проведения операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpPlaceOfTransaction" type="OpPlaceOfTransaction_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Место проведения операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpTypeCode" type="OpTypeCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код типа операции </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpTerminalId" type="OpTerminalId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ID терминала</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CurExp" type="CurExp_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валютная экспонента</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RRN" type="RRN_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный номер транзакции </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TrTypeCode" type="TrTypeCode_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код типа транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TrDt" type="TrDt_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата проведения транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TrTm" type="TrTm_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Время проведение транзакции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TrDtTm" type="TrDtTm_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Время проведения транзакции (прямая или отмена) в SVFE </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PhoneInfoList_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список с информацией по мобильным номерам</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PhoneInfo" type="PhoneInfo_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Информация по мобильному номеру</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NewPhoneInfo" type="PhoneInfo_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Информация по новому мобильному номеру</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PhoneInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация по мобильному номеру</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SMSInfo_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация по отпарвляемым СМС</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SMSMessageId" type="SMSMessageId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор СМС сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SMSPriority" type="SMSPriority_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Приоритет отправки СМС</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SMSText" type="SMSText_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Текст сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SMSStatus" type="AdditionalStatus_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус СМС сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SendCardNotificationRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса: СМС-уведомления по карте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="SPName_Type">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SMSInfo" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Информация для отправки СМС</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="SMSInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="SMSMessageId" type="SMSMessageId_Type">
+									<xsd:annotation>
+										<xsd:documentation>Идентификатор СМС сообщения</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type">
+									<xsd:annotation>
+										<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="SMSPriority" type="SMSPriority_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Приоритет отправки СМС</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="SMSText" type="SMSText_Type">
+									<xsd:annotation>
+										<xsd:documentation>Текст сообщения</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SendCardNotificationRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип ответа: СМС-уведомления по карте</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение (результат выполнения операции)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="Status_Type">
+							<xsd:sequence>
+								<xsd:element name="StatusCode" type="StatusCode_Type">
+									<xsd:annotation>
+										<xsd:documentation>Статусный код возврата.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="StatusDesc" type="StatusDesc_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Описание статуса.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="StatusType" type="StatusType_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Тип ошибки.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="ServerStatusDesc" type="ServerStatusDesc_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Описание статуса системы источника</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SMSInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Информация для отправки СМС</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="SMSInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="SMSMessageId" type="SMSMessageId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Идентификатор СМС сообщения</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="SMSStatus" type="AdditionalStatus_Type">
+									<xsd:annotation>
+										<xsd:documentation>Статус СМС сообщения</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Status_Type">
+		<xsd:annotation>
+			<xsd:documentation>Статус ответа, используется для возврата статуса сообщения. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="StatusCode" type="StatusCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусный код возврата.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StatusDesc" type="StatusDesc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание статуса.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StatusType" type="StatusType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип ошибки.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ServerStatusDesc" type="ServerStatusDesc_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание статуса системы источника</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AdditionalStatus" type="AdditionalStatus_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UpdateCardNotifySubscriptionRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса: Изменение подписки на уведомления по карте (модификация СМС-уведомлений)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SPName">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы, инициирующей запрос</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="SPName_Type">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SystemId" type="SystemId_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор системы назначения запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация о банке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срокдействия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MobileInfoList">
+				<xsd:annotation>
+					<xsd:documentation>Список с информацией по мобильным номерам и мобильным сервисам</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="MobileInfoList_Type">
+							<xsd:sequence>
+								<xsd:element name="MobileInfo">
+									<xsd:annotation>
+										<xsd:documentation>Информация по мобильным номерам и мобильным сервисам</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:restriction base="MobileInfo_Type">
+												<xsd:sequence>
+													<xsd:element name="PhoneInfoList">
+														<xsd:annotation>
+															<xsd:documentation>Список с информацией по мобильным номерам</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="PhoneInfoList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="PhoneInfo">
+																			<xsd:annotation>
+																				<xsd:documentation>Информация по мобильному номеру</xsd:documentation>
+																			</xsd:annotation>
+																			<xsd:complexType>
+																				<xsd:complexContent>
+																					<xsd:restriction base="PhoneInfo_Type">
+																						<xsd:sequence>
+																							<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+																								<xsd:annotation>
+																									<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																							<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type">
+																								<xsd:annotation>
+																									<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:restriction>
+																				</xsd:complexContent>
+																			</xsd:complexType>
+																		</xsd:element>
+																		<xsd:element name="NewPhoneInfo" minOccurs="0">
+																			<xsd:annotation>
+																				<xsd:documentation>Информация по новому мобильному номеру</xsd:documentation>
+																			</xsd:annotation>
+																			<xsd:complexType>
+																				<xsd:complexContent>
+																					<xsd:restriction base="PhoneInfo_Type">
+																						<xsd:sequence>
+																							<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+																								<xsd:annotation>
+																									<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																							<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type">
+																								<xsd:annotation>
+																									<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:restriction>
+																				</xsd:complexContent>
+																			</xsd:complexType>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="MobileServiceIdList" minOccurs="0">
+														<xsd:annotation>
+															<xsd:documentation>Список кодов мобильных сервисов</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="MobileServiceIdList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="MobileServiceId" type="MobileServiceId_Type" maxOccurs="unbounded">
+																			<xsd:annotation>
+																				<xsd:documentation>Мобильный сервис (Код типа SMS)</xsd:documentation>
+																			</xsd:annotation>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:restriction>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UpdateCardNotifySubscriptionRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Тип ответа: Изменение подписки на уведомления по карте (модификация СМС-уведомлений)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RqUID" type="RqUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Уникальный идентификатор запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RqTm" type="RqTm_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время передачи сообщения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperUID" type="OperUID_Type">
+				<xsd:annotation>
+					<xsd:documentation>Идентификатор операции</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статусное сообщение (результат выполнения операции)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BankInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="BankInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="BranchId" type="BranchId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер филиала.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="RegionId" type="RegionId_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Код ДБ</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация по карте</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="CardInfo_Type">
+							<xsd:sequence>
+								<xsd:element name="CardId" type="CardId_Type">
+									<xsd:annotation>
+										<xsd:documentation>ID карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDt" type="EndDt_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Срок действия карты</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CardNumMasked" type="CardNumMasked_Type" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Номер карты маскированный</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MobileInfoList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Список с информацией по мобильным номерам и мобильным сервисам</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:restriction base="MobileInfoList_Type">
+							<xsd:sequence>
+								<xsd:element name="MobileInfo">
+									<xsd:annotation>
+										<xsd:documentation>Информация по мобильным номерам и мобильным сервисам</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:restriction base="MobileInfo_Type">
+												<xsd:sequence>
+													<xsd:element name="PhoneInfoList">
+														<xsd:annotation>
+															<xsd:documentation>Список с информацией по мобильным номерам</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="PhoneInfoList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="PhoneInfo">
+																			<xsd:annotation>
+																				<xsd:documentation>Информация по мобильному номеру</xsd:documentation>
+																			</xsd:annotation>
+																			<xsd:complexType>
+																				<xsd:complexContent>
+																					<xsd:restriction base="PhoneInfo_Type">
+																						<xsd:sequence>
+																							<xsd:element name="MobileOperatorId" type="MobileOperatorId_Type" minOccurs="0">
+																								<xsd:annotation>
+																									<xsd:documentation>ID оператора мобильной связи ТДК </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																							<xsd:element name="MobilePhoneNumber" type="MobilePhoneNumber_Type">
+																								<xsd:annotation>
+																									<xsd:documentation>Номер мобильного телефона держателя карты </xsd:documentation>
+																								</xsd:annotation>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:restriction>
+																				</xsd:complexContent>
+																			</xsd:complexType>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="MobileServiceIdList" minOccurs="0">
+														<xsd:annotation>
+															<xsd:documentation>Список кодов мобильных сервисов</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:complexContent>
+																<xsd:restriction base="MobileServiceIdList_Type">
+																	<xsd:sequence>
+																		<xsd:element name="MobileServiceId" type="MobileServiceId_Type" maxOccurs="unbounded">
+																			<xsd:annotation>
+																				<xsd:documentation>Мобильный сервис (Код типа SMS)</xsd:documentation>
+																			</xsd:annotation>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:restriction>
+															</xsd:complexContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:restriction>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticityCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Код аутентичности сообщения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="String">
+						<xsd:length value="16"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="ChangeCardStatusRq" type="ChangeCardStatusRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос: Изменение статуса карты</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChangeCardStatusRs" type="ChangeCardStatusRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ: Изменение статуса карты</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CreateCardECommerceServiceRq" type="CreateCardECommerceServiceRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос: Подключение сервиса e-commerce операций по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CreateCardECommerceServiceRs" type="CreateCardECommerceServiceRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ: Подключение сервиса e-commerce операций по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CreateCardNotifySubscriptionRq" type="CreateCardNotifySubscriptionRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос: Подключение подписки на уведомления по карте (Управление СМС-уведомлениями) </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CreateCardNotifySubscriptionRs" type="CreateCardNotifySubscriptionRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ: Подключение подписки на уведомления по карте (Управление СМС-уведомлениями) </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DeleteCardECommerceServiceRq" type="DeleteCardECommerceServiceRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос: Отключение сервиса e-commerce операций по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DeleteCardECommerceServiceRs" type="DeleteCardECommerceServiceRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ: Отключение сервиса e-commerce операций по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DeleteCardNotifySubscriptionRq" type="DeleteCardNotifySubscriptionRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос: Отключение подписки на уведомления по карте (Отключение СМС-уведомлений) </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DeleteCardNotifySubscriptionRs" type="DeleteCardNotifySubscriptionRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ: Отключение подписки на уведомления по карте (Отключение СМС-уведомлений) </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GetAuthTransactionListRq" type="GetAuthTransactionListRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос: Получение списка активных авторизаций  по карте (список блокированных средств по карте)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GetAuthTransactionListRs" type="GetAuthTransactionListRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ: Получение списка активных авторизаций  по карте (список блокированных средств по карте)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GetCardECommerceServiceRq" type="GetCardECommerceServiceRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос: Запрос статуса сервиса по осуществлению e-commerce операций по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GetCardECommerceServiceRs" type="GetCardECommerceServiceRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ: Запрос статуса сервиса по осуществлению e-commerce платежей по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GetCardNotifySubscriptionRq" type="GetCardNotifySubscriptionRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос: Получение списка подписок на уведомления по карте (действующие СМС-уведомления)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GetCardNotifySubscriptionRs" type="GetCardNotifySubscriptionRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ: Получение списка подписок на уведомления по карте (действующие СМС-уведомления)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SendCardNotificationRq" type="SendCardNotificationRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос: СМС-уведомления по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SendCardNotificationRs" type="SendCardNotificationRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ: СМС-уведомления по карте</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="UpdateCardNotifySubscriptionRq" type="UpdateCardNotifySubscriptionRq_Type">
+		<xsd:annotation>
+			<xsd:documentation>Запрос: Изменение подписки на уведомления по карте (модификация СМС-уведомлений)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="UpdateCardNotifySubscriptionRs" type="UpdateCardNotifySubscriptionRs_Type">
+		<xsd:annotation>
+			<xsd:documentation>Ответ: Изменение подписки на уведомления по карте (модификация СМС-уведомлений)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

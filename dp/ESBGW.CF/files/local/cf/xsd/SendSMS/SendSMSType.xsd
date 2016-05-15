@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sms="http://sbrf/ru/sbt/mdo/rqrs/sendSMS" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:tns="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ns1="http://sberbank.ru/dem/simpleTypes" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/sendSMS" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../DataTypes/simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:complexContent>
+			<xsd:extension base="BasicRq_Type">
+				<xsd:sequence>
+					<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+					<xsd:element name="PhoneInfo" minOccurs="1">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="CountryCode" type="ns1:CountryCode_Type"/>
+								<xsd:element name="PhoneNumber">
+									<xsd:simpleType>
+										<xsd:restriction base="ns1:PhoneNumber_Type">
+											<xsd:maxLength value="11"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="SMSInfo" minOccurs="1">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="CreateTime" type="tns:Timestamp"/>
+								<xsd:element name="TemplateID">
+									<xsd:simpleType>
+										<xsd:restriction base="tns:NC">
+											<xsd:maxLength value="20"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:complexContent>
+			<xsd:extension base="BasicRs_Type"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

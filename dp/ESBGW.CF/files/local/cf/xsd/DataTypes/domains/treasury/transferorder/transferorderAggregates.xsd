@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by qqq (Ru-Board) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dea="http://sberbank.ru/dem/dealTypes" xmlns:agr="http://sberbank.ru/dem/treasury/agreement" xmlns:pty="http://sberbank.ru/dem/partyTypes" xmlns:acc="http://sberbank.ru/dem/accountTypes" xmlns:ins="http://sberbank.ru/dem/instrumentTypes" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" xmlns:ref="http://sberbank.ru/dem/referenceTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns="http://sberbank.ru/dem/transferorderTypes" xmlns:tns="http://sberbank.ru/dem/transferorderTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/transferorderTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/instrumentTypes" schemaLocation="../instrument/instrumentAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/accountTypes" schemaLocation="../account/accountAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/partyTypes" schemaLocation="../party/partyAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/treasury/agreement" schemaLocation="../agreement/treasuryAgreementAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/dealTypes" schemaLocation="../deal/dealAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/referenceTypes" schemaLocation="../reference/referenceAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="../../../domains/currency/CurrencyAggregates.xsd"/>
+	<xsd:complexType name="CancelTransferOrder_Type">
+		<xsd:annotation>
+			<xsd:documentation>Отмена распоряжения на вывод</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TransferOrder" type="TransferOrder_Type">
+				<xsd:annotation>
+					<xsd:documentation>Распоряжение, которое нужно отменить</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CancelTransferOrderTypedID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификатор </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CancelTransferOrderDetails" type="CancelTransferOrderDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Детальные параметры распоряжения на отмену распоряжения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CancelTransferOrderDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Отмена распоряжения на перевод активов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CancelTransferOrderDate" type="ifxst:Tro_CancelTransferOrderDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Время создания распоряжения на отмену</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дайджест</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CashTransferOrderDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация о распоряжении на вывод ДС</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="TransferOrderDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Сcy" type="cur:Currency_Type">
+						<xsd:annotation>
+							<xsd:documentation>Валюта распоряжения</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IsPayForCustody" type="ifxst:Tro_IsPayForCustody_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Этот флаг означает, что данный вывод ДС идет в счет оплаты депозитарных услуг</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Amount" type="ifxst:Amt_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сумма денежных средств</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="IsFeeIncluded" type="ifxst:Tro_IsFeeIncluded_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Флаг , указывающий включает ли сумма налоги</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="NewTransferOrder_Type">
+		<xsd:annotation>
+			<xsd:documentation>Новое распоряжение перевод активов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TransferOrderDate" type="ifxst:Tro_NewTransferOrderDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата создания нового распоряжения активов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TransferOrder" type="TransferOrder_Type">
+				<xsd:annotation>
+					<xsd:documentation>Распоряжение на перевод активов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дайджест</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecurityTransferOrderDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация о распоряжении на вывод ЦБ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="TransferOrderDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Instrument" type="ins:Instrument_Type">
+						<xsd:annotation>
+							<xsd:documentation>Информация о ЦБ</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Quantity" type="ref:Quantity_Type">
+						<xsd:annotation>
+							<xsd:documentation>Количество ЦБ</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="TransferOrder_Type">
+		<xsd:annotation>
+			<xsd:documentation>Распоряжения</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TransferOrderID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="ifxst:Tro_ToType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Вид распоряжения (ДС или ЦБ)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="CashTransferOrderDetails" type="CashTransferOrderDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Детальная информация по распоряжению на перевод активов</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="SecurityTransferOrderDetails" type="SecurityTransferOrderDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Детальная информация по распоряжению на перевод активов</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TransferOrderCancelReject_Type">
+		<xsd:annotation>
+			<xsd:documentation>Отчет об отмене распоряжения на перевод активов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Status" type="ifxst:Tro_CancelStatus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус заявки: новая; исполнена; частично исполнена; отменена; отменяется; отклонена; вышло время исполнения; незафиксирована</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RejectReason" type="ifxst:Tro_RejectReason_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Причина отклонения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Annotation" type="ifxst:Desc1024_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Описание причины</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CancelTransferOrder" type="CancelTransferOrder_Type">
+				<xsd:annotation>
+					<xsd:documentation>Распоряжение на отмену</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TransferOrderCancelRejectDateTime" type="ifxst:Tro_TransferOrderCancelRejectDateTime_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время формирования </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дайджест</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TransferOrderDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация о распоряжениях</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ExpireDate" type="ifxst:Tro_ExpireDate_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата окончания действия распоряжения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExecutionTimestamp" type="ifxst:Tro_ExecutionTimestamp_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время исполнения распоряжения </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CancelTimestamp" type="ifxst:Tro_CancelTimestamp_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время отмены распоряжения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MovementType" type="ifxst:Tro_MovementType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип распоряжения: ввод. вывод, перевод</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="ifxst:Tro_Status_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Статус распоряжения: активно, отменено</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Branch" type="ifxca:Branch_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Обслуживающее подразделение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Comment" type="ifxst:Tro_Comment_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Примечание к распоряжению</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Digest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Информация об ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClientAgreement" type="agr:ClientAgreement_Type">
+				<xsd:annotation>
+					<xsd:documentation>Клиентский договор </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccountTo" type="acc:Account_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер счета, на который зачисляются ЦБ/ДС</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccountFrom" type="acc:Account_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Номер счета,  с которого списываются ЦБ/ДС</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TransferOrderDate" type="ifxst:Tro_TransferOrderDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время создания распоряжения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CapturedBy" type="ifxst:Tro_CapturedBy_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Кем была введена заявка:Клиент Брокер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CapturedByParty" type="pty:Party_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Клиент или брокер, создавший заявку</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CancelledBy" type="ifxst:Tro_CancelledBy_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Кем была отменена заявка:Клиент Брокер</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CancelledByParty" type="pty:Party_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Клиент или брокер, отменивший заявку</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

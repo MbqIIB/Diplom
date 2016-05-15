@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/historyAggregates" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:loan="http://sberbank.ru/dem/loan" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:orgs="http://sberbank.ru/dem/organizations" targetNamespace="http://sberbank.ru/dem/historyAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/loan" schemaLocation="../loan/loanAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:complexType name="CheckHistory_Type">
+		<xsd:sequence>
+			<xsd:element name="ClientApprovalFlag" type="ifx:C"/>
+			<xsd:element name="ChannelType" type="ifxst:DeliveryMethod_Type"/>
+			<xsd:element name="ApplicationDt" type="ifx:C"/>
+			<xsd:element name="Contract" type="loan:Contract_Type"/>
+			<xsd:element name="Customers" type="HistoryList_Type" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="HistoryResult_Type">
+		<xsd:sequence>
+			<xsd:element name="RoleCode" type="xsd:string"/>
+			<xsd:element name="CustomerData" type="CustomerData_Type"/>
+			<xsd:element name="ContractData" type="ContractData_Type"/>
+			<xsd:element name="Kpis" type="Kpis_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="HistoryList_Type">
+		<xsd:sequence>
+			<xsd:element name="ClientType" type="ifxst:CustType_Type"/>
+			<xsd:element name="ClientRole" type="ifxst:App_ClientRole_Type"/>
+			<xsd:element name="FIPersonalCode" type="ifxst:Agr_ClientCode_Type"/>
+			<xsd:element name="ApplicationDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="Person" type="ind:PersonInfo_Type" minOccurs="0"/>
+			<xsd:element name="Company" type="orgs:OrgRec_Type" minOccurs="0"/>
+			<xsd:element name="RequestedPeriod" type="Period_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PastDue_Type">
+		<xsd:sequence>
+			<xsd:element name="Days" type="xsd:nonNegativeInteger" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>number of past due days / кол- во дней просрочки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="ca:CurrencyAmount_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>past due volume / объем просрочки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ContractData_Type">
+		<xsd:sequence>
+			<xsd:element name="CurrentOp" type="CurrentOp_Type" minOccurs="0"/>
+			<xsd:element name="CurrencyCode" type="ifxst:CurCode_Type"/>
+			<xsd:element name="TotalContracts" type="IntEmptyType"/>
+			<xsd:element name="NrOfSignallingBodies" type="IntEmptyType"/>
+			<xsd:element name="NrOfChargeOffSignallingBodies" type="IntEmptyType"/>
+			<xsd:element name="InstSummary">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Summary" type="SummaryType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="NoInstSummary">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Summary" type="SummaryType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardSummary">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Summary" type="SummaryType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ServiceSummary">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Summary" type="SummaryType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Installments" type="Installments_Type"/>
+			<xsd:element name="NoInstallments" type="Installments_Type"/>
+			<xsd:element name="Cards" type="Installments_Type"/>
+			<xsd:element name="Services" type="Installments_Type"/>
+			<xsd:element name="OtherDataBanks">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="InquiryNr" type="IntEmptyType"/>
+						<xsd:element name="InquiryAmount" type="LongEmptyType"/>
+						<xsd:element name="DateOfLastInquiry" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CBDEInquiries" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ForeignCBCode" type="xsd:string"/>
+						<xsd:element name="ForeignCountryDesc" type="xsd:string"/>
+						<xsd:element name="ReferenceDate" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CBScore" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ScoreError" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Code" type="xsd:int"/>
+									<xsd:element name="Description" type="xsd:string"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="ScoreDetails" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ScoreRaw" type="xsd:int"/>
+									<xsd:element name="CBSCoreRange" type="xsd:string"/>
+									<xsd:element name="ScoreFactor" minOccurs="0" maxOccurs="3">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="SFCode"/>
+												<xsd:element name="SFDescription"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="BadRate" minOccurs="0"/>
+									<xsd:element name="PD180" minOccurs="0"/>
+									<xsd:element name="PoolMessage" minOccurs="0"/>
+									<xsd:element name="DescPoolMessage" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Period_Type">
+		<xsd:sequence>
+			<xsd:element name="Common" type="xsd:nonNegativeInteger"/>
+			<xsd:element name="ContractStatus" type="xsd:nonNegativeInteger"/>
+			<xsd:element name="CustomerStatus" type="xsd:nonNegativeInteger"/>
+			<xsd:element name="AcclWrittenOff" type="xsd:nonNegativeInteger"/>
+			<xsd:element name="CreditCardLimit" type="xsd:nonNegativeInteger"/>
+			<xsd:element name="OverdraftLimit" type="xsd:nonNegativeInteger"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Kpis_Type">
+		<xsd:sequence>
+			<xsd:element name="NumberActiveProducts" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Current products with data active in 04/2014</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ActiveBankingProducts" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total Number of active products where the record was in the banking credit bureau</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ActiveNonBankingProducts" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total Number of active products where the record was in the non banking credit bureau</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ActiveProducts3MAgo" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>How many active credit products in the month 3 months prior to today (if Today is June 2014 the month is March 2014)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ActiveProducts12MAgo" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>How many active credit products in the month 12 months prior to today (if Today is June 2014 the month is May 2013)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ActiveProducts24MAgo" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>How many active credit products in the month 24 months prior to today (if Today is June 2014 the month is May 2012)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoFinancialInstitutions" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The current total of all different financial institutions that are filing credit records</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoMortgage" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Current Total of Open Mortgage Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoUnsecured" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Current Total of Installment Loans that are not Mortgage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoRevolving" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Current Total Number of Active Overdrafts and Credit Cards</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OutstandingTotal" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total outstanding amount of all installment and revolving products </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OutstandingMortgage" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The total outstanding on all open mortgage loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OutstandingUnsecured" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Current oustanding on all installment loans that are not mortgage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OutstandingRevolving" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Current Outstanding on all Credit Cards and Overdrafts</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OriginalPrincipalActiveTotal" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Original Principal on all Credit products - Original loan amount + Current limit on revolving products</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OriginalPrincipalActiveMortgage" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Original Principal on all Mortgage Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OriginalPrincipalActiveUnsecured" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Original Principal on all Non Mortgage Installment Loans</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LimitRevolving" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Current Total limit on all Credit Cards and Overdrafts</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditRequests1M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of Credit Requests made in the last 30 days from today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditRequests3M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of Credit Requests made in the last 90 days from today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditRequests12M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of Credit Requests made in the last 360 days from today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditRejectedRequests1M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of credit requests which were declined made in the last 30 days from today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditRejectedRequests3M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of credit requests which were declined made in the last 90 days from today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditRejectedRequests12M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of credit requests which were declined made in the last 360 days from today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditApprovedRequests1M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of credit requests which were approved made in the last 30 days from today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditApprovedRequests3M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of credit requests which were approved made in the last 90 days from today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditApprovedRequests12M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of credit requests which were approved made in the last 360 days from today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InstallmentMortgages" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total monthly installment on all mortgage loans currently active</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InstallmentMortgagesCoapplicant" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total Monthly installment on all mortgage loans currently active where the person searched is a co applicant </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InstallmentUnsecured" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total monthly installment on all  non mortgage installment loans currently active</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InstallmentUnsecuredCoapplicant" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total Monthly installment on all non mortgage installment loans currently active where the person searched is a co applicant </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditOpened1M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The number of Credits that have been opene in the last 30 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditOpened3M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The number of Credits that have been opene in the last 90 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditOpened12M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The number of Credits that have been opene in the last 360 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalPrincipalOpened1M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total granted amount of all credits opened in the last 30 days prior to today (principal + limit for revolving products)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalPrincipalOpened3M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total granted amount of all credits opened in the last 90 days prior to today (principal + limit for revolving products)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalPrincipalOpened12M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total granted amount of all credits opened in the last 360 days prior to today (principal + limit for revolving products)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentOpened1M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The total monthly installment of all credits opened in the last 30 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentOpened3M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The total monthly installment of all credits opened in the last 90 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentOpened12M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The total monthly installment of all credits opened in the last 360 Days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MonthsSinceLastOpenCredit" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The number of months (Days / 12 rounded down) from today to when the last credit was closed</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoClosedCredits1M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of credits that have been closed in the last 30 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoClosedCredits3M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of credits that have been closed in the last 90 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoClosedCredits12M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total number of credits that have been closed in the last 360 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentClosed1M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total installment of all installment loans that have been closed in the last 30 days prior to today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentClosed3M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total installment of all installment loans that have been closed in the last 90 days prior to today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentClosed12M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total installment of all installment loans that have been closed in the last 360 days prior to today </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalPrincipalClosed1M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total original principal of all installment loans that have been closed in the last 30 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalPrincipalClosed3M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total original principal of all installment loans that have been closed in the last 90 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalPrincipalClosed12M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total original principal of all installment loans that have been closed in the last 360 days prior to today</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalLimitClosed1M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total limit of all revolving credits (overdraft + Credit Cards) closed in the last 30 days</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalLimitClosed3M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total limit of all revolving credits (overdraft + Credit Cards) closed in the last 90 days</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalLimitClosed12M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total limit of all revolving credits (overdraft + Credit Cards) closed in the last 360 days</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallment6MAgo" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The sum of all installments that were paid in the month that was 6 months prior to today (as an example if today is June then 6 months ago is December)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallment12MAgo" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The sum of all installments that were paid in the month that was 12 months prior to today (as an example if today is June 2014 then 12 months ago is June 2013)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallment24MAgo" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The sum of all installments that were paid in the month that was 24 months prior to today (as an example if today is June 2014 then 24 months ago is May 2012)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalRevolving3MAgo" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total payment made on revolving credits (overdraft and credit card) in the month that was 6 months prior to today (as an example if today is June then 6 months ago is December)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalRevolving12MAgo" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total payment made on revolving credits (overdraft and credit card) in the month that was 12 months prior to today (as an example if today is June 2014 then 12 months ago is May 2013)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalRevolving24MAgo" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total payment made on revolving credits (overdraft and credit card) in the month that was 24 months prior to today (as an example if today is June 2014 then 24 months ago is May 2012)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegularMonthsLast3M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>How many months in the last 3 months where all credits have been regular (overdue is based on the locally defined threshold), if no active credit in the month this is also not counted. For example 3 would mean that in all months there was at least one active credit and no overdues</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegularMonthsLast6M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>How many months in the last 6 months where all credits have been regular (overdue is based on the locally defined threshold), if no active credit in the month this is also not counted. For example 6 would mean that in all months there was at least one active credit and no overdues</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegularMonthsLast12M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>How many months in the last 12 months where all credits have been regular (overdue is based on the locally defined threshold), if no active credit in the month this is also not counted. For example 12 would mean that in all months there was at least one active credit and no overdues</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegularMonthsLast24M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>How many months in the last 24 months where all credits have been regular (overdue is based on the locally defined threshold), if no active credit in the month this is also not counted. For example 24 would mean that in all months there was at least one active credit and no overdues</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="WorstStatus" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The worst status of any current active credit</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="WorstStatus3M" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The worst status of any active credit in the last 3 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="WorstStatus6M" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The worst status of any active credit in the last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="WorstStatus12M" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The worst status of any active credit in the last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="WorstStatus24M" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The worst status of any active credit in the last 24 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OverdueLast3M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Number of Individual Months in the last 3 months when at least one credit has been overdue. The maximum value is 3 meaning that in each of the last 3 months at least one credit has been overdue in each of the months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OverdueLast6M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Number of Individual Months in the last 6 months when at least one credit has been overdue. The maximum value is 6 meaning that in each of the last 6 months at least one credit has been overdue in each of the months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OverdueLast12M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Number of Individual Months in the last 12 months when at least one credit has been overdue. The maximum value is 12 meaning that in each of the last 3 months at least one credit has been overdue in each of the months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OverdueLast24M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Number of Individual Months in the last 24 months when at least one credit has been overdue. The maximum value is 24 meaning that in each of the last 24 months at least one credit has been overdue in each of the months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditOverdueLast3M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Number of Different Credits that have been overdue in the last 3 months. If onle one credit has been overdue (even for more than 1 month in the period) this counts as one. The value of 2 would indicate that two different credits have been overdue in at least one of the last 3 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCeditOverdueLast6M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Number of Different Credits that have been overdue in the last 6 months. If onle one credit has been overdue (even for more than 1 month in the period) this counts as one. The value of 2 would indicate that two different credits have been overdue in at least one of the last 6 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditOverdueLast12M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Number of Different Credits that have been overdue in the last 12 months. If onle one credit has been overdue (even for more than 1 month in the period) this counts as one. The value of 2 would indicate that two different credits have been overdue in at least one of the last 12 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoCreditOverdueLast24M" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Number of Different Credits that have been overdue in the last 24 months. If onle one credit has been overdue (even for more than 1 month in the period) this counts as one. The value of 2 would indicate that two different credits have been overdue in at least one of the last 24 months</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaxAmountOverdue3M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Maximum amount that has been overdue on any single credit in the last 3 months. This is calculated without any threshold</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaxAmountOverdue6M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Maximum amount that has been overdue on any single credit in the last 6 months. This is calculated without any threshold</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaxAmountOverdue12M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Maximum amount that has been overdue on any single credit in the last 12 months. This is calculated without any threshold</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaxAmountOverdue24M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Maximum amount that has been overdue on any single credit in the last 24 months. This is calculated without any threshold</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountOverdue3M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total sum of all amounts that have been overdue in the last 3 months, calculated without threshold</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountOverdue6M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total sum of all amounts that have been overdue in the last 6 months, calculated without threshold</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountOverdue12M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total sum of all amounts that have been overdue in the last 12 months, calculated without threshold</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmountOverdue24M" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The Total sum of all amounts that have been overdue in the last 24 months, calculated without threshold</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NoOpenRequestsNoDecision" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>All open credit requests without decision </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalLimitOpenRequestsNoDecision" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total credit limit of open request without decision</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalInstallmentRequestsNoDecision" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total installment of open requests without decision (principal + limit for revolving products)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ScoreRaw" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ScoreRange" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ScoreCode1" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ScoreDescription1" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ScoreCode2" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ScoreDescription2" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ScoreCode3" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ScoreDescription3" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PINInfo_Type">
+		<xsd:sequence>
+			<xsd:element name="PIN" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FlagPINUsed" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CustomerData_Type">
+		<xsd:sequence>
+			<xsd:element name="FoundCustomer" type="Cust_Type" minOccurs="0"/>
+			<xsd:element name="AdditionalCustomers" type="Cust_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="ShareholdersCompanies" type="Companies_type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="SubjectInfo" type="SubjectInfo_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Customer_Type">
+		<xsd:sequence>
+			<xsd:element name="CCBPersonalCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Personal code attributed by the system.
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FIPersonalCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PersonInfo" type="ind:PersonInfo_Type" minOccurs="0"/>
+			<xsd:element name="LegalInfo" type="orgs:OrgRec_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="LegalInfo_Type">
+		<xsd:sequence>
+			<xsd:element name="LegalForm" type="xsd:string"/>
+			<xsd:element name="TaxPayerNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RegistrationNumber" type="xsd:string"/>
+			<xsd:element name="DateOfEstablishment" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Field contains the same type of data given in the inquiry message (Inquiry - New Client)
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PlaceOfRegistration" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SubjectInfo_Type">
+		<xsd:sequence>
+			<xsd:element name="FICode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BranchCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FinancialBodyNr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustomerNr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="EventCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SignallingDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LinkedCustomers" type="CurrentOp_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InfoCustomer_Type">
+		<xsd:sequence/>
+	</xsd:complexType>
+	<xsd:complexType name="Companies_type">
+		<xsd:sequence>
+			<xsd:element name="CCBPersonalCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LegalForm" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Link" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurrentOp_Type">
+		<xsd:sequence>
+			<xsd:element name="CCBOperationCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OpNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OpType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Role" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="IntEmptyType">
+		<xsd:union>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:maxInclusive value="999"/>
+					<xsd:minInclusive value="0"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value=""/>
+					<xsd:enumeration value="-"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:union>
+	</xsd:simpleType>
+	<xsd:simpleType name="LongEmptyType">
+		<xsd:union>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:long">
+					<xsd:minInclusive value="0"/>
+					<xsd:maxInclusive value="999999999999"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value=""/>
+					<xsd:enumeration value="-"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:union>
+	</xsd:simpleType>
+	<xsd:complexType name="SummaryType">
+		<xsd:sequence>
+			<xsd:element name="NrOfRequested" type="IntEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>Number of  contracts in operation phase ZD
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NrOfLiving" type="IntEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>Number of  contracts in operation phase EX
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NrOfRefused" type="IntEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>Number of contracts in operation phase OD
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NrOfRenounced" type="IntEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>Number of contracts in operation phase DO
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NrOfTerminated" type="IntEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>Number of contracts in operation phase UK or UP
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InstAmountsType">
+		<xsd:sequence>
+			<xsd:element name="MonthlyInstalmentAmount" type="LongEmptyType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total sum of monthly instalments for existing contracts in which subject constitutes the debtor or co-debtor
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ResidualAmount" type="LongEmptyType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total sum of remaining instalments not yet past due for existing contracts in which subject constitutes the debtor or co-debtor
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DueAmount" type="LongEmptyType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total sum of overdue or unpaid instalments for existing contracts in which subject constitutes the debtor or co-debtor
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CommonDataType">
+		<xsd:sequence>
+			<xsd:element name="CCBOperationCode" type="xsd:string"/>
+			<xsd:element name="OpNumber" type="xsd:string"/>
+			<xsd:element name="CreditCurrencyCode" type="ifxst:CurCode_Type"/>
+			<xsd:element name="CustomerNr" type="xsd:string"/>
+			<xsd:element name="Role" type="xsd:string"/>
+			<xsd:element name="FICode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BranchCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FlagAnomalContract" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FinancialBodyNr" type="xsd:string"/>
+			<xsd:element name="OpType" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OpPhase" type="xsd:string"/>
+			<xsd:element name="StartDate" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Start Date</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DateOfLastUpdate" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>date of last update</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FlagAllowedToExchange" type="xsd:string"/>
+			<xsd:element name="UsedInScore" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GuaranteesType">
+		<xsd:sequence>
+			<xsd:element name="RealGuarantee" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PersonalGuarantee" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="InsolvencyType">
+		<xsd:union>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:maxInclusive value="999"/>
+					<xsd:minInclusive value="0"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value=""/>
+					<xsd:enumeration value="-"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:union>
+	</xsd:simpleType>
+	<xsd:complexType name="NotConcludedContractsType">
+		<xsd:sequence>
+			<xsd:element name="CCBOperationCode" type="xsd:string"/>
+			<xsd:element name="OpType" type="xsd:string"/>
+			<xsd:element name="OpPhase" type="xsd:string"/>
+			<xsd:element name="FlagNotCompleteApp" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation> Operation Types	
+Value	Description (EN)
+Instalment Operations	
+SP	Hire-purchase
+OU	Personal Loan 
+SU	Purposive Loan
+FL	Financial Leasing
+OL	Operational Leasing
+Credit Cards and Revolving Credit	
+KK	Credit Cards
+KS	Credit Card with Deferred Payment Instalments
+RU	Revolving Credit
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Role" type="xsd:string"/>
+			<xsd:element name="FICode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BranchCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FinancialBodyNr" type="xsd:string"/>
+			<xsd:element name="CustomerNr" type="xsd:string"/>
+			<xsd:element name="FinancingRequestDate" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Date of Requst(application) </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NrOfInstalments" type="IntEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>Number of installments</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Periodicity" type="xsd:string"/>
+			<xsd:element name="FinancedCapital-Credit" type="LongEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>Requsted Amount </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MonthlyInstalmentAmount" type="LongEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>monthly installment amount</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LinkedCustomers" type="CurrentOp_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Other Customers linked to this operation (coborrowers, quarantors, ...)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FlagAllowedToExchange" type="xsd:string"/>
+			<xsd:element name="UsedInScore" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="NoInstAmountsType">
+		<xsd:sequence>
+			<xsd:element name="CreditLimit" type="LongEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>The sum of credit limits for active KU, FA and ON operations in which the subject constitutes the debtor or co-debtor.
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Utilization" type="LongEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>The sum of amounts used for existing KU, FA and ON operations in which the subject constitutes the debtor or co-debtor.
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Overdraft" type="LongEmptyType">
+				<xsd:annotation>
+					<xsd:documentation>The sum of overdrafts for existing KU, FA and ON operations in which the subject contsitutes the debtor or co-debtor.
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InstDetail">
+		<xsd:sequence>
+			<xsd:element name="CommonData" type="CommonDataType" minOccurs="0"/>
+			<xsd:element name="EndDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DateOfLastPayment" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MethodOfPayment" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Guarantees" type="GuaranteesType" minOccurs="0"/>
+			<xsd:element name="NrOfInstalments" type="IntEmptyType" minOccurs="0"/>
+			<xsd:element name="CardStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreditLimit" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="TypeOfInstalment" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Periodicity" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Signalization1" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Signalization2" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MaxResidualAmount" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="FirstExpiringInstalmentDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FirstExpiringInstalmentAmount" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="FinancedCapital-Credit" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="MonthlyInstalmentAmount" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="DateOfMaxResidualAmount" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="NrOfResidualInstalments" type="IntEmptyType" minOccurs="0"/>
+			<xsd:element name="ResidualAmount" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="ResidualWithInterestsAmount" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="NrOfDueInstalments" type="IntEmptyType" minOccurs="0"/>
+			<xsd:element name="DueAmount" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="MaxDueAmount" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="MaxDueAmountDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DateOfLastCharge" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AmountCharged" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="MaxAmountCharged" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="DateOfMaxAmountCharged" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousPaymentSystem" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MaxLimitExceedingAmount" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="DateOfMaxLimitExceeding" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LastDelinquencyDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MaxNrOfDebtsOutstanding" type="IntEmptyType" minOccurs="0"/>
+			<xsd:element name="NrOfOutstandingMonth" type="IntEmptyType" minOccurs="0"/>
+			<xsd:element name="WorstStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="WorstStatusDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MaxOverdraft" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="MaxOverdraftDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TypeOfAssignement" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="GuarantedAmountFromGuarantor" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="AmountOfCredits" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="PersonalGuaranteeAmount" type="LongEmptyType" minOccurs="0"/>
+			<xsd:element name="InstProfile" minOccurs="0" maxOccurs="24">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ReferenceMonth" type="xsd:string"/>
+						<xsd:element name="Insolvency" type="InsolvencyType" minOccurs="0"/>
+						<xsd:element name="Status" type="xsd:string"/>
+						<xsd:element name="DueAmount" type="LongEmptyType" minOccurs="0"/>
+						<xsd:element name="ResidualAmount" type="LongEmptyType" minOccurs="0"/>
+						<xsd:element name="DaysPastDue" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:int">
+									<xsd:minInclusive value="0"/>
+									<xsd:maxInclusive value="9999"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="CreditLimit" type="LongEmptyType" minOccurs="0"/>
+						<xsd:element name="Utilization" type="LongEmptyType" minOccurs="0"/>
+						<xsd:element name="GuarantedAmount" type="LongEmptyType" minOccurs="0"/>
+						<xsd:element name="Insolvency" type="InsolvencyType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="LeasingInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="TypeOfLeasingSubject" type="xsd:string"/>
+						<xsd:element name="ValueOfLeasingSubject" type="LongEmptyType"/>
+						<xsd:element name="FlagNewUsed" type="xsd:string"/>
+						<xsd:element name="Brand" type="xsd:string"/>
+						<xsd:element name="VIN" type="xsd:string"/>
+						<xsd:element name="YearOfManufacturing" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CardProfile" minOccurs="0" maxOccurs="24">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ReferenceMonth" type="xsd:string"/>
+						<xsd:element name="CreditLimit" type="LongEmptyType"/>
+						<xsd:element name="Use" type="xsd:string"/>
+						<xsd:element name="ResidualAmount" type="LongEmptyType"/>
+						<xsd:element name="CardStatus" type="xsd:string"/>
+						<xsd:element name="Insolvency" type="InsolvencyType"/>
+						<xsd:element name="DueAmount" type="LongEmptyType"/>
+						<xsd:element name="DaysPastDue" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:int">
+									<xsd:minInclusive value="0"/>
+									<xsd:maxInclusive value="9999"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="LinkedCustomers" type="CurrentOp_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Installments_Type">
+		<xsd:sequence>
+			<xsd:element name="NrOfOperationsForAmounts" type="IntEmptyType"/>
+			<xsd:element name="ACInstAmounts">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="InstAmounts" type="InstAmountsType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GInstAmounts">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="InstAmounts" type="InstAmountsType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="InstDetail" type="InstDetail" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="ServiceDetail" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="CommonData" type="CommonDataType"/>
+						<xsd:element name="EndDate" type="xsd:string"/>
+						<xsd:element name="MethodOfPayment" type="xsd:string"/>
+						<xsd:element name="MaximumOverdueAmount" type="LongEmptyType"/>
+						<xsd:element name="MaximumOverdueAmountDate" type="xsd:string"/>
+						<xsd:element name="Status" type="xsd:string"/>
+						<xsd:element name="ServiceProfile" minOccurs="0" maxOccurs="24">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ReferenceMonth" type="xsd:string"/>
+									<xsd:element name="OutstandingAmount" type="LongEmptyType"/>
+									<xsd:element name="ExpiredAmount" type="LongEmptyType"/>
+									<xsd:element name="OverdueAmount" type="LongEmptyType"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="LinkedCustomers" type="CurrentOp_Type" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="NotConcludedContracts" type="NotConcludedContractsType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Cust_Type">
+		<xsd:sequence>
+			<xsd:element name="CustomerType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustomerNr" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Customer" type="Customer_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Type">
+		<xsd:annotation>
+			<xsd:documentation>Product type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="ifx:OpenEnum">
+				<xsd:enumeration value="INSTALLMENT"/>
+				<xsd:enumeration value="NOINSTALLMENT"/>
+				<xsd:enumeration value="CARD"/>
+				<xsd:enumeration value="SERVICE"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+</xsd:schema>

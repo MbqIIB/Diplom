@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/cru" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/cru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:complexType name="getCRU_Res">
+		<xsd:sequence>
+			<xsd:element name="cru" type="cru_Type" minOccurs="0"/>
+			<xsd:element name="rawData" type="ca:RawDataDescription_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="cru_Type">
+		<xsd:sequence>
+			<xsd:element name="NUMBER_REP_INSTITUTIONS" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="ACTUAL_PRINCIPAL" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_PRINCIPAL_INST" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_PRINCIPAL_OVD" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_PRINCIPAL_UNA_OVD" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_PRINCIPAL_INST_COLL_BY_RE" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_PRINCIPAL_INST_COLL_BY_MA" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_PRINCIPAL_INST_COLL_BY_OTHCOLL" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_PRINCIPAL_INST_UNSEC" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_FRAME" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_LOAN_AMOUNT_INST" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_OVERDRAFT" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_AVG_OVD_UTL" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_OVD_COLL_BY_RE" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_OVD_COLL_BY_MA" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_OVD_COLL_BY_OTHCOLL" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_OVD_UNSEC" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_PROMISES" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_GUARANTEES" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ACTUAL_SUM_LETTEF_OF_CREDIT" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="SUM_ACTUAL_PRINCIPAL_PAST_DUE" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="SUM_ACTUAL_INTEREST_PAST_DUE" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="SUM_ACTUAL_PRINC_PAST_DUE_INST" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="SUM_ACTUAL_PRINC_PAST_DUE_OVD" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="SUM_ACTUAL_INT_PAST_DUE_INST" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="SUM_ACTUAL_INT_PAST_DUE_OVD" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="NUMBER_ACTUAL_DAY_PAST_DUE" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_ACTUAL_DAY_PAST_DUE_INST" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_ACTUAL_DAY_PAST_DUE_NONINST" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_AS_1000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_AS_2000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_AS_5000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_AS_10000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_AS_20000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_6M_AS_1000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_6M_AS_2000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_6M_AS_5000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_6M_AS_10000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_6M_AS_20000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_12M_AS_1000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_12M_AS_2000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_12M_AS_5000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_12M_AS_10000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_12M_AS_20000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_18M_AS_1000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_18M_AS_2000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_18M_AS_5000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_18M_AS_10000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_18M_AS_20000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_24M_AS_1000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_24M_AS_2000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_24M_AS_5000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_24M_AS_10000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DUE_AMOUNT_PAST_24M_AS_20000" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_WRITTEN_OFF_6M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_WRITTEN_OFF_12M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_WRITTEN_OFF_24M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="AVG_OVD_UTILISATION_6M" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="AVG_OVD_UTILISATION_12M" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="AVG_OVD_UTILISATION_18M" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="AVG_OVD_UTILISATION_24M" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="NUMBER_WATCHED_LOAN" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_WATCHED_LOAN_6M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_WATCHED_LOAN_12M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_SUBSTANDARD_LOAN" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_SUBSTANDARD_LOAN_6M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_SUBSTANDARD_LOAN_12M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_SUBSTANDARD_LOAN_24M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DOUBTFUL_LOAN" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DOUBTFUL_LOAN_6M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DOUBTFUL_LOAN_12M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_DOUBTFUL_LOAN_24M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_LOSS_LOAN" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_LOSS_LOAN_6M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_LOSS_LOAN_12M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_LOSS_LOAN_24M" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NUMBER_LOAN" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="INSTALLMENT_QUALITY" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="INSTALLMENT_QUALITY_BANK" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="INSTALLMENT_QUALITY_SECTOR" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AVG_MONTH_INST" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="NO_RECORD" type="xsd:boolean" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

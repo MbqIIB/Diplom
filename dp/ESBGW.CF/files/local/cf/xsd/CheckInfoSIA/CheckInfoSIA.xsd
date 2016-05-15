@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sc="http://sbrf/ru/sbt/mdo/rqrs/checkinfo/sia" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:st="http://sberbank.ru/dem/simpleTypes" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ifxst="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/checkinfo/sia" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../DataTypes/simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:complexContent>
+			<xsd:extension base="BasicRq_Type">
+				<xsd:sequence>
+					<xsd:element name="ClientApprovalFlag" type="ifxst:Boolean"/>
+					<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+					<xsd:element name="Person" type="ind:PersonInfo_Type"/>
+					<xsd:element name="Company" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="EmploymentHistory" type="ind:EmploymentHistory_Type"/>
+								<xsd:element name="Monitoring" type="sc:Monitoring_Type"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Monitoring_Type">
+		<xsd:annotation>
+			<xsd:documentation>SIA request specific data type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Period" type="xsd:nonNegativeInteger">
+				<xsd:annotation>
+					<xsd:documentation>Number of months of monitored period</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AvgIncome" type="ca:CurrencyAmount_Type">
+				<xsd:annotation>
+					<xsd:documentation>Number of insurance days taken in monitored period</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DaysInsurance" type="xsd:nonNegativeInteger">
+				<xsd:annotation>
+					<xsd:documentation>Number of insurance days taken in monitored period</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DaysApplicationReceived" type="xsd:nonNegativeInteger">
+				<xsd:annotation>
+					<xsd:documentation>Number of days from application acceptance</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:complexContent>
+			<xsd:extension base="BasicRs_Type">
+				<xsd:sequence>
+					<xsd:element name="AnswerList" minOccurs="0" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="EntityID" type="ifxst:Int"/>
+								<xsd:element name="Status" type="ca:Status_Type" minOccurs="0"/>
+								<xsd:element name="Answer" type="sc:SIAAnswer_Type" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SIAAnswer_Type">
+		<xsd:sequence>
+			<xsd:element name="Id" type="xsd:nonNegativeInteger"/>
+			<xsd:element name="Value" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

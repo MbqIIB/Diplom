@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kam (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/cadastrelist" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:ca="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/cadastrelist" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations" schemaLocation="../organization/organizationAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xsd:complexType name="CadastreList_Type">
+		<xsd:sequence>
+			<xsd:element name="Region" type="ifx:C"/>
+			<xsd:element name="District" type="ifx:C"/>
+			<xsd:element name="Municipality" type="ifx:C"/>
+			<xsd:element name="CadastralUnit" type="ifx:C"/>
+			<xsd:element name="Owners" type="Owners_Type" maxOccurs="unbounded"/>
+			<xsd:element name="Lands" type="Land_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="FlatNonFlats" type="FlatNonFlat_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="Buildings" type="Building_Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="Charges" type="ifx:C" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="AcquisitionTitles" type="ifx:C" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="Notes" type="ifx:C" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="OtherInfo" type="ifx:C" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CadastreReq_Type">
+		<xsd:sequence>
+			<xsd:element name="OrgId" type="orgs:OrgId_Type" minOccurs="0"/>
+			<xsd:element name="Person" type="ind:PersonInfo_Type" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Owners_Type">
+		<xsd:sequence>
+			<xsd:element name="NameAddress" type="ifx:C"/>
+			<xsd:choice>
+				<xsd:sequence>
+					<xsd:element name="BirthDateOwner" type="ifx:Date" minOccurs="0"/>
+					<xsd:element name="BirthDateCoowner" type="ifx:Date" minOccurs="0"/>
+				</xsd:sequence>
+				<xsd:element name="OrgId" type="orgs:OrgId_Type" minOccurs="0"/>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Land_Type">
+		<xsd:sequence>
+			<xsd:element name="registryType">
+				<xsd:simpleType>
+					<xsd:restriction base="ifx:C">
+						<xsd:enumeration value="C"/>
+						<xsd:enumeration value="E"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Area" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="LandType" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="Location" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="LandId" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="LandUse" type="ifx:Int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FlatNonFlat_Type">
+		<xsd:sequence>
+			<xsd:element name="SpaceType" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="Floor" type="ifx:Decimal" minOccurs="0"/>
+			<xsd:element name="FlatNumber" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NonFlatNumber" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="Gate" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="PropertyRegistrationNumber" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="NumeratorCommonArea" type="ifx:Long" minOccurs="0"/>
+			<xsd:element name="DenumeratorCommonArea" type="ifx:Long" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Building_Type">
+		<xsd:sequence>
+			<xsd:element name="LandType" type="ifx:C" minOccurs="0"/>
+			<xsd:element name="BuildingType" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="PropertyRegistrationNumber" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="Description" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PropertiesNumberList_Type">
+		<xsd:sequence>
+			<xsd:element name="PropIndividualNum" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="PropCommonNum" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="PropSharedNum" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="PropPledgeIndividualNum" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="PropPledgeCommonNum" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="PropPledgeSharedNum" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="PropNegativeIndividualNum" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="PropNegativeCommonNum" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="PropNegativeSharedNum" type="xsd:int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

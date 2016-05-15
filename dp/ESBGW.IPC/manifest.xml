@@ -1,0 +1,10 @@
+<manifest domain="EDOGO.Int">
+	<files-ignore>
+		<file>allParameters.xsl</file>
+		<file>cfg/*</file>
+		<file>manifest.xml</file>
+	</files-ignore>
+	<object-ignore>
+		<object related="yes">SSLProxy</object>
+	</object-ignore>
+</manifest>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by qqq (Ru-Board) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ins="http://sberbank.ru/dem/instrumentTypes" xmlns:ref="http://sberbank.ru/dem/referenceTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns="http://sberbank.ru/dem/marketdataTypes" xmlns:tns="http://sberbank.ru/dem/marketdataTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/marketdataTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/instrumentTypes" schemaLocation="../instrument/instrumentAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/referenceTypes" schemaLocation="../reference/referenceAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="../../../domains/currency/CurrencyAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../../domains/common/commonAggregates.xsd"/>
+	<xsd:complexType name="Exchange_Type">
+		<xsd:annotation>
+			<xsd:documentation>Биржа</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ExchangeID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" type="ifxst:Mar_ExName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Название биржи</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExchangeDetails" type="ExchangeDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Детальная информация</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExchangeDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Детальная информация</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TradeFloors" type="TradeFloor_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Торговая площадка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="QuoteItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Котировки (цены закрытия, валютные курсы)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="QuoteType" type="ifxst:Mar_QuoteType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип котировок</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Instrument" type="ins:Instrument_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Финансовый инструмент</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Ccy" type="cur:Currency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Котируемая валюта</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BaseCcy" type="cur:Currency_Type">
+				<xsd:annotation>
+					<xsd:documentation>Валюта  котировки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="QuoteDate" type="ifxst:Mar_QuoteDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата котировки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Value" type="ref:Price_Type">
+				<xsd:annotation>
+					<xsd:documentation>Курс относительно базовой валюты</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsStraight" type="ifxst:Mar_IsStraight_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак прямой котировки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Scale" type="ifxst:Mar_Scale_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Коэффициент масштабируемости</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Quotes_Type">
+		<xsd:annotation>
+			<xsd:documentation>Котировки (цены закрытия, валютные курсы)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="QuoteItems" type="QuoteItem_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Вложенный элемент (для соответствия FIX)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecurityTradeParams_Type">
+		<xsd:annotation>
+			<xsd:documentation>Информация о режимах торгов и параметрах котировальных списков</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Instrument" type="ins:Instrument_Type">
+				<xsd:annotation>
+					<xsd:documentation>Финансовый инструмент</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Lot" type="ifxst:Mar_Lot_Type">
+				<xsd:annotation>
+					<xsd:documentation>Размер лота</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Tick" type="ifxst:Mar_Tick_Type">
+				<xsd:annotation>
+					<xsd:documentation>Шаг изменения цены</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Date" type="ifxst:Mar_Date_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата получения котировальных листов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Ccy" type="cur:Currency_Type">
+				<xsd:annotation>
+					<xsd:documentation>Валюта котировки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TradeFloor_Type">
+		<xsd:annotation>
+			<xsd:documentation>Торговая площадка</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TradeFloorID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов торговых площадок</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" type="ifxst:Mar_TrName_Type">
+				<xsd:annotation>
+					<xsd:documentation>Наименование торговой площадки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TradeFloorDetails" type="TradeFloorDetails_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дополнительная информация</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Exchange" type="Exchange_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Биржа</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TradeFloorDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Дополнительная информация</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TradeModes" type="TradeMode_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Режимы торгов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TradeMode_Type">
+		<xsd:annotation>
+			<xsd:documentation>Режим торгов</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name" type="ifxst:Mar_TmName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Наименование режима торгов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="ifxst:Mar_TmType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Тип режима торгов: Основной Неполные лоты Переговорные сделки Аукцион РЕПО Информационный ЦК Основной</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SecurityTradeParams" type="SecurityTradeParams_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Параметры котировальных списков</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Code" type="ifxst:Mar_TmCode_Type">
+				<xsd:annotation>
+					<xsd:documentation>Код режима торгов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TradeSession_Type">
+		<xsd:annotation>
+			<xsd:documentation>Торговая сессия</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TypedID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="ifxst:Mar_TsType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Торговая сессия</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" type="ifxst:Mar_TsName_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Название торговой сессии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InstrumentPriceItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Цена финансового инструмента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Source" type="ifxst:QuoteSource_Type">
+				<xsd:annotation>
+					<xsd:documentation>Источник информации</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PriceDate" type="ifxst:Mar_QuoteType_Type"/>
+			<xsd:element name="PriceOriginalDate" type="ifxst:Mar_QuoteType_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата цены в случае</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PricePurpose" type="ifxst:PricePurpose_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Назначение цены. Цель для которой используется цена например переоценка, налоговый учет.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PriceCur" type="cur:Currency_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Валюта цены</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PriceType" type="ifxst:InsPriceType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип значения (BID, ASK и т.д.)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PriceValue" type="ifxst:InsPriceValue_Type">
+				<xsd:annotation>
+					<xsd:documentation>Значение цены</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsStraight" type="ifxst:Mar_IsStraight_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак прямой котировки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Scale" type="ifxst:Mar_Scale_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Коэффициент масштабируемости</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InstrumentPrice_Type">
+		<xsd:annotation>
+			<xsd:documentation>Цена финансового инструмента</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Price" type="InstrumentPriceItem_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Цена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InterestRateValuesItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Размеры процентной ставки</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="InterestRate" type="ins:InterestRate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Процентная ставка</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PriceList" type="InstrumentPrice_Type">
+				<xsd:annotation>
+					<xsd:documentation>Значения цен</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InterestRateValues_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список размеров процентныхставок</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="InterestRateValues" type="InterestRateValuesItem_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Размеры процентной ставок</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurrencyPairPricesItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Цены валютных пар</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CurrencyPair" type="ins:CurrencyPair_Type">
+				<xsd:annotation>
+					<xsd:documentation>Валютная пара</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PriceList" type="InstrumentPrice_Type">
+				<xsd:annotation>
+					<xsd:documentation>Котировки валютной пары</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CurrencyPairPrices_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список цен валютных пар</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CurrencyPairPrices" type="CurrencyPairPricesItem_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Размеры процентной ставок</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecPricesItem_Type">
+		<xsd:annotation>
+			<xsd:documentation>Котировки ценных бумаг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Instrument" type="ins:Instrument_Type">
+				<xsd:annotation>
+					<xsd:documentation>Ценная бумага</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PriceList" type="InstrumentPrice_Type">
+				<xsd:annotation>
+					<xsd:documentation>Котировки ЦБ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SecPrices_Type">
+		<xsd:annotation>
+			<xsd:documentation>Список котировок ценых бумаг</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SecPrices" type="SecPricesItem_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Котировки ценных бумаг</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

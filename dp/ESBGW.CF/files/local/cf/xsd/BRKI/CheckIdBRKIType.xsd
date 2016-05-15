@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by KES (SBRF) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ckid="http://sbrf/ru/sbt/mdo/rqrs/CheckIdBRKI" xmlns:bank="http://sberbank.ru/dem/organizations/banks" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:orgs="http://sberbank.ru/dem/organizations" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" xmlns:cus="http://sberbank.ru/dem/customerTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:st="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs/CheckIdBRKI" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import schemaLocation="../DataTypes/headerTypes/headerCFTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/organizations/banks" schemaLocation="../DataTypes/domains/organization/banks/banks.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../DataTypes/domains/individual/individualAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../DataTypes/domains/common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/customerTypes" schemaLocation="../DataTypes/domains/customers/customerAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../DataTypes/simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../DataTypes/innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:complexType name="Request_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRq_Type"/>
+			<xsd:element name="BankInfo" type="bank:BankInfo_Type"/>
+				<xsd:sequence>
+					<xsd:element name="QueryingApplication" type="st:Int" minOccurs="0"/>
+					<xsd:element name="multiregId" type="st:C" minOccurs="0"/>
+					<xsd:element name="Person" type="ind:PersonInfo_Type" minOccurs="0"/>
+					<xsd:element name="RequestDate" type="st:Date" minOccurs="0"/>
+					<xsd:element name="ApprovalOfClient" type="st:C" minOccurs="0"/> 
+				</xsd:sequence>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Response_Type">
+		<xsd:sequence>
+			<xsd:element name="Header" type="BasicRs_Type"/>
+			<xsd:element name="RawData" type="st:C" minOccurs="0"/>
+			<xsd:element name="CheckResult" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Matched" type="st:C" minOccurs="0"/>
+						<xsd:element name="MatchedFlags" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Surname" type="st:C" minOccurs="0"/>
+									<xsd:element name="Name" type="st:C" minOccurs="0"/>
+									<xsd:element name="BirthDate" type="st:C" minOccurs="0"/>
+									<xsd:element name="PIN" type="st:C" minOccurs="0"/>
+									<xsd:element name="City" type="st:C" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="LostStolen" type="st:C" minOccurs="0"/>
+						<xsd:element name="Expired" type="st:C" minOccurs="0"/>
+						<xsd:element name="ExpiredDetail" type="st:C" minOccurs="0"/>
+						<xsd:element name="Sequence" type="st:C" minOccurs="0"/>
+						<xsd:element name="IdentityCard" type="st:C" minOccurs="0"/>
+						<xsd:element name="IdentityCardExpDate" type="st:C" minOccurs="0"/>
+						<xsd:element name="BirthDate" type="st:C" minOccurs="0"/>
+						<xsd:element name="Installments" type="st:Long" minOccurs="0"/>
+						<xsd:element name="Institutes" type="st:Long" minOccurs="0"/>
+						<xsd:element name="Final" type="st:C" minOccurs="0"/>
+						<xsd:element name="Score" type="st:C" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

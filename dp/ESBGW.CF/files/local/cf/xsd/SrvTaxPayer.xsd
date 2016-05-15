@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:srv="http://sbrf/ru/sbt/mdo/rqrs" xmlns:tax="http://sbrf/ru/sbt/mdo/rqrs/tax" targetNamespace="http://sbrf/ru/sbt/mdo/rqrs" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sbrf/ru/sbt/mdo/rqrs/tax" schemaLocation="TaxPayer/TaxPayerType.xsd"/>
+	<xsd:element name="SrvTaxPayerRq" type="tax:Request_Type"/>
+	<xsd:element name="SrvTaxPayerRs" type="tax:Response_Type"/>
+</xsd:schema>

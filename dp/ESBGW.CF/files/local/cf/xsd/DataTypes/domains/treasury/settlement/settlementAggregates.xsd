@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by any (Ru-Board) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:agr="http://sberbank.ru/dem/treasury/agreement" xmlns:dea="http://sberbank.ru/dem/dealTypes" xmlns:acc="http://sberbank.ru/dem/accountTypes" xmlns:ord="http://sberbank.ru/dem/orderTypes" xmlns:ref="http://sberbank.ru/dem/referenceTypes" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns="http://sberbank.ru/dem/settlementTypes" xmlns:tns="http://sberbank.ru/dem/settlementTypes" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" xmlns:cur="http://sberbank.ru/dem/currencyAggregates" xmlns:ifxca="http://sberbank.ru/dem/commonAggregates" targetNamespace="http://sberbank.ru/dem/settlementTypes" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/referenceTypes" schemaLocation="../reference/referenceAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/dealTypes" schemaLocation="../deal/dealAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/accountTypes" schemaLocation="../account/accountAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/orderTypes" schemaLocation="../order/orderAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/treasury/agreement" schemaLocation="../agreement/treasuryAgreementAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/currencyAggregates" schemaLocation="../../../domains/currency/CurrencyAggregates.xsd"/>
+	<xsd:complexType name="CashSettlementAllocationDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры исполнения (поставки/платежа)  денежных средств по блочной сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="SettlementAllocationDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Amount" type="ifxst:Amt_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сумма  платежа по клиенту (портфелю)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="NetAmount" type="ifxst:Amt_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Чистая сумма платежа(без НКД) по клиенту (портфелю)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AccruedInterest" type="ifxst:Set_CsAccruedInterest_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Сумма НКД по клиенту (портфелю)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Account" type="acc:Account_Type">
+						<xsd:annotation>
+							<xsd:documentation>Счет ДС исполнения обязательств</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CashSettlementDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры исполнения (поставки/платежа)  денежных средств по сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="SettlementDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Amount" type="ifxst:Amt_Type" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Сумма платежа </xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="NetAmount" type="ifxst:Amt_Type">
+						<xsd:annotation>
+							<xsd:documentation>Сумма платежа без учета НКД </xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="AccruedInterest" type="ifxst:Amt_Type">
+						<xsd:annotation>
+							<xsd:documentation>Накопленный купонный доход </xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PaymentDate" type="ifxst:Set_PaymentDate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Фактическая дата оплаты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PaymentTime" type="ifxst:Set_PaymentTime_Type">
+						<xsd:annotation>
+							<xsd:documentation>Фактическое время оплаты</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PaymentCcy" type="cur:Currency_Type">
+						<xsd:annotation>
+							<xsd:documentation>Валюта платежа в виде кода ISO</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Account" type="acc:Account_Type">
+						<xsd:annotation>
+							<xsd:documentation>Счет ДС платежа</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SecuritySettlementAllocationDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры исполнения (поставки/платежа)  ценных бумаг по блочной сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="SettlementAllocationDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Quantity" type="ref:Quantity_Type">
+						<xsd:annotation>
+							<xsd:documentation>Количество ценных бумаг в поставке по клиенту (портфелю)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Account" type="acc:Account_Type">
+						<xsd:annotation>
+							<xsd:documentation>Счет ДЕПО поставки </xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SecuritySettlementDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Параметры исполнения (поставки/платежа) по сделке с ЦБ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="SettlementDetails_Type">
+				<xsd:sequence>
+					<xsd:element name="Quantity" type="ref:Quantity_Type">
+						<xsd:annotation>
+							<xsd:documentation>Количество ценных бумаг в поставке </xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="DeliveryDate" type="ifxst:Set_DeliveryDate_Type">
+						<xsd:annotation>
+							<xsd:documentation>Фактическая дата поставки ценных бумаг</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="DeliveryTime" type="ifxst:Set_DeliveryTime_Type">
+						<xsd:annotation>
+							<xsd:documentation>Фактическое время поставки ценных бумаг</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Account" type="acc:Account_Type">
+						<xsd:annotation>
+							<xsd:documentation>Счет ДЕПО поставки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Settlement_Type">
+		<xsd:annotation>
+			<xsd:documentation>Исполнение обязательств по сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="SecuritySettlementDetails" type="SecuritySettlementDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация об исполнении обязательств по сделке</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="CashSettlementDetails" type="CashSettlementDetails_Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация об исполнении обязательств по сделке</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="SettlementID" type="ifxca:TypedId_Type" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Список идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SettlementAllocation_Type">
+		<xsd:annotation>
+			<xsd:documentation>Парметры исполнения обязательств по блочной сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ClientAgreement" type="agr:ClientAgreement_Type">
+				<xsd:annotation>
+					<xsd:documentation>Клиентский договор</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Book" type="ord:Book_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Портфель </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:element name="SecuritySettlementAllocationDetails" type="SecuritySettlementAllocationDetails_Type">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="CashSettlementAllocationDetails" type="CashSettlementAllocationDetails_Type">
+					<xsd:annotation>
+						<xsd:documentation>Расширенная информация</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SettlementAllocationDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Парметры исполнения обязательств по блочной сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CommissionData" type="ref:CommissionData_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SettlementDetails_Type">
+		<xsd:annotation>
+			<xsd:documentation>Расширенная информация об исполнении обязательств по сделке</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Deal" type="dea:Deal_Type">
+				<xsd:annotation>
+					<xsd:documentation>Сделка, к которой относится исполнение</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsBlock" type="ifxst:Set_IsBlock_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Признак, является ли исполнение по сделке совершенной для нескольких клиентов (Allocation) - обязательный параметр для исполнения по клиентской сделке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementType" type="ifxst:Set_SettlementType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Тип исполнения (по ЦБ или по ДС)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementSubType" type="ifxst:Set_SettlementSubType_Type">
+				<xsd:annotation>
+					<xsd:documentation>Подтип исполнения (исполнение по внесистемной сделке, исполнение первой ноги РЕПО, исполнение второй ноги РЕПО, компенсационный платеж, исполнение по первичному размещению)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementDate" type="ifxst:Set_SettlementDate_Type">
+				<xsd:annotation>
+					<xsd:documentation>Дата исполнения обязательства</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementTime" type="ifxst:Set_SettlementTime_Type">
+				<xsd:annotation>
+					<xsd:documentation>Время исполнения обязательства</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="ifxst:Set_Status_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус исполнения обязательства: не определен, не исполнено, исполнено, отменено, распределена</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="STPStatus" type="ifxst:Set_STPStatus_Type">
+				<xsd:annotation>
+					<xsd:documentation>Статус обработки исполнения: не определен, обработано, не обработано</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UpdateTime" type="ifxst:Set_UpdateTime_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата и время последнего изменения информации по исполнению</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SettlementAllocation" type="SettlementAllocation_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Распределение по клиентам (портфелям) </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ComissionData" type="ref:CommissionData_Type" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Комиссии</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageDigest" type="ref:MessageDigest_Type" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>ЭЦП</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

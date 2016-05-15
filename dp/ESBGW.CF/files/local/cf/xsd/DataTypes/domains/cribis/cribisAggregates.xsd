@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sberbank.ru/dem/cribisAggregates" xmlns:ifxst="http://sberbank.ru/dem/simpleTypes" xmlns:ind="http://sberbank.ru/dem/individual" xmlns:ca="http://sberbank.ru/dem/commonAggregates" xmlns:ifx="http://sberbank.ru/dem/ifxSimpleTypes" targetNamespace="http://sberbank.ru/dem/cribisAggregates" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://sberbank.ru/dem/simpleTypes" schemaLocation="../../simpleTypes/simpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/ifxSimpleTypes" schemaLocation="../../innerTypes/ifxSimpleTypes.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/commonAggregates" schemaLocation="../common/commonAggregates.xsd"/>
+	<xsd:import namespace="http://sberbank.ru/dem/individual" schemaLocation="../individual/individualAggregates.xsd"/>
+	<xsd:complexType name="getAggregatesRs_Type">
+		<xsd:sequence>
+			<xsd:element name="IdentificationNumber" type="ifxst:IdNum_Type" minOccurs="0"/>
+			<xsd:element name="GreLevel" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfSubjectInGre" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfOwners" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfStatutory" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfOwnersOver10" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfOwnersOver30" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfOwnersOver50" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfNegativeInformationOnTheSubjectTotal" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfNegativeInformationOnTheSubjectActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfNegativeInformationOnTheSubjectHistoric" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfOtherNegativeInformationOnTheSubjectTotal" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfOtherNegativeInformationOnTheSubjectActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfOtherNegativeInformationOnTheSubjectHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="OwnersNumberOfNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="OwnersNumberOfNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="OwnersNumberOfOtherNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="OwnersNumberOfOtherNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="StatutoryNumberOfNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="StatutoryNumberOfNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="StatutoryNumberOfOtherNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="StatutoryNumberOfOtherNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre1LevelNumberOfNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre1LevelNumberOfNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre1LevelNumberOfOtherNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre1LevelNumberOfOtherNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre2LevelNumberOfNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre2LevelNumberOfNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre2LevelNumberOfOtherNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre2LevelNumberOfOtherNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre3LevelNumberOfNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre3LevelNumberOfNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre3LevelNumberOfOtherNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre3LevelNumberOfOtherNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre4LevelNumberOfNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre4LevelNumberOfNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre4LevelNumberOfOtherNegativeInformationActual" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ActualGre4LevelNumberOfOtherNegativeInformationHistorical" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="ChangeOfTheNameForTheLast6Months" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="ChangeOfTheNameForTheLast12Months" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="ChangeOfTheAddressOfResidenceForTheLast6Months" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="ChangeOfTheAddressOfResidenceForTheLast12Months" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="ChangeInTheOwnersStructureForTheLast6Months" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="ChangeInTheOwnersStructureForTheLast12Months" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="ChangeInTheStatutoryStructureForTheLast6Months" type="ifx:Boolean" minOccurs="0"/>
+			<xsd:element name="ChangeInTheStatutoryStructureForTheLast12Months" type="ifx:Boolean" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="getAggregatesOwnerRs_Type">
+		<xsd:sequence>
+			<xsd:element name="NumberOfNegativeInformationOfOwner" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfOtherNegativeInformationOfOwner" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfNegativeInformationOfStatutory" type="ifx:Int" minOccurs="0"/>
+			<xsd:element name="NumberOfOtherNegativeInformationOfStatutory" type="ifx:Int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetRelatedList_Type">
+		<xsd:sequence>
+			<xsd:element name="IdentificationNumber" type="ifxst:IdNum_Type" minOccurs="0"/>
+			<xsd:element name="ValidDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="SubjectList" type="ca:SubjectList_Type" minOccurs="0"/>
+			<xsd:element name="RawData" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetWarningList_Type">
+		<xsd:sequence>
+			<xsd:element name="IdentificationNumber" type="ifxst:IdNum_Type" minOccurs="0"/>
+			<xsd:element name="ValidDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="NegativeList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="NegativeInfo" type="ca:NegativeInfo_Type" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="RawData" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Subject_Type">
+		<xsd:complexContent>
+			<xsd:extension base="ca:Subject_Type">
+				<xsd:sequence>
+					<xsd:element name="SharePercentage" type="ifx:Decimal" minOccurs="0"/>
+					<xsd:element name="ShareTotal" type="ifx:Decimal" minOccurs="0"/>
+					<xsd:element name="Currency" type="ifx:C" minOccurs="0"/>
+					<xsd:element name="StartDate" type="ifx:Date" minOccurs="0"/>
+					<xsd:element name="EndDate" type="ifx:Date" minOccurs="0"/>
+					<xsd:element name="RelationType" type="ifx:C" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SubjectList_Type">
+		<xsd:sequence>
+			<xsd:element name="TotalNumberOfSubjects" type="xsd:int"/>
+			<xsd:element name="Subject" type="Subject_Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetRelatedSubject_Type">
+		<xsd:sequence>
+			<xsd:element name="IdentificationNumber" type="ifxst:IdNum_Type" minOccurs="0"/>
+			<xsd:element name="ValidDate" type="ifx:Date" minOccurs="0"/>
+			<xsd:element name="OwnerList" type="SubjectList_Type" minOccurs="0"/>
+			<xsd:element name="OwnerHistoricalList" type="SubjectList_Type" minOccurs="0"/>
+			<xsd:element name="StatutoryList" type="SubjectList_Type" minOccurs="0"/>
+			<xsd:element name="StatutoryHistoricalList" type="SubjectList_Type" minOccurs="0"/>
+			<xsd:element name="RawData" type="ifx:C" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
